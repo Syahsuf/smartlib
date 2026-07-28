@@ -29,7 +29,7 @@ window.addEventListener('load',function(){
 });
 </script>
 <style>
-:root{--em:#10b981;--emh:#059669;--eml:#d1fae5;--emd:#064e3b;--cy:#06b6d4;--cyl:#cffafe;--bg:#f0fdf4;--bg2:#ecfdf5;--card:#fff;--card2:#f0fdf4;--sb:#0c1a14;--tx:#0f172a;--tx2:#334155;--mu:#64748b;--bd:#e2e8f0;--bd2:#cbd5e1;--th:#f8fafc;--tri:#f0fdf4;--inp:#fff;--red:#ef4444;--redl:#fee2e2;--am:#f59e0b;--aml:#fef3c7;--pu:#8b5cf6;--pul:#ede9fe;--bl:#3b82f6;--bll:#dbeafe;--r:14px;--rs:9px;--rxs:5px;--fn:'Plus Jakarta Sans',system-ui,sans-serif;--mono:'JetBrains Mono',Consolas,monospace;--font-label:'Century Gothic','Trebuchet MS',Arial,sans-serif;--sh:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);--shl:0 8px 32px rgba(0,0,0,.1)}
+:root{--em:#10b981;--emh:#059669;--eml:#d1fae5;--emd:#064e3b;--cy:#06b6d4;--cyl:#cffafe;--bg:#f0fdf4;--bg2:#ecfdf5;--card:#fff;--card2:#f0fdf4;--sb:#0c1a14;--tx:#0f172a;--tx2:#334155;--mu:#64748b;--bd:#e2e8f0;--bd2:#cbd5e1;--th:#f8fafc;--tri:#f0fdf4;--inp:#fff;--red:#ef4444;--redl:#fee2e2;--am:#f59e0b;--aml:#fef3c7;--pu:#8b5cf6;--pul:#ede9fe;--bl:#3b82f6;--bll:#dbeafe;--r:14px;--rs:9px;--rxs:5px;--fn:'Plus Jakarta Sans',system-ui,sans-serif;--mono:'JetBrains Mono',Consolas,monospace;--font-label:'Century Gothic','Trebuchet MS',Arial,sans-serif;--kad-w:5.5cm;--kad-h:8.5cm;--sh:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);--shl:0 8px 32px rgba(0,0,0,.1)}
 body.dk{--bg:#030f09;--bg2:#071410;--card:#0a1a10;--card2:#0f2318;--sb:#040d07;--tx:#f0fdf4;--tx2:#d1fae5;--mu:#6ee7b7;--bd:#1a3a24;--bd2:#2d5a3a;--th:#0a1a10;--tri:#0f2318;--inp:#0a1a10;--redl:#3b0a0a;--aml:#3d1a00;--pul:#2e1065;--bll:#1e3a5f}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:var(--fn);background:var(--bg);color:var(--tx);font-size:14px}
@@ -284,21 +284,21 @@ body.dk .bg-re{background:#3b0a0a;color:#fca5a5}body.dk .bg-am{background:#3d1a0
 @media(max-width:640px){.tv-shell{position:fixed}.tv-header{position:relative;display:flex;flex-direction:column;align-items:stretch;gap:13px}.tv-brand{justify-content:center;text-align:left}.tv-clock{min-width:0}.tv-time{font-size:36px}.tv-actions{justify-content:center}.tv-content{padding:14px}.tv-main-grid{grid-template-columns:1fr;gap:14px}.tv-main-grid>.tv-panel:last-child{grid-column:auto}.tv-panel{padding:15px}.tv-panel-title{font-size:20px}.tv-stats{grid-template-columns:1fr 1fr}.tv-stat-value{font-size:32px}.tv-loan{grid-template-columns:38px minmax(0,1fr)}.tv-loan-date{grid-column:2;text-align:left}.tv-loan-name{font-size:16px}.tv-loan-book{font-size:14px}.tv-latest-books{margin-top:14px}.tv-books-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tv-book-media{height:190px}.tv-book-title{font-size:15px}.tv-school{font-size:12px}}
 @media(max-width:640px) and (orientation:portrait){.tv-rotate-hint{display:block}}
 @media(max-width:390px){.tv-books-grid{grid-template-columns:1fr}.tv-book-media{height:230px}.tv-stats{grid-template-columns:1fr}}
-.member-card-print-grid{display:grid;grid-template-columns:repeat(3,54mm);gap:6mm;padding:8mm;align-items:start}
-.member-card-print{width:54mm;height:86mm;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#dff8f3 0%,#7be0c9 45%,#11b98e 100%);border:1.5px solid rgba(0,0,0,.08);box-shadow:0 4px 12px rgba(0,0,0,.12);display:flex;flex-direction:column;justify-content:space-between;color:#123;font-family:'Plus Jakarta Sans',Arial,sans-serif;break-inside:avoid;position:relative}
-.member-card-header{text-align:center;padding:10px 8px 6px}
-.member-card-logo{width:44px;height:44px;object-fit:contain;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,.74);color:#0b7f65;font-size:22px;font-weight:900}
+.member-card-print-grid{display:grid;grid-template-columns:repeat(3,var(--kad-w));gap:.35cm;padding:.6cm;justify-content:center;align-content:start;align-items:start}
+.member-card-print{width:var(--kad-w);height:var(--kad-h);border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#dff8f3 0%,#7be0c9 45%,#11b98e 100%);border:1.5px solid rgba(0,0,0,.08);box-shadow:0 4px 12px rgba(0,0,0,.12);display:flex;flex-direction:column;justify-content:space-between;color:#123;font-family:'Plus Jakarta Sans',Arial,sans-serif;break-inside:avoid;page-break-inside:avoid;position:relative}
+.member-card-header{text-align:center;padding:8px 7px 5px}
+.member-card-logo{width:40px;height:40px;object-fit:contain;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,.74);color:#0b7f65;font-size:21px;font-weight:900}
 .member-card-logo img{width:100%;height:100%;object-fit:contain;display:block}
-.member-card-system{font-size:12px;font-weight:800;color:#0b7f65;letter-spacing:.2px}
-.member-card-school{font-size:8.8px;line-height:1.25;font-weight:700;color:#234;margin-top:2px}
-.member-card-body{padding:8px 10px 6px;text-align:center}
-.member-card-type{font-size:11px;font-weight:800;text-transform:uppercase;color:#fff;margin-bottom:6px;letter-spacing:.4px;text-shadow:0 1px 2px rgba(0,0,0,.18)}
-.member-card-name{background:#fff;color:#111827;font-size:11px;font-weight:800;border-radius:8px;padding:6px 8px;line-height:1.25;margin-bottom:6px;min-height:28px;display:flex;align-items:center;justify-content:center}
-.member-card-meta{font-size:8.5px;line-height:1.32;color:#0f172a;font-weight:700}
-.kad-email{font-size:8px;font-weight:600;line-height:1.2;word-break:break-all;max-width:100%;opacity:.95}
-.member-card-footer{background:#fff;padding:6px 8px 8px;text-align:center}
-.member-card-barcode{width:100%;height:34px;display:block}
-.member-card-code{margin-top:3px;font-size:8px;font-weight:700;color:#111;font-family:var(--mono)}
+.member-card-system{font-size:8.8pt;font-weight:800;color:#0b7f65;letter-spacing:.2px}
+.member-card-school{font-size:5.8pt;line-height:1.22;font-weight:700;color:#234;margin-top:2px}
+.member-card-body{padding:6px 8px 5px;text-align:center}
+.member-card-type{font-size:8.5pt;font-weight:800;text-transform:uppercase;color:#fff;margin-bottom:5px;letter-spacing:.35px;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.member-card-name,.kad-nama{background:#fff;color:#111827;font-size:8.5pt;font-weight:800;border-radius:8px;padding:5px 7px;line-height:1.15;margin-bottom:5px;min-height:27px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.member-card-meta,.kad-info{font-size:5.8pt;line-height:1.25;color:#0f172a;font-weight:700}
+.kad-email{font-size:5.2pt;font-weight:600;line-height:1.15;word-break:break-all;max-width:100%;opacity:.95;text-align:center}
+.member-card-footer{background:#fff;padding:5px 7px 7px;text-align:center}
+.member-card-barcode{width:100%;height:30px;display:block}
+.member-card-code{margin-top:2px;font-size:6pt;font-weight:700;color:#111;font-family:var(--mono)}
 .member-card-copy{margin-top:3px;font-size:5.5px;color:#64748b}
 #scan-reader,#register-isbn-reader,#pinjam-scan-reader{width:100%;min-height:320px;background:#000;border-radius:16px;overflow:hidden;position:relative}
 #scan-reader video,#register-isbn-reader video,#pinjam-scan-reader video{width:100%!important;height:100%!important;min-height:320px!important;object-fit:cover!important;display:block!important;opacity:1!important;visibility:visible!important;background:#000!important}
@@ -344,7 +344,7 @@ body.dk .bg-re{background:#3b0a0a;color:#fca5a5}body.dk .bg-am{background:#3d1a0
 .ocat:hover,.ocat.on{background:var(--em);color:#fff;border-color:var(--em)}
 
 /* KAD AHLI */
-.kad-wrap{width:300px;height:178px;border-radius:13px;background:linear-gradient(135deg,#064e3b 0%,#10b981 50%,#06b6d4 100%);padding:14px 16px;position:relative;overflow:hidden;color:#fff;font-family:var(--fn)}
+.kad-wrap{width:var(--kad-w);height:var(--kad-h);border-radius:12px;background:linear-gradient(135deg,#064e3b 0%,#10b981 55%,#06b6d4 100%);padding:.35cm;position:relative;overflow:hidden;color:#fff;font-family:var(--fn);box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between}
 .kad-wrap::before{content:'';position:absolute;top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.06)}
 
 /* NOTIF */
@@ -364,6 +364,20 @@ body.dk .bg-re{background:#3b0a0a;color:#fca5a5}body.dk .bg-am{background:#3d1a0
 .lbl-preview{width:2.5cm;min-height:3.8cm;border:2px solid #000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2mm;background:#fff;font-family:var(--font-label);gap:.5mm}
 .lbl-preview,.lbl-pv,.lbl-pv *,.no-panggilan,.label-tulang,.label-tulang *,.sl-barcode-label,.sl-barcode-label *,.sl-callno{font-family:var(--font-label)!important}
 
+/* PELUPUSAN BERPERINGKAT */
+.lp-toolbar{display:flex;gap:7px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+.lp-actions{display:flex;gap:5px;flex-wrap:wrap}
+.lp-book-picked{padding:10px;border:1.5px solid var(--bd2);border-radius:var(--rs);background:var(--bg2);display:none}
+.lp-status{white-space:nowrap}
+.borang-preview-shell{background:#e5e7eb;padding:12px;max-height:70vh;overflow:auto}
+.borang-arkib-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:15mm;margin:0 auto 12px;font-family:"Times New Roman",serif;font-size:12px;page-break-after:always;box-shadow:0 2px 10px rgba(15,23,42,.14);box-sizing:border-box}
+.borang-arkib-page:last-child{page-break-after:auto}
+.borang-info-table,.borang-rekod-table{width:100%;border-collapse:collapse;margin-top:8px}
+.borang-info-table td,.borang-rekod-table th,.borang-rekod-table td{border:1px solid #000;padding:5px;vertical-align:top;color:#000}
+.borang-rekod-table th{text-align:center;font-weight:bold}
+.borang-footer{margin-top:18px;font-size:12px;color:#000}
+.sign-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+
 .smartlib-copyright{position:fixed;right:14px;bottom:8px;z-index:40;font-size:10px;font-weight:600;color:rgba(100,116,139,.65);pointer-events:none}
 body.dk .smartlib-copyright{color:rgba(209,250,229,.45)}
 #sb-overlay{display:none}
@@ -375,7 +389,7 @@ body.dk .smartlib-copyright{color:rgba(209,250,229,.45)}
 /* RESPONSIVE */
 @media(max-width:1100px){.sg{grid-template-columns:repeat(3,1fr)}.pnt-g{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:900px){.sg{grid-template-columns:repeat(2,1fr)}.g2,.g3{grid-template-columns:1fr}.fr.c2,.fr.c3{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){#sb{position:fixed;z-index:100;transform:translateX(-100%)}#sb.open{transform:translateX(0)}#burger{display:block}.sg{grid-template-columns:1fr 1fr}.tb-chip{display:none}.srch{width:130px}.pnt-g{grid-template-columns:repeat(2,1fr)}#scan-reader,#register-isbn-reader,#pinjam-scan-reader{width:100%;height:58vh;min-height:360px;max-height:520px}.book-cover-upload-box{width:92px;height:128px}.cover-preview-wrap{width:100px;height:136px}.cover-actions .btn{flex:1;justify-content:center;min-height:40px}.bsk{overflow-x:auto;-webkit-overflow-scrolling:touch}.modal{width:94vw;max-height:88vh}#scan-reader video,#register-isbn-reader video,#pinjam-scan-reader video{height:58vh!important;min-height:360px!important;max-height:520px!important}.isbn-row{grid-template-columns:42px 42px auto;gap:6px}.isbn-edit-row{align-items:stretch}.isbn-edit-row input{width:100%;flex-basis:100%}.isbn-edit-row .btn{min-height:40px}.icon-btn{width:42px;height:42px;min-width:42px;font-size:17px}.scan-action-row{gap:6px}.scan-fallback-actions .btn{flex:1;justify-content:center;min-height:40px}}
+@media(max-width:640px){#sb{position:fixed;z-index:100;transform:translateX(-100%)}#sb.open{transform:translateX(0)}#burger{display:block}.sg{grid-template-columns:1fr 1fr}.tb-chip{display:none}.srch{width:130px}.pnt-g{grid-template-columns:repeat(2,1fr)}#scan-reader,#register-isbn-reader,#pinjam-scan-reader{width:100%;height:58vh;min-height:360px;max-height:520px}.book-cover-upload-box{width:92px;height:128px}.cover-preview-wrap{width:100px;height:136px}.cover-actions .btn{flex:1;justify-content:center;min-height:40px}.bsk{overflow-x:auto;-webkit-overflow-scrolling:touch}.modal{width:94vw;max-height:88vh}#scan-reader video,#register-isbn-reader video,#pinjam-scan-reader video{height:58vh!important;min-height:360px!important;max-height:520px!important}.isbn-row{grid-template-columns:42px 42px auto;gap:6px}.isbn-edit-row{align-items:stretch}.isbn-edit-row input{width:100%;flex-basis:100%}.isbn-edit-row .btn{min-height:40px}.icon-btn{width:42px;height:42px;min-width:42px;font-size:17px}.scan-action-row{gap:6px}.scan-fallback-actions .btn{flex:1;justify-content:center;min-height:40px}.borang-preview-shell{padding:6px}.borang-arkib-page{transform-origin:top left}.lp-actions .btn{flex:1}}
 </style>
 </head>
 <body>
@@ -512,7 +526,7 @@ body.dk .smartlib-copyright{color:rgba(209,250,229,.45)}
 // ═══════════════════════════════════════════════
 const GAS='https://script.google.com/macros/s/AKfycbx7rWTKKzkIywz93hVKXV_BF-CNz9CR8KC-AXFIUynTk-yof3VPLB27sXm2A66e4lvR/exec';
 let _tok=null,_me=null,_mR='',_pg='dash',_ch={},_sq=null,_rfT=null,_tmp=[];
-const D={buku:[],murid:[],guru:[],pinjaman:[],pelupusan:[],tempahan_pss:[],ok:false};
+const D={buku:[],murid:[],guru:[],pinjaman:[],pelupusan:[],bahan_usang_rosak:[],tempahan_pss:[],ok:false};
 const DEFAULT_SMARTLIB_LOGO='./icon-192.png';
 const AP={nm:'SMARTLIB',tag:'✦ SISTEM PENGURUSAN PUSAT SUMBER SEKOLAH ✦',em:'📚',logo:'',sch:'Sekolah Kebangsaan Pendidikan Khas Taiping'};
 let pendingLogoUpload=null;
@@ -525,6 +539,7 @@ const FIK={MS:'FM',EN:'FI',ZH:'FC',TA:'FT'};
 // HELPERS
 // ═══════════════════════════════════════════════
 const isFik=np=>/^(FM|FI|FC|FT|F[\/\s])/.test(String(np||'').trim().toUpperCase())||['FM','FI','FC','FT'].includes(String(np||'').trim().toUpperCase());
+const isBukuDilupuskan=b=>String(b&&b.status||'').trim().toLowerCase()==='dilupuskan';
 const ddcKat=np=>isFik(np)?'Fiksyen':(DDC[String(np||'').charAt(0)]||'Lain-lain');
 const wNP=np=>{const s=String(np||'').toUpperCase();if(isFik(s))return'#10b981';const m={'0':'#3b82f6','1':'#8b5cf6','2':'#10b981','3':'#f59e0b','4':'#06b6d4','5':'#ec4899','6':'#ef4444','7':'#f97316','8':'#6366f1','9':'#14b8a6'};return m[s.charAt(0)]||'#64748b'};
 const today=()=>new Date().toISOString().split('T')[0];
@@ -603,6 +618,7 @@ function prosesD(data){
   if(Array.isArray(data.guru))D.guru=data.guru;
   if(Array.isArray(data.pinjaman))D.pinjaman=data.pinjaman.map(p=>({...p,denda:parseFloat(p.denda)||0}));
   if(Array.isArray(data.pelupusan))D.pelupusan=data.pelupusan;
+  if(Array.isArray(data.bahan_usang_rosak))D.bahan_usang_rosak=data.bahan_usang_rosak;
   if(Array.isArray(data.tempahan_pss))D.tempahan_pss=data.tempahan_pss;
   if(Array.isArray(data.settings))data.settings.forEach(r=>{
     if(r.kunci==='sekolah')AP.sch=r.nilai;if(r.kunci==='nama_app')AP.nm=r.nilai||'SMARTLIB';
@@ -851,7 +867,7 @@ function pgDash(){
   const pSt={};B.forEach(b=>{const p=b.punca||'Tiada';pSt[p]=(pSt[p]||0)+1});
   const dSt={};B.forEach(b=>{const k=isFik(b.no_panggilan)?'Fiksyen':(DDC[String(b.no_panggilan||'').charAt(0)]||'Lain-lain');dSt[k]=(dSt[k]||0)+1});
   const akt=[...aktif].sort((a,b)=>new Date(b.tarikh_pinjam)-new Date(a.tarikh_pinjam)).slice(0,5).map(p=>{const bk=B.find(x=>String(x.id)===String(p.buku_id))||{judul:'?'};const pg=p.jenis_pengguna==='murid'?(M.find(x=>String(x.id)===String(p.pengguna_id))||{nama:'?'}):(G.find(x=>String(x.id)===String(p.pengguna_id))||{nama:'?'});return{nm:pg.nama,bk:bk.judul,t:p.tarikh_pinjam}});
-  const bBaharu=[...B].sort((a,b)=>(parseInt(b.no_perolehan)||0)-(parseInt(a.no_perolehan)||0)).slice(0,12);
+  const bBaharu=B.filter(b=>!isBukuDilupuskan(b)).sort((a,b)=>(parseInt(b.no_perolehan)||0)-(parseInt(a.no_perolehan)||0)).slice(0,12);
   const now=new Date(),bln=now.toLocaleDateString('ms-MY',{month:'long',year:'numeric'});
   document.getElementById('content').innerHTML=`
   <div class="wb">
@@ -938,7 +954,7 @@ body.innerHTML=items.length?items.map(a=>`<div class="akt-it"><div class="akt-av
 }
 let _ocat='';
 function togOC(el,k){document.querySelectorAll('.ocat').forEach(c=>c.classList.remove('on'));el.classList.add('on');_ocat=k;cariOD()}
-function cariOD(){const q=(document.getElementById('opac-d-q')?.value||'').toLowerCase().trim(),div=document.getElementById('opac-d-r');if(!div)return;if(!q&&!_ocat){div.textContent='Taip untuk mencari...';return}const f=(D.buku||[]).filter(b=>{const qm=!q||(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(_ocat==='F')km=isFik(np);else if(_ocat==='B')km=!isFik(np);else if(_ocat)km=np.charAt(0)===_ocat;return qm&&km}).slice(0,4);if(!f.length){div.innerHTML='<div style="color:var(--mu)">Tiada bahan dijumpai</div>';return}div.innerHTML=`<div style="font-size:9.5px;color:var(--mu);margin-bottom:5px">${f.length} dijumpai</div>`+f.map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return`<div style="display:flex;gap:7px;align-items:center;padding:5px 0;border-bottom:.5px solid var(--bd)">${coverHtml(b,'cover-search')}<div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</div><div style="font-size:9.5px;color:var(--mu)">${b.pengarang||'–'}</div></div><span class="bdg ${sp?'bg-am':'bg-em'}" style="font-size:9px">${sp?'Dipinjam':'Di Rak'}</span></div>`}).join('')}
+function cariOD(){const q=(document.getElementById('opac-d-q')?.value||'').toLowerCase().trim(),div=document.getElementById('opac-d-r');if(!div)return;if(!q&&!_ocat){div.textContent='Taip untuk mencari...';return}const f=(D.buku||[]).filter(b=>{if(isBukuDilupuskan(b))return false;const qm=!q||(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(_ocat==='F')km=isFik(np);else if(_ocat==='B')km=!isFik(np);else if(_ocat)km=np.charAt(0)===_ocat;return qm&&km}).slice(0,4);if(!f.length){div.innerHTML='<div style="color:var(--mu)">Tiada bahan dijumpai</div>';return}div.innerHTML=`<div style="font-size:9.5px;color:var(--mu);margin-bottom:5px">${f.length} dijumpai</div>`+f.map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return`<div style="display:flex;gap:7px;align-items:center;padding:5px 0;border-bottom:.5px solid var(--bd)">${coverHtml(b,'cover-search')}<div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</div><div style="font-size:9.5px;color:var(--mu)">${b.pengarang||'–'}</div></div><span class="bdg ${sp?'bg-am':'bg-em'}" style="font-size:9px">${sp?'Dipinjam':'Di Rak'}</span></div>`}).join('')}
 </script>
 
 <script>
@@ -974,7 +990,7 @@ function pgPerolehan(){_bFilt=[...D.buku];_bPg=1;sortB();document.getElementById
 function sortB(c){if(c){if(_bSort===c)_bAsc=!_bAsc;else{_bSort=c;_bAsc=true}}_bFilt.sort((a,b)=>{const va=String(a[_bSort]||'').toLowerCase(),vb=String(b[_bSort]||'').toLowerCase();if(!isNaN(parseFloat(va))&&!isNaN(parseFloat(vb)))return _bAsc?parseFloat(va)-parseFloat(vb):parseFloat(vb)-parseFloat(va);return _bAsc?va.localeCompare(vb):vb.localeCompare(va)});renderB()}
 function filtB(){const q=(document.getElementById('src-b')?.value||'').toLowerCase(),k=document.getElementById('flt-k')?.value||'',p=document.getElementById('flt-p')?.value||'';_bFilt=(D.buku||[]).filter(b=>{const qm=!q||(b.judul+b.no_panggilan+(b.isbn||'')+(b.no_perolehan||'')+(b.pengarang||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(k==='F')km=isFik(np);else if(k)km=np.charAt(0)===k;return qm&&km&&(!p||b.punca===p)});_bPg=1;sortB()}
 function renderB(){const st=(_bPg-1)*_bPPg,en=Math.min(st+_bPPg,_bFilt.length),pg=_bFilt.slice(st,en);const tb=document.getElementById('tbody-b'),info=document.getElementById('b-info'),bar=document.getElementById('b-pgb');if(tb)tb.innerHTML=rowsB(pg);if(info)info.textContent=`${st+1}–${en} daripada ${_bFilt.length} (${D.buku.length} jumlah)`;if(bar){const tot=Math.ceil(_bFilt.length/_bPPg);let btn='';for(let i=1;i<=tot;i++){if(i<=2||i>tot-1||Math.abs(i-_bPg)<=1)btn+=`<button class="pgbn${_bPg===i?' on':''}" onclick="_bPg=${i};renderB()">${i}</button>`;else if(!btn.endsWith('...'))btn+=`<span style="color:var(--mu);padding:2px 4px">...</span>`}bar.innerHTML=btn}}
-function rowsB(buku){if(!buku.length)return`<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--mu)">Tiada rekod.</td></tr>`;return buku.map(b=>`<tr><td style="width:48px">${coverHtml(b,'cover-small')}</td><td><span class="bdg bg-cy">${b.no_perolehan||'–'}</span></td><td><span class="no-panggilan" style="font-size:10.5px;font-weight:700;color:${wNP(b.no_panggilan)};background:${wNP(b.no_panggilan)}18;padding:2px 5px;border-radius:4px">${b.no_panggilan||'–'}</span></td><td style="max-width:170px"><div style="font-size:11.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</div><div style="font-size:9.5px;color:var(--mu)">${ddcKat(b.no_panggilan)}</div></td><td style="font-size:10.5px;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.pengarang||'–'}</td><td>${b.tahun||'–'}</td><td><span class="bdg bg-am">${b.punca||'–'}</span></td><td style="font-size:10.5px">${fmtRM(b.harga_rm,b.harga_sen)}</td><td><div style="display:flex;gap:3px"><button class="btn b-gh b-xs" onclick="editB(${b.id})">✏️</button><button class="btn b-gh b-xs" onclick="padamB(${b.id})" style="color:var(--red)">🗑️</button></div></td></tr>`).join('')}
+function rowsB(buku){if(!buku.length)return`<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--mu)">Tiada rekod.</td></tr>`;return buku.map(b=>`<tr><td style="width:48px">${coverHtml(b,'cover-small')}</td><td><span class="bdg bg-cy">${b.no_perolehan||'–'}</span></td><td><span class="no-panggilan" style="font-size:10.5px;font-weight:700;color:${wNP(b.no_panggilan)};background:${wNP(b.no_panggilan)}18;padding:2px 5px;border-radius:4px">${b.no_panggilan||'–'}</span></td><td style="max-width:170px"><div style="font-size:11.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</div><div style="font-size:9.5px;color:var(--mu)">${ddcKat(b.no_panggilan)}${isBukuDilupuskan(b)?' <span class="bdg bg-re" style="margin-left:4px">Dilupuskan</span>':''}</div></td><td style="font-size:10.5px;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.pengarang||'–'}</td><td>${b.tahun||'–'}</td><td><span class="bdg bg-am">${b.punca||'–'}</span></td><td style="font-size:10.5px">${fmtRM(b.harga_rm,b.harga_sen)}</td><td><div style="display:flex;gap:3px"><button class="btn b-gh b-xs" onclick="editB(${b.id})">✏️</button><button class="btn b-gh b-xs" onclick="padamB(${b.id})" style="color:var(--red)">🗑️</button></div></td></tr>`).join('')}
 function eksCSV(){const h=['id','no_perolehan','no_panggilan','pengarang','judul','penerbit','tahun','jilid','tarikh_perolehan','no_invois','punca','isbn','harga_rm','harga_sen','muka_surat','catatan','cover_url','cover_file_id'];const rows=[h.join(','),...D.buku.map(b=>h.map(k=>`"${(b[k]||'').toString().replace(/"/g,'""')}"`).join(','))];const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));a.download='buku_'+today()+'.csv';a.click();toast('CSV dieksport!','ok')}
 function injectEditCoverUI(){const modal=document.querySelector('#m-edit-b .modal');if(!modal||document.getElementById('edit-cover-url'))return;const foot=modal.querySelector('.m-ft');if(!foot)return;foot.insertAdjacentHTML('beforebegin',`<div class="fg"><label>COVER BUKU</label><div class="cover-uploader"><div class="cover-preview-wrap"><img id="edit-cover-preview" src="" alt="Preview Cover Buku" style="display:none"><div id="edit-cover-placeholder" class="cover-placeholder">Tiada cover buku</div></div><div class="cover-actions"><button type="button" class="btn b-cy b-sm" onclick="document.getElementById('edit-cover-camera').click()">📸 Ambil Gambar</button><button type="button" class="btn b-gh b-sm" onclick="document.getElementById('edit-cover-upload').click()">🖼️ Upload Gambar</button><button type="button" class="btn b-re b-sm" onclick="clearEditCover()">🗑️ Buang Cover</button></div><input id="edit-cover-camera" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" capture="environment" style="display:none" onchange="handleEditCoverFile(this.files[0])"><input id="edit-cover-upload" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" style="display:none" onchange="handleEditCoverFile(this.files[0])"><input id="edit-cover-url" type="hidden"><input id="edit-cover-file-id" type="hidden"><small id="edit-cover-status" style="color:var(--mu)">Cover belum dipilih.</small></div></div>`)}
 function setEditCoverPreview(url,fileId){const img=document.getElementById('edit-cover-preview'),placeholder=document.getElementById('edit-cover-placeholder'),hidden=document.getElementById('edit-cover-url'),hidFile=document.getElementById('edit-cover-file-id'),st=document.getElementById('edit-cover-status');if(hidden)hidden.value=url||'';if(hidFile)hidFile.value=fileId||'';if(img){if(url){img.src=url;img.style.display='block'}else{img.src='';img.style.display='none'}}if(placeholder)placeholder.style.display=url?'none':'flex';if(st)st.textContent=url?'Cover buku tersedia.':'Cover belum dipilih.'}
@@ -1453,9 +1469,9 @@ function pgPinjam(){const aktif=(D.pinjaman||[]).filter(p=>p.status==='pinjam');
 
 function cariPg(){const j=document.getElementById('p-j').value,q=(document.getElementById('p-pg').value||'').toLowerCase(),list=j==='murid'?D.murid:D.guru,res=(list||[]).filter(p=>p.aktif!==false&&p.aktif!=='FALSE'&&(p.nama?.toLowerCase().includes(q)||(p.nokad||'').includes(q)));const dd=document.getElementById('pg-dd');if(!q||!res.length){dd.style.display='none';return}dd.innerHTML=res.slice(0,6).map(p=>`<div style="padding:7px 11px;cursor:pointer;border-bottom:1px solid var(--bd);font-size:11.5px" onmousedown="pilihPg(${p.id},'${j}')" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background=''"><div style="display:flex;align-items:center;gap:6px"><div style="width:20px;height:20px;border-radius:50%;background:${avCol(p.nama)};display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;color:#fff">${ini(p.nama)}</div><div><strong>${p.nama}</strong><br><small style="color:var(--mu)">${p.nokad||''}</small></div></div></div>`).join('');dd.style.display='block'}
 function pilihPg(id,j){const list=j==='murid'?D.murid:D.guru;const p=(list||[]).find(x=>String(x.id)===String(id));if(!p)return;const ada=(D.pinjaman||[]).filter(x=>String(x.pengguna_id)===String(id)&&x.jenis_pengguna===j&&x.status==='pinjam').length;document.getElementById('pg-sel-id').value=id;document.getElementById('pg-sel-nm').textContent=p.nama;document.getElementById('pg-sel-i').textContent=`${j==='murid'?(p.tingkatan||'–'):(p.jawatan||'–')} | ${p.nokad} | Aktif: ${ada}/${S.maks_pinjam||3}`;document.getElementById('pg-sel').style.display='block';document.getElementById('pg-dd').style.display='none';document.getElementById('p-pg').value=p.nama;if(ada>=(S.maks_pinjam||3))toast('Had pinjaman maksimum!','wa')}
-function cariBk(){const q=(document.getElementById('p-bk').value||'').toLowerCase(),res=(D.buku||[]).filter(b=>(b.judul+b.no_panggilan+(b.isbn||'')).toLowerCase().includes(q));const dd=document.getElementById('bk-dd');if(!q||!res.length){dd.style.display='none';return}dd.innerHTML=res.slice(0,6).map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return`<div style="padding:7px 11px;cursor:pointer;border-bottom:1px solid var(--bd);font-size:11.5px${sp?';opacity:.5':''}" onmousedown="${sp?'toast(\'Buku sedang dipinjam\',\'wa\')':'pilihBk('+b.id+')'}" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background=''"><strong>${b.judul}</strong>${sp?' <span class="bdg bg-am">Dipinjam</span>':''}<br><code style="font-size:9.5px;color:var(--em)">${b.no_panggilan}</code></div>`}).join('');dd.style.display='block'}
-function pilihBk(id){const b=(D.buku||[]).find(x=>String(x.id)===String(id));if(!b)return;document.getElementById('bk-sel-id').value=id;document.getElementById('bk-sel-ttl').textContent=b.judul;document.getElementById('bk-sel-i').textContent='No. Panggilan: '+b.no_panggilan+' | ISBN: '+(b.isbn||'–');document.getElementById('bk-sel').style.display='block';document.getElementById('bk-dd').style.display='none';document.getElementById('p-bk').value=b.judul}
-async function simpanPinj(){const pgId=document.getElementById('pg-sel-id').value,bukuId=document.getElementById('bk-sel-id').value,j=document.getElementById('p-j').value;if(!pgId){toast('Sila pilih pengguna','er');return}if(!bukuId){toast('Sila pilih bahan','er');return}const ada=(D.pinjaman||[]).filter(x=>String(x.pengguna_id)===pgId&&x.jenis_pengguna===j&&x.status==='pinjam').length;if(ada>=(S.maks_pinjam||3)){toast('Had pinjaman maksimum!','er');return}const tpr=document.getElementById('p-tpr').value||today(),tmp=parseInt(document.getElementById('p-tmp').value||14);const btn=document.getElementById('btn-pj');btn.textContent='⏳...';btn.disabled=true;const data={id:nxId(D.pinjaman),buku_id:bukuId,jenis_pengguna:j,pengguna_id:pgId,tarikh_pinjam:tpr,tarikh_patut:addDays(tpr,tmp),tarikh_pulang:'',status:'pinjam',denda:0};try{const res=await api({action:'tambah',sheet:'pinjaman',data});if(!res?.ok)throw new Error(res?.error);D.pinjaman.push(data);updLwBdg();toast('✅ Pinjaman direkodkan!','ok');pgPinjam()}catch(e){toast('Gagal: '+e.message,'er');btn.textContent='✅ Rekod Pinjaman';btn.disabled=false}}
+function cariBk(){const q=(document.getElementById('p-bk').value||'').toLowerCase(),res=(D.buku||[]).filter(b=>!isBukuDilupuskan(b)&&(b.judul+b.no_panggilan+(b.isbn||'')).toLowerCase().includes(q));const dd=document.getElementById('bk-dd');if(!q||!res.length){dd.style.display='none';return}dd.innerHTML=res.slice(0,6).map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return`<div style="padding:7px 11px;cursor:pointer;border-bottom:1px solid var(--bd);font-size:11.5px${sp?';opacity:.5':''}" onmousedown="${sp?'toast(\'Buku sedang dipinjam\',\'wa\')':'pilihBk('+b.id+')'}" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background=''"><strong>${b.judul}</strong>${sp?' <span class="bdg bg-am">Dipinjam</span>':''}<br><code style="font-size:9.5px;color:var(--em)">${b.no_panggilan}</code></div>`}).join('');dd.style.display='block'}
+function pilihBk(id){const b=(D.buku||[]).find(x=>String(x.id)===String(id));if(!b)return;if(isBukuDilupuskan(b)){toast('Bahan telah dilupuskan dan tidak boleh dipinjam.','er');return}document.getElementById('bk-sel-id').value=id;document.getElementById('bk-sel-ttl').textContent=b.judul;document.getElementById('bk-sel-i').textContent='No. Panggilan: '+b.no_panggilan+' | ISBN: '+(b.isbn||'–');document.getElementById('bk-sel').style.display='block';document.getElementById('bk-dd').style.display='none';document.getElementById('p-bk').value=b.judul}
+async function simpanPinj(){const pgId=document.getElementById('pg-sel-id').value,bukuId=document.getElementById('bk-sel-id').value,j=document.getElementById('p-j').value;if(!pgId){toast('Sila pilih pengguna','er');return}if(!bukuId){toast('Sila pilih bahan','er');return}const buku=(D.buku||[]).find(x=>String(x.id)===String(bukuId));if(!buku||isBukuDilupuskan(buku)){toast('Bahan telah dilupuskan dan tidak boleh dipinjam.','er');return}const ada=(D.pinjaman||[]).filter(x=>String(x.pengguna_id)===pgId&&x.jenis_pengguna===j&&x.status==='pinjam').length;if(ada>=(S.maks_pinjam||3)){toast('Had pinjaman maksimum!','er');return}const tpr=document.getElementById('p-tpr').value||today(),tmp=parseInt(document.getElementById('p-tmp').value||14);const btn=document.getElementById('btn-pj');btn.textContent='⏳...';btn.disabled=true;const data={id:nxId(D.pinjaman),buku_id:bukuId,jenis_pengguna:j,pengguna_id:pgId,tarikh_pinjam:tpr,tarikh_patut:addDays(tpr,tmp),tarikh_pulang:'',status:'pinjam',denda:0};try{const res=await api({action:'tambah',sheet:'pinjaman',data});if(!res?.ok)throw new Error(res?.error);D.pinjaman.push(data);updLwBdg();toast('✅ Pinjaman direkodkan!','ok');pgPinjam()}catch(e){toast('Gagal: '+e.message,'er');btn.textContent='✅ Rekod Pinjaman';btn.disabled=false}}
 
 function pgPulang(){const aktif=(D.pinjaman||[]).filter(p=>p.status==='pinjam');document.getElementById('content').innerHTML=`<div class="card" style="margin-bottom:12px"><input type="search" id="src-pl" placeholder="🔍 Cari nama atau judul bahan..." style="width:100%;padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;background:var(--inp);color:var(--tx)" oninput="filtPl()"></div><div class="card"><div class="tw"><table><thead><tr><th>Pengguna</th><th>Bahan</th><th>No. Panggilan</th><th>Pinjam</th><th>Patut Pulang</th><th>Lewat</th><th>Denda</th><th>Tindakan</th></tr></thead><tbody id="tbody-pl">${rowsPl(aktif)}</tbody></table></div></div>`}
 function rowsPl(aktif){if(!aktif.length)return`<tr><td colspan="8" style="text-align:center;padding:22px;color:var(--mu)">Tiada pinjaman aktif</td></tr>`;return aktif.map(p=>{const b=(D.buku||[]).find(x=>String(x.id)===String(p.buku_id))||{judul:'?',no_panggilan:'?'};const pg=p.jenis_pengguna==='murid'?((D.murid||[]).find(x=>String(x.id)===String(p.pengguna_id))||{nama:'?'}):((D.guru||[]).find(x=>String(x.id)===String(p.pengguna_id))||{nama:'?'});const hari=today()>p.tarikh_patut?diffDays(p.tarikh_patut,today()):0;const denda=(hari*(S.denda||.20)).toFixed(2);return`<tr><td><div style="display:flex;align-items:center;gap:5px"><div style="width:24px;height:24px;border-radius:50%;background:${avCol(pg.nama)};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0">${ini(pg.nama)}</div><div><div style="font-size:11.5px;font-weight:600">${pg.nama}</div><span class="bdg ${p.jenis_pengguna==='murid'?'bg-cy':'bg-pu'}" style="font-size:9px">${p.jenis_pengguna}</span></div></div></td><td style="max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px">${b.judul}</td><td class="mono">${b.no_panggilan}</td><td>${fmtD(p.tarikh_pinjam)}</td><td><span class="bdg ${hari>0?'bg-re':'bg-em'}">${fmtD(p.tarikh_patut)}</span></td><td>${hari>0?`<strong style="color:var(--red)">${hari} hari</strong>`:'–'}</td><td>${hari>0?`<strong style="color:var(--red)">RM ${denda}</strong>`:'RM 0.00'}</td><td><button class="btn b-em b-xs" onclick="prosesKbali('${p.id}',${hari},${denda})">↩️ Pulang</button></td></tr>`}).join('')}
@@ -1691,14 +1707,14 @@ function pgKadAhli(){
         <button class="btn b-cy" onclick="cetakSemuaKad()">🖨️ Cetak Semua (${semua.length})</button>
         <button class="btn b-gh b-sm" onclick="cetakBatchKad()">🖨️ Cetak Ditandakan</button>
       </div>
-      <div class="al a-in" style="margin-top:10px;font-size:11px">💡 Saiz kad: 5.4cm × 8.6cm portrait. Cetak pada kertas tebal 250gsm atau kad PVC.</div>
+      <div class="al a-in" style="margin-top:10px;font-size:11px">💡 Saiz kad: 5.5cm × 8.5cm portrait. Cetak pada kertas tebal 250gsm atau kad PVC.</div>
     </div>
     <div class="card">
       <div class="ct">👁️ Preview Kad</div>
-      <div style="display:flex;justify-content:center;padding:14px" id="kad-prev-wrap">
+      <div style="display:flex;justify-content:center;align-items:flex-start;overflow:auto;padding:14px" id="kad-prev-wrap">
         ${genKadHTML({nama:'Nama Ahli',nokad:'050101-01-5001',tingkatan:'Tahun 1 PKD',id:'0001'},'murid',sch,sah)}
       </div>
-      <div style="text-align:center;font-size:10px;color:var(--mu)">5.4cm × 8.6cm — Portrait</div>
+      <div style="text-align:center;font-size:10px;color:var(--mu)">5.5cm × 8.5cm — Portrait</div>
     </div>
   </div>
   <div class="card">
@@ -1778,11 +1794,13 @@ function genKadHTML(a,jenis,sch,sah){
   return genKadPrintHTML(a,jenis,sch,sah,true);
 }
 function memberCardPrintCss(){return `
+:root{--kad-w:5.5cm;--kad-h:8.5cm}
+@page{size:A4 portrait;margin:.6cm}
 .member-card-print,.member-card-print *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
-.member-card-print-grid{display:grid;grid-template-columns:repeat(3,54mm);gap:6mm;padding:8mm;align-items:start}
-.member-card-print{width:54mm;height:86mm;border-radius:12px;overflow:hidden;background-color:#7be0c9!important;background-image:linear-gradient(180deg,#dff8f3 0%,#7be0c9 45%,#11b98e 100%)!important;border:1.5px solid rgba(0,0,0,.08);box-shadow:0 4px 12px rgba(0,0,0,.12);display:flex;flex-direction:column;justify-content:space-between;color:#123;font-family:'Plus Jakarta Sans',Arial,sans-serif;break-inside:avoid;position:relative}
- .member-card-header{text-align:center;padding:10px 8px 6px}.member-card-logo{width:44px;height:44px;object-fit:contain;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,.74);color:#0b7f65;font-size:22px;font-weight:900}.member-card-logo img{width:100%;height:100%;object-fit:contain;display:block}.member-card-system{font-size:12px;font-weight:800;color:#0b7f65;letter-spacing:.2px}.member-card-school{font-size:8.8px;line-height:1.25;font-weight:700;color:#234;margin-top:2px}.member-card-body{padding:8px 10px 6px;text-align:center}.member-card-type{font-size:11px;font-weight:800;text-transform:uppercase;color:#fff;margin-bottom:6px;letter-spacing:.4px;text-shadow:0 1px 2px rgba(0,0,0,.18)}.member-card-name{background:#fff;color:#111827;font-size:11px;font-weight:800;border-radius:8px;padding:6px 8px;line-height:1.25;margin-bottom:6px;min-height:28px;display:flex;align-items:center;justify-content:center}.member-card-meta{font-size:8.5px;line-height:1.32;color:#0f172a;font-weight:700}.kad-email{font-size:8px;font-weight:600;line-height:1.2;word-break:break-all;max-width:100%;opacity:.95}.member-card-footer{background:#fff;padding:6px 8px 8px;text-align:center}.member-card-barcode{width:100%;height:34px;display:block}.member-card-code{margin-top:3px;font-size:8px;font-weight:700;color:#111;font-family:Arial,monospace}.member-card-copy{margin-top:3px;font-size:5.5px;color:#64748b}
-@media print{html,body,.pc,.member-card-print-grid,.member-card-print,.member-card-print *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}.member-card-print{background-color:#7be0c9!important;background-image:linear-gradient(180deg,#dff8f3 0%,#7be0c9 45%,#11b98e 100%)!important;box-shadow:none}.member-card-logo{background-color:rgba(255,255,255,.74)!important}.member-card-name,.member-card-footer{background-color:#fff!important}}`}
+.member-card-print-grid{display:grid;grid-template-columns:repeat(3,5.5cm);gap:.35cm;padding:.6cm;justify-content:center;align-content:start;align-items:start}
+.member-card-print{width:5.5cm;height:8.5cm;border-radius:12px;overflow:hidden;background-color:#7be0c9!important;background-image:linear-gradient(180deg,#dff8f3 0%,#7be0c9 45%,#11b98e 100%)!important;border:1.5px solid rgba(0,0,0,.08);box-shadow:0 4px 12px rgba(0,0,0,.12);display:flex;flex-direction:column;justify-content:space-between;color:#123;font-family:'Plus Jakarta Sans',Arial,sans-serif;break-inside:avoid;page-break-inside:avoid;position:relative;box-sizing:border-box}
+ .member-card-header{text-align:center;padding:8px 7px 5px}.member-card-logo{width:40px;height:40px;object-fit:contain;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,.74);color:#0b7f65;font-size:21px;font-weight:900}.member-card-logo img{width:100%;height:100%;object-fit:contain;display:block}.member-card-system{font-size:8.8pt;font-weight:800;color:#0b7f65;letter-spacing:.2px}.member-card-school{font-size:5.8pt;line-height:1.22;font-weight:700;color:#234;margin-top:2px}.member-card-body{padding:6px 8px 5px;text-align:center}.member-card-type{font-size:8.5pt;font-weight:800;text-transform:uppercase;color:#fff;margin-bottom:5px;letter-spacing:.35px;text-shadow:0 1px 2px rgba(0,0,0,.18)}.member-card-name,.kad-nama{background:#fff;color:#111827;font-size:8.5pt;font-weight:800;border-radius:8px;padding:5px 7px;line-height:1.15;margin-bottom:5px;min-height:27px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}.member-card-meta,.kad-info{font-size:5.8pt;line-height:1.25;color:#0f172a;font-weight:700}.kad-email{font-size:5.2pt;font-weight:600;line-height:1.15;word-break:break-all;max-width:100%;opacity:.95;text-align:center}.member-card-footer{background:#fff;padding:5px 7px 7px;text-align:center}.member-card-barcode{width:100%;height:30px;display:block}.member-card-code{margin-top:2px;font-size:6pt;font-weight:700;color:#111;font-family:Arial,monospace}.member-card-copy{margin-top:3px;font-size:5.5px;color:#64748b}
+@media print{html,body,.pc,.member-card-print-grid,.member-card-print,.member-card-print *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}body{background:#fff}.member-card-print-grid{display:grid;grid-template-columns:repeat(3,5.5cm);gap:.35cm;justify-content:center;padding:0}.member-card-print{width:5.5cm!important;height:8.5cm!important;background-color:#7be0c9!important;background-image:linear-gradient(180deg,#dff8f3 0%,#7be0c9 45%,#11b98e 100%)!important;box-shadow:none;break-inside:avoid;page-break-inside:avoid}.member-card-logo{background-color:rgba(255,255,255,.74)!important}.member-card-name,.member-card-footer{background-color:#fff!important}}`}
 function genKadPrintHTML(a,jenis,sch,sah,isPreview=false){
   jenis=jenis||a.jenis_pengguna||a.jenis||'murid';
   const no=formatIdKadAhli(jenis,a);
@@ -1796,7 +1814,7 @@ function genKadPrintHTML(a,jenis,sch,sah,isPreview=false){
   return `<div class="member-card-print${isPreview?' member-card-preview':''}"><div class="member-card-header"><div class="member-card-logo">${logo}</div><div class="member-card-system">${AP.nama||'SMARTLIB'}</div><div class="member-card-school">${sch||'Sekolah Kebangsaan Pendidikan Khas Taiping'}</div></div><div class="member-card-body"><div class="member-card-type">${jenisLabel}</div><div class="member-card-name">${a.nama||'Nama Ahli'}</div><div class="member-card-meta"><div>ID: ${no}</div><div>No. Kad/Ahli: ${a.nokad||a.no_ahli||'–'}</div><div>${jenis==='murid'?'Kelas':'Jawatan'}: ${kelas||'–'}</div>${emailHtml}<div>Sah Hingga: ${sah||'–'}</div></div></div><div class="member-card-footer"><svg class="member-card-barcode" data-bc="${code}"></svg><div class="member-card-code">${code}</div><div class="member-card-copy">© 2026 SMARTLIB |Syahida Suffian</div></div></div>`;
 }
 function renderKadBarcodes(scope=document){
-  setTimeout(()=>{scope.querySelectorAll('.member-card-barcode[data-bc]').forEach(svg=>{try{JsBarcode(svg,svg.getAttribute('data-bc'),{format:'CODE128',width:1.15,height:30,displayValue:false,margin:0})}catch(e){console.warn(e)}})},60);
+  setTimeout(()=>{scope.querySelectorAll('.member-card-barcode[data-bc]').forEach(svg=>{try{JsBarcode(svg,svg.getAttribute('data-bc'),{format:'CODE128',width:1,height:28,displayValue:false,margin:0})}catch(e){console.warn(e)}})},60);
 }
 async function hdlKadLogo(e){
   const f=e.target.files[0];if(!f)return;
@@ -1945,7 +1963,23 @@ function pgScan(){document.getElementById('content').innerHTML=`<div class="g2">
 function mulaScanner(){const st=document.getElementById('scan-st'),btn=document.getElementById('btn-sc');if(st)st.style.display='block';if(btn)btn.textContent='🔄 Mengimbas...';try{_scanQ=new Html5Qrcode('scan-rd');Html5Qrcode.getCameras().then(cams=>{if(!cams?.length){toast('Tiada kamera','er');return}const cam=cams.find(c=>c.label.toLowerCase().includes('back'))||cams[0];_scanQ.start(cam.id,{fps:10,qrbox:{width:200,height:75}},(d)=>{const inp=document.getElementById('scan-man');if(inp)inp.value=d;hentiScanner();setTimeout(()=>cariScanWith(d),200)},()=>{}).catch(e=>{toast('Kamera: '+e.message,'er');hentiScanner()})}).catch(e=>{toast('Kamera: '+e.message,'er');hentiScanner()})}catch(e){toast('Error: '+e,'er')}}
 function hentiScanner(){if(_scanQ){try{_scanQ.stop().catch(()=>{}).finally(()=>{try{_scanQ.clear()}catch{}});_scanQ=null}catch{_scanQ=null}}const st=document.getElementById('scan-st'),btn=document.getElementById('btn-sc');if(st)st.style.display='none';if(btn)btn.textContent='📷 Mula Scan'}
 function cariScan(){const q=document.getElementById('scan-man').value.trim();if(!q)return;cariScanWith(q)}
-function cariScanWith(q){const buku=D.buku||[];const b=buku.find(x=>bookMatchesBarcode(x,q));const div=document.getElementById('scan-result');if(!div)return;if(b){const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');div.innerHTML=`<div class="al a-ok">✅ Bahan dijumpai!</div><table style="width:100%;font-size:12px;border-collapse:collapse">${[['No. Perolehan',`<span class="bdg bg-cy">${b.no_perolehan||'–'}</span>`],['No. Panggilan',`<span class="mono">${b.no_panggilan||'–'}</span>`],['Judul',`<strong>${b.judul||'–'}</strong>`],['Pengarang',b.pengarang||'–'],['Status',`<span class="bdg ${sp?'bg-am':'bg-em'}">${sp?'Dipinjam':'Di Rak'}</span>`]].map(([k,v])=>`<tr><td style="color:var(--mu);padding:4px 0;width:38%;font-size:11px">${k}</td><td>${v}</td></tr>`).join('')}</table><div style="display:flex;gap:7px;margin-top:10px"><button class="btn b-em b-sm" onclick="nav('pinjam')">📤 Pinjaman</button><button class="btn b-gh b-sm" onclick="nav('pulang')">↩️ Pemulangan</button></div>`;toast('Bahan dijumpai!','ok')}else{div.innerHTML=`<div class="al a-wa">⚠️ Barcode <strong>${q}</strong> tidak dijumpai.</div><button class="btn b-em" onclick="nav('daftar')">➕ Daftar Bahan Baru</button>`;toast('Tidak dijumpai','wa')}}
+function cariScanWith(q){
+  const buku=D.buku||[];
+  const b=buku.find(x=>bookMatchesBarcode(x,q));
+  const div=document.getElementById('scan-result');
+  if(!div)return;
+  if(!b){
+    div.innerHTML=`<div class="al a-wa">⚠️ Barcode <strong>${q}</strong> tidak dijumpai.</div><button class="btn b-em" onclick="nav('daftar')">➕ Daftar Bahan Baru</button>`;
+    toast('Tidak dijumpai','wa');
+    return;
+  }
+  const lupus=isBukuDilupuskan(b);
+  const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');
+  const status=lupus?'Dilupuskan':(sp?'Dipinjam':'Di Rak');
+  const statusClass=lupus?'bg-re':(sp?'bg-am':'bg-em');
+  div.innerHTML=`<div class="al ${lupus?'a-wa':'a-ok'}">${lupus?'⚠️ Bahan telah dilupuskan.':'✅ Bahan dijumpai!'}</div><table style="width:100%;font-size:12px;border-collapse:collapse">${[['No. Perolehan',`<span class="bdg bg-cy">${b.no_perolehan||'–'}</span>`],['No. Panggilan',`<span class="mono">${b.no_panggilan||'–'}</span>`],['Judul',`<strong>${b.judul||'–'}</strong>`],['Pengarang',b.pengarang||'–'],['Status',`<span class="bdg ${statusClass}">${status}</span>`]].map(([k,v])=>`<tr><td style="color:var(--mu);padding:4px 0;width:38%;font-size:11px">${k}</td><td>${v}</td></tr>`).join('')}</table>${lupus?'':`<div style="display:flex;gap:7px;margin-top:10px"><button class="btn b-em b-sm" onclick="nav('pinjam')">📤 Pinjaman</button><button class="btn b-gh b-sm" onclick="nav('pulang')">↩️ Pemulangan</button></div>`}`;
+  toast(lupus?'Bahan telah dilupuskan.':'Bahan dijumpai!',lupus?'wa':'ok');
+}
 
 function pgOpac(){document.getElementById('content').innerHTML=`<div class="card" style="background:linear-gradient(135deg,var(--eml),var(--cyl));border:1.5px solid rgba(16,185,129,.3);margin-bottom:12px"><div style="text-align:center;padding:8px 0"><div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px">🔍 OPAC — Katalog Bahan Awam</div><div style="font-size:11px;color:var(--mu);margin-bottom:13px">Cari dalam ${(D.buku||[]).length} bahan</div><div style="display:flex;gap:7px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center"><input class="opac-in" id="opac-q" type="search" placeholder="Judul, pengarang, ISBN, kata kunci..." style="flex:1;min-width:200px" oninput="runOpac()"><button class="btn b-em" onclick="runOpac()">Cari</button></div><div class="opac-cats" style="justify-content:center;margin-top:8px"><span class="ocat on" onclick="togOCat(this,'')">Semua</span><span class="ocat" onclick="togOCat(this,'F')">Fiksyen</span><span class="ocat" onclick="togOCat(this,'B')">Bukan Fiksyen</span>${Object.entries(DDC).map(([k,v])=>`<span class="ocat" onclick="togOCat(this,'${k}')">${v}</span>`).join('')}</div></div></div><div id="opac-result" style="color:var(--mu);text-align:center;padding:24px">Taip untuk mencari...</div>`}
 let _opacCF='';
@@ -1954,10 +1988,206 @@ function runOpac(){const q=(document.getElementById('opac-q')?.value||'').toLowe
 
 function pgLaporan(){const buku=D.buku||[],murid=D.murid||[],guru=D.guru||[],pin=D.pinjaman||[];const aktif=pin.filter(p=>p.status==='pinjam');const denda=pin.reduce((a,p)=>a+(parseFloat(p.denda)||0),0);const noP=buku.map(b=>parseInt(b.no_perolehan)||0).filter(n=>n>0);const pSt={};buku.forEach(b=>{const p=b.punca||'Tiada';pSt[p]=(pSt[p]||0)+1});const dSt={};buku.forEach(b=>{const k=isFik(b.no_panggilan)?'Fiksyen':(DDC[String(b.no_panggilan||'').charAt(0)]||'Lain-lain');dSt[k]=(dSt[k]||0)+1});document.getElementById('content').innerHTML=`<div class="sg"><div class="stat s-em"><div class="s-ic">📖</div><div class="s-lb">Jumlah Bahan</div><div class="s-vl">${buku.length}</div><div class="s-sb">No.${noP.length?Math.min(...noP):'-'}–${noP.length?Math.max(...noP):'-'}</div></div><div class="stat s-cy"><div class="s-ic">👥</div><div class="s-lb">Pengguna</div><div class="s-vl">${murid.length+guru.length}</div><div class="s-sb">${murid.length} murid · ${guru.length} guru</div></div><div class="stat s-am"><div class="s-ic">🔄</div><div class="s-lb">Transaksi</div><div class="s-vl">${pin.length}</div><div class="s-sb">${aktif.length} aktif</div></div><div class="stat s-re"><div class="s-ic">💰</div><div class="s-lb">Denda Dikutip</div><div class="s-vl" style="font-size:18px">RM ${denda.toFixed(2)}</div></div><div class="stat s-pu"><div class="s-ic">📘</div><div class="s-lb">Fiksyen</div><div class="s-vl">${buku.filter(b=>isFik(b.no_panggilan)).length}</div><div class="s-sb">daripada ${buku.length}</div></div></div><div class="g2" style="margin-bottom:12px"><div class="card"><div class="ct">📊 Koleksi Mengikut Kategori</div><canvas id="ch-l1" height="190"></canvas></div><div class="card"><div class="ct">🏆 10 Bahan Terpopular</div><div class="tw"><table><thead><tr><th>Judul</th><th>No. Panggilan</th><th>Kali</th></tr></thead><tbody>${buku.map(b=>({...b,jml:pin.filter(p=>String(p.buku_id)===String(b.id)).length})).sort((a,b)=>b.jml-a.jml).slice(0,10).map(b=>`<tr><td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</td><td class="mono">${b.no_panggilan||'–'}</td><td><strong>${b.jml}</strong></td></tr>`).join('')}</tbody></table></div></div></div>`;setTimeout(()=>{const dk=Object.keys(dSt).sort();const c=document.getElementById('ch-l1');if(c)_charts.l1=new Chart(c,{type:'bar',data:{labels:dk,datasets:[{data:dk.map(k=>dSt[k]),backgroundColor:['#10b981','#06b6d4','#f59e0b','#ef4444','#8b5cf6','#ec4899','#3b82f6','#f97316','#14b8a6','#6366f1','#a855f7'],borderRadius:5,borderSkipped:false}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true},x:{ticks:{font:{size:9},maxRotation:35}}}}})},80)}
 
-function pgLupus(){document.getElementById('content').innerHTML=`<div class="al a-wa">⚠️ Bahan dilupus akan dikeluarkan dari koleksi. Tidak boleh dibatalkan.</div><div class="card" style="margin-bottom:12px"><div class="ct">🔍 Pilih Bahan untuk Dilupus</div><div style="display:flex;gap:7px;margin-bottom:9px"><input type="search" id="lp-src" placeholder="Cari bahan..." style="flex:1;padding:7px 10px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:12px;background:var(--inp);color:var(--tx)" oninput="filtLpB()"><button class="btn b-gh b-sm" onclick="document.querySelectorAll('.lp-chk').forEach(c=>c.checked=true)">☑️ Semua</button></div><div class="tw" style="max-height:220px;overflow-y:auto"><table><thead><tr><th><input type="checkbox" onchange="document.querySelectorAll('.lp-chk').forEach(c=>c.checked=this.checked)"></th><th>No.</th><th>No. Panggilan</th><th>Judul</th><th>Harga</th></tr></thead><tbody id="tbody-lp">${rowsLpB(D.buku||[])}</tbody></table></div></div><div class="card"><div class="ct">📝 Maklumat Pelupusan</div><div class="fr c3"><div class="fg"><label>Tarikh *</label><input type="date" id="lp-tdk" value="${today()}"></div><div class="fg"><label>No. Rujukan</label><input type="text" id="lp-ref" placeholder="JWS/2025/001"></div><div class="fg"><label>Kaedah *</label><select id="lp-kae"><option>Jualan Lelong</option><option>Derma</option><option>Pelupusan Kertas</option><option>Dimusnahkan</option></select></div></div><div class="fr c2"><div class="fg"><label>Sebab *</label><select id="lp-sbb"><option>Rosak / Lusuh</option><option>Lapuk</option><option>Hilang</option><option>Terlalu Banyak Salinan</option></select></div><div class="fg"><label>Pegawai Meluluskan</label><input type="text" id="lp-peg" placeholder="Pengetua / GPK"></div></div><button class="btn b-re" onclick="prosesLupus()">🗑️ Proses Pelupusan</button></div>`}
-function rowsLpB(buku){return buku.map(b=>`<tr><td><input type="checkbox" class="lp-chk" value="${b.id}"></td><td><span class="bdg bg-cy">${b.no_perolehan||'–'}</span></td><td class="mono">${b.no_panggilan||'–'}</td><td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</td><td style="font-size:11px">${fmtRM(b.harga_rm,b.harga_sen)}</td></tr>`).join('')}
-function filtLpB(){const q=(document.getElementById('lp-src').value||'').toLowerCase();const f=(D.buku||[]).filter(b=>(b.judul+b.no_panggilan+(b.no_perolehan||'')).toLowerCase().includes(q));const t=document.getElementById('tbody-lp');if(t)t.innerHTML=rowsLpB(f)}
-async function prosesLupus(){const sel=[...document.querySelectorAll('.lp-chk:checked')].map(c=>c.value);if(!sel.length){toast('Pilih bahan dahulu','er');return}if(!confirm(`Lupus ${sel.length} bahan?\n\nTIDAK boleh dibatalkan!`))return;const tdk=document.getElementById('lp-tdk').value||today(),kae=document.getElementById('lp-kae').value,sbb=document.getElementById('lp-sbb').value,ref=document.getElementById('lp-ref').value.trim(),peg=document.getElementById('lp-peg').value.trim();const sdg=sel.filter(id=>(D.pinjaman||[]).some(p=>String(p.buku_id)===String(id)&&p.status==='pinjam'));if(sdg.length){toast(sdg.length+' bahan masih dipinjam!','er');return}const toPindah=(D.buku||[]).filter(b=>sel.includes(String(b.id)));const lupRows=toPindah.map(b=>({...b,tarikh_lupus:tdk,no_rujukan:ref,kaedah:kae,sebab:sbb,pegawai:peg,dilupus_oleh:_me?_me.nama:'–'}));try{if(lupRows.length){const r=await gsPost({action:'import',sheet:'pelupusan',rows:lupRows});if(!r.ok)throw new Error(r.error)}for(const id of sel){await gsPost({action:'padam',sheet:'buku',id:String(id)})}D.buku=D.buku.filter(b=>!sel.includes(String(b.id)));toast(`✅ ${toPindah.length} bahan dilupus!`,'ok');pgLupus()}catch(e){toast('Gagal: '+e.message,'er')}}
+function pgLupusLegacy(){document.getElementById('content').innerHTML='<div class="al a-wa">Modul pelupusan lama telah digantikan.</div>'}
+function rowsLpBLegacy(){return''}
+function filtLpBLegacy(){}
+async function prosesLupusLegacy(){return false}
+
+let _lpTab='cadang',_lpPicked=null,_lpStatusFilter='semua',_arkib9Html='';
+const LP_STATUS_AKTIF=['Untuk Semakan','Disyorkan Lupus','Diluluskan Untuk Pelupusan'];
+const LP_STATUS_BORANG=['Untuk Semakan','Disyorkan Lupus','Diluluskan Untuk Pelupusan'];
+
+function aksesPelupusan(){
+  const u=_me||{};
+  const teks=[_mR,u.peranan,u.jawatan].map(v=>String(v||'').toLowerCase()).join(' ');
+  const jenis=String(u.jenis_pengguna||'').toLowerCase();
+  const penuh=teks.includes('admin')||teks.includes('gpm')||teks.includes('perpustakaan')||teks.includes('media');
+  const bolehCadang=penuh||jenis==='guru'||teks.includes('guru')||teks.includes('staf')||teks.includes('staff');
+  return{penuh,bolehCadang};
+}
+function lpBadge(status){
+  const s=String(status||'Untuk Semakan');
+  const cls=s==='Telah Dilupuskan'?'bg-em':s==='Diluluskan Untuk Pelupusan'?'bg-cy':s==='Tidak Diluluskan'?'bg-re':s==='Disyorkan Lupus'?'bg-am':'bg-am';
+  return`<span class="bdg ${cls} lp-status">${escapeHtml(s)}</span>`;
+}
+function pgLupus(){
+  const acc=aksesPelupusan();
+  if(!acc.bolehCadang){
+    document.getElementById('content').innerHTML='<div class="card"><div class="ct">Pelupusan</div><div class="al a-wa">Modul Pelupusan hanya untuk pentadbir / GPM.</div></div>';
+    return;
+  }
+  if(!acc.penuh)_lpTab='cadang';
+  document.getElementById('content').innerHTML=`
+    <div class="al a-in">Bahan rosak atau usang dimasukkan untuk semakan dahulu. Rekod buku asal tidak dipadam.</div>
+    <div class="tabs" id="lp-tabs" style="margin-bottom:10px">
+      <button class="tab ${_lpTab==='cadang'?'on':''}" onclick="lpTab('cadang',this)">Cadang Bahan Usang / Rosak</button>
+      ${acc.penuh?`<button class="tab ${_lpTab==='senarai'?'on':''}" onclick="lpTab('senarai',this)">Senarai Bahan Usang / Rosak</button><button class="tab ${_lpTab==='rekod'?'on':''}" onclick="lpTab('rekod',this)">Rekod Pelupusan</button>`:''}
+    </div>
+    <div id="lp-panel"></div>
+    ${modalEditUsangHtml()}
+    ${modalSahkanLupusHtml()}
+    ${modalArkib9Html()}`;
+  renderLpPanel();
+}
+function lpTab(tab,btn){
+  const acc=aksesPelupusan();
+  if(tab!=='cadang'&&!acc.penuh){toast('Akses semakan hanya untuk pentadbir / GPM.','er');return}
+  _lpTab=tab;
+  document.querySelectorAll('#lp-tabs .tab').forEach(x=>x.classList.toggle('on',x===btn));
+  renderLpPanel();
+}
+function renderLpPanel(){
+  const p=document.getElementById('lp-panel');if(!p)return;
+  if(_lpTab==='senarai')p.innerHTML=panelSenaraiUsang();
+  else if(_lpTab==='rekod')p.innerHTML=panelRekodPelupusan();
+  else p.innerHTML=panelCadangUsang();
+}
+function bukuAktifPelupusan(){
+  return(D.buku||[]).filter(b=>String(b.status||'').trim().toLowerCase()!=='dilupuskan');
+}
+function panelCadangUsang(){
+  return`<div class="g2">
+    <div class="card">
+      <div class="ct">Cari Bahan daripada Rekod Perolehan</div>
+      <input type="search" id="lp-book-q" placeholder="No. perolehan, no. panggilan, judul, pengarang atau ISBN" oninput="filtCadangUsang()" style="width:100%;padding:8px 10px;border:1.5px solid var(--bd);border-radius:var(--rs);background:var(--inp);color:var(--tx);font-family:var(--fn)">
+      <div class="tw" style="max-height:330px;overflow:auto;margin-top:9px"><table><thead><tr><th>No.</th><th>No. Panggilan</th><th>Judul</th><th>Status</th><th></th></tr></thead><tbody id="lp-book-list">${rowsCadangUsang(bukuAktifPelupusan().slice(0,80))}</tbody></table></div>
+    </div>
+    <div class="card">
+      <div class="ct">Maklumat Cadangan</div>
+      <div id="lp-picked" class="lp-book-picked"></div>
+      <div class="fg"><label>Keadaan Bahan *</label><select id="lp-keadaan"><option>Rosak</option><option>Usang</option><option>Hilang muka surat</option><option>Tidak relevan</option><option>Edisi lama</option><option>Kandungan tidak sesuai</option><option>Lain-lain</option></select></div>
+      <div class="fg"><label>Sebab Dicadang *</label><input id="lp-sebab" placeholder="Contoh: Rosak / Usang"></div>
+      <div class="fg"><label>Catatan Semakan</label><textarea id="lp-catatan" rows="3" style="resize:vertical"></textarea></div>
+      <button class="btn b-em" onclick="simpanCadanganUsang()">Masukkan ke Senarai Usang / Rosak</button>
+    </div>
+  </div>`;
+}
+function rowsCadangUsang(rows){
+  if(!rows.length)return'<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--mu)">Tiada bahan dijumpai.</td></tr>';
+  const usang=D.bahan_usang_rosak||[];
+  return rows.map(b=>{
+    const aktif=usang.find(r=>String(r.buku_id)===String(b.id)&&LP_STATUS_AKTIF.includes(r.status));
+    return`<tr><td><span class="bdg bg-cy">${escapeHtml(b.no_perolehan||'–')}</span></td><td class="no-panggilan">${escapeHtml(b.no_panggilan||'–')}</td><td style="max-width:190px"><strong>${escapeHtml(b.judul||'–')}</strong><div style="font-size:9.5px;color:var(--mu)">${escapeHtml(b.pengarang||'–')}</div></td><td>${aktif?lpBadge(aktif.status):'<span class="bdg bg-sl">Aktif</span>'}</td><td><button class="btn b-gh b-xs" ${aktif?'disabled':''} onclick="pilihBukuUsang('${String(b.id).replace(/'/g,"\\'")}')">Pilih</button></td></tr>`;
+  }).join('');
+}
+function filtCadangUsang(){
+  const q=String(document.getElementById('lp-book-q')?.value||'').toLowerCase().trim();
+  const rows=bukuAktifPelupusan().filter(b=>String([b.no_perolehan,b.no_panggilan,b.judul,b.pengarang,b.isbn].join(' ')).toLowerCase().includes(q)).slice(0,100);
+  const body=document.getElementById('lp-book-list');if(body)body.innerHTML=rowsCadangUsang(rows);
+}
+function pilihBukuUsang(id){
+  _lpPicked=(D.buku||[]).find(b=>String(b.id)===String(id))||null;
+  const box=document.getElementById('lp-picked');if(!box||!_lpPicked)return;
+  box.style.display='block';
+  box.innerHTML=`<strong>${escapeHtml(_lpPicked.judul||'–')}</strong><div style="font-size:10.5px;color:var(--mu);margin-top:3px">No. Perolehan: ${escapeHtml(_lpPicked.no_perolehan||'–')} · No. Panggilan: ${escapeHtml(_lpPicked.no_panggilan||'–')}</div>`;
+}
+async function simpanCadanganUsang(){
+  if(!_lpPicked){toast('Sila pilih bahan daripada Rekod Perolehan.','er');return}
+  const sebab=document.getElementById('lp-sebab')?.value.trim()||'';
+  if(!sebab){toast('Sila isi sebab bahan dicadangkan.','er');return}
+  const lama=(D.bahan_usang_rosak||[]).find(r=>String(r.buku_id)===String(_lpPicked.id)&&r.status==='Tidak Diluluskan');
+  if(lama&&!confirm('Bahan ini pernah tidak diluluskan. Cadangkan semula?'))return;
+  const data={buku_id:_lpPicked.id,keadaan_bahan:document.getElementById('lp-keadaan')?.value||'Rosak',sebab_dicadang:sebab,catatan_semakan:document.getElementById('lp-catatan')?.value.trim()||'',tarikh_cadang:today(),dicadang_oleh:_me?.nama||'Sistem'};
+  try{
+    const r=await api({action:'cadang_bahan_usang',data});
+    if(!r?.ok)throw new Error(r?.error||'Gagal menyimpan cadangan.');
+    await muatSemua(true);_lpPicked=null;pgLupus();
+    toast('Bahan dimasukkan ke Senarai Usang / Rosak untuk semakan.','ok');
+  }catch(e){toast(e.message||'Gagal menyimpan cadangan.','er')}
+}
+function panelSenaraiUsang(){
+  const rows=filteredUsangRows();
+  return`<div class="card">
+    <div class="lp-toolbar"><div><div class="ct" style="margin:0">Senarai Bahan Usang / Rosak</div><div style="font-size:10px;color:var(--mu)">${rows.length} rekod</div></div><div class="lp-actions"><select id="lp-status-filter" onchange="_lpStatusFilter=this.value;renderLpPanel()" style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);background:var(--inp);color:var(--tx)"><option value="semua" ${_lpStatusFilter==='semua'?'selected':''}>Semua Status</option>${['Untuk Semakan','Disyorkan Lupus','Tidak Diluluskan','Diluluskan Untuk Pelupusan','Telah Dilupuskan'].map(s=>`<option ${_lpStatusFilter===s?'selected':''}>${s}</option>`).join('')}</select><button class="btn b-gh b-sm" onclick="cetakSenaraiUsang()">Cetak Senarai</button><button class="btn b-gh b-sm" onclick="exportUsangCSV()">Export CSV</button><button class="btn b-em b-sm" onclick="openArkib9Filter()">Jana Borang 9 Pelupusan</button></div></div>
+    <div class="tw"><table><thead><tr><th>No. Perolehan</th><th>No. Panggilan</th><th>Judul</th><th>Pengarang</th><th>Keadaan</th><th>Sebab</th><th>Status</th><th>Tarikh</th><th>Tindakan</th></tr></thead><tbody>${rowsUsangHtml(rows)}</tbody></table></div>
+  </div>`;
+}
+function filteredUsangRows(){
+  const rows=[...(D.bahan_usang_rosak||[])].sort((a,b)=>String(b.tarikh_cadang||'').localeCompare(String(a.tarikh_cadang||'')));
+  return _lpStatusFilter==='semua'?rows:rows.filter(r=>r.status===_lpStatusFilter);
+}
+function rowsUsangHtml(rows){
+  if(!rows.length)return'<tr><td colspan="9" style="text-align:center;padding:22px;color:var(--mu)">Tiada rekod bahan usang / rosak.</td></tr>';
+  return rows.map(r=>{
+    const done=r.status==='Telah Dilupuskan';
+    const approved=r.status==='Diluluskan Untuk Pelupusan';
+    return`<tr><td><span class="bdg bg-cy">${escapeHtml(r.no_perolehan||'–')}</span></td><td class="no-panggilan">${escapeHtml(r.no_panggilan||'–')}</td><td style="max-width:170px"><strong>${escapeHtml(r.judul||'–')}</strong></td><td>${escapeHtml(r.pengarang||'–')}</td><td>${escapeHtml(r.keadaan_bahan||'–')}</td><td>${escapeHtml(r.sebab_dicadang||'–')}</td><td>${lpBadge(r.status)}</td><td>${escapeHtml(fmtD(r.tarikh_cadang)||'–')}</td><td><div class="lp-actions">${!done?`<button class="btn b-gh b-xs" onclick="openEditUsang('${r.id}')">Edit</button>`:''}${r.status==='Untuk Semakan'?`<button class="btn b-gh b-xs" style="color:var(--am)" onclick="ubahStatusUsang('${r.id}','Disyorkan Lupus')">Syor</button>`:''}${!done&&!approved?`<button class="btn b-gh b-xs" style="color:var(--red)" onclick="ubahStatusUsang('${r.id}','Tidak Diluluskan')">Tidak Lulus</button>`:''}${!done&&!approved?`<button class="btn b-cy b-xs" onclick="ubahStatusUsang('${r.id}','Diluluskan Untuk Pelupusan')">Lulus</button>`:''}${approved?`<button class="btn b-re b-xs" onclick="openSahkanLupus('${r.id}')">Sahkan Dilupuskan</button>`:''}${!done?`<button class="btn b-gh b-xs" onclick="padamCadanganUsang('${r.id}')">Padam</button>`:''}</div></td></tr>`;
+  }).join('');
+}
+function panelRekodPelupusan(){
+  const rows=[...(D.pelupusan||[])].sort((a,b)=>String(b.tarikh_lupus||'').localeCompare(String(a.tarikh_lupus||'')));
+  return`<div class="card"><div class="lp-toolbar"><div><div class="ct" style="margin:0">Rekod Pelupusan</div><div style="font-size:10px;color:var(--mu)">${rows.length} rekod akhir</div></div><div class="lp-actions"><button class="btn b-gh b-sm" onclick="cetakRekodPelupusan()">Cetak Rekod</button><button class="btn b-gh b-sm" onclick="exportPelupusanCSV()">Export CSV</button></div></div><div class="tw"><table><thead><tr><th>No. Perolehan</th><th>No. Panggilan</th><th>Judul</th><th>Tarikh Lupus</th><th>Kaedah</th><th>No. Rujukan</th><th>Pegawai</th></tr></thead><tbody>${rows.length?rows.map(r=>`<tr><td><span class="bdg bg-cy">${escapeHtml(r.no_perolehan||'–')}</span></td><td class="no-panggilan">${escapeHtml(r.no_panggilan||'–')}</td><td>${escapeHtml(r.judul||'–')}</td><td>${escapeHtml(fmtD(r.tarikh_lupus)||'–')}</td><td>${escapeHtml(r.kaedah||'–')}</td><td>${escapeHtml(r.no_rujukan||'–')}</td><td>${escapeHtml(r.pegawai||'–')}</td></tr>`).join(''):'<tr><td colspan="7" style="text-align:center;padding:22px;color:var(--mu)">Tiada rekod pelupusan akhir.</td></tr>'}</tbody></table></div></div>`;
+}
+function modalEditUsangHtml(){
+  return`<div class="mbg" id="m-edit-usang"><div class="modal"><div class="m-hdr"><h3>Edit Semakan Bahan</h3><button class="m-x" onclick="closeM('m-edit-usang')">✕</button></div><input type="hidden" id="le-id"><div class="fg"><label>Keadaan Bahan</label><select id="le-keadaan"><option>Rosak</option><option>Usang</option><option>Hilang muka surat</option><option>Tidak relevan</option><option>Edisi lama</option><option>Kandungan tidak sesuai</option><option>Lain-lain</option></select></div><div class="fg"><label>Sebab Dicadang</label><input id="le-sebab"></div><div class="fg"><label>Catatan Semakan</label><textarea id="le-catatan" rows="3"></textarea></div><div class="m-ft"><button class="btn b-gh" onclick="closeM('m-edit-usang')">Batal</button><button class="btn b-em" onclick="simpanEditUsang()">Simpan</button></div></div></div>`;
+}
+function openEditUsang(id){
+  const r=(D.bahan_usang_rosak||[]).find(x=>String(x.id)===String(id));if(!r)return;
+  document.getElementById('le-id').value=id;document.getElementById('le-keadaan').value=r.keadaan_bahan||'Rosak';document.getElementById('le-sebab').value=r.sebab_dicadang||'';document.getElementById('le-catatan').value=r.catatan_semakan||'';openM('m-edit-usang');
+}
+async function simpanEditUsang(){
+  const id=document.getElementById('le-id').value,r=(D.bahan_usang_rosak||[]).find(x=>String(x.id)===String(id));if(!r)return;
+  const data={keadaan_bahan:document.getElementById('le-keadaan').value,sebab_dicadang:document.getElementById('le-sebab').value.trim(),catatan_semakan:document.getElementById('le-catatan').value.trim(),disemak_oleh:_me?.nama||'Pentadbir'};
+  const res=await api({action:'status_bahan_usang',id,status:r.status,data});if(!res?.ok){toast(res?.error||'Gagal kemas kini.','er');return}closeM('m-edit-usang');await muatSemua(true);renderLpPanel();toast('Semakan dikemas kini.','ok');
+}
+async function ubahStatusUsang(id,status){
+  const mesej=status==='Diluluskan Untuk Pelupusan'?'Luluskan bahan ini untuk proses pelupusan?':`Tukar status kepada ${status}?`;
+  if(!confirm(mesej))return;
+  const r=await api({action:'status_bahan_usang',id,status,data:{tarikh_semak:today(),disemak_oleh:_me?.nama||'Pentadbir'}});
+  if(!r?.ok){toast(r?.error||'Gagal mengemas kini status.','er');return}await muatSemua(true);renderLpPanel();toast(status==='Diluluskan Untuk Pelupusan'?'Bahan diluluskan untuk proses pelupusan.':'Status dikemas kini.','ok');
+}
+async function padamCadanganUsang(id){
+  if(!confirm('Padam cadangan ini? Rekod buku asal tidak akan dipadam.'))return;
+  const r=await api({action:'padam',sheet:'bahan_usang_rosak',id});if(!r?.ok){toast(r?.error||'Gagal padam cadangan.','er');return}await muatSemua(true);renderLpPanel();toast('Cadangan dipadam.','ok');
+}
+function modalSahkanLupusHtml(){
+  return`<div class="mbg" id="m-sah-lupus"><div class="modal"><div class="m-hdr"><h3>Sahkan Dilupuskan</h3><button class="m-x" onclick="closeM('m-sah-lupus')">✕</button></div><input type="hidden" id="ls-id"><div class="al a-wa">Pengesahan ini akan mencipta Rekod Pelupusan dan menukar status buku asal kepada Dilupuskan. Buku asal tidak dipadam.</div><div class="fr c2"><div class="fg"><label>Tarikh Lupus *</label><input type="date" id="ls-tarikh" value="${today()}"></div><div class="fg"><label>Kaedah Pelupusan *</label><select id="ls-kaedah"><option>Musnah</option><option>Jualan Sisa</option><option>Derma</option><option>Pindahan</option><option>Lain-lain</option></select></div></div><div class="fg"><label>No. Rujukan / Surat Kelulusan</label><input id="ls-rujukan"></div><div class="fg"><label>Pegawai Bertanggungjawab *</label><input id="ls-pegawai"></div><div class="fg"><label>Catatan Akhir</label><textarea id="ls-catatan" rows="3"></textarea></div><div class="m-ft"><button class="btn b-gh" onclick="closeM('m-sah-lupus')">Batal</button><button class="btn b-re" onclick="sahkanPelupusanAkhir()">Sahkan Dilupuskan</button></div></div></div>`;
+}
+function openSahkanLupus(id){document.getElementById('ls-id').value=id;document.getElementById('ls-tarikh').value=today();document.getElementById('ls-pegawai').value=_me?.nama||'';openM('m-sah-lupus')}
+async function sahkanPelupusanAkhir(){
+  const id=document.getElementById('ls-id').value,pegawai=document.getElementById('ls-pegawai').value.trim();if(!pegawai){toast('Sila isi pegawai bertanggungjawab.','er');return}
+  if(!confirm('Sahkan bahan ini telah dilupuskan?'))return;
+  const data={tarikh_lupus:document.getElementById('ls-tarikh').value||today(),kaedah:document.getElementById('ls-kaedah').value,no_rujukan:document.getElementById('ls-rujukan').value.trim(),pegawai,catatan:document.getElementById('ls-catatan').value.trim(),dilupus_oleh:_me?.nama||'Pentadbir'};
+  const r=await api({action:'sahkan_pelupusan',id,data});if(!r?.ok){toast(r?.error||'Gagal mengesahkan pelupusan.','er');return}closeM('m-sah-lupus');await muatSemua(true);renderLpPanel();toast('Bahan telah disahkan dilupuskan dan direkodkan.','ok');
+}
+function csvDownload(name,headers,rows){
+  const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  const text='\ufeff'+[headers.join(','),...rows.map(r=>headers.map(h=>q(r[h])).join(','))].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/csv;charset=utf-8'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function exportUsangCSV(){const h=['id','buku_id','no_perolehan','no_panggilan','judul','pengarang','penerbit','tahun','isbn','harga_rm','keadaan_bahan','sebab_dicadang','catatan_semakan','status','tarikh_cadang','dicadang_oleh','tarikh_semak','disemak_oleh'];csvDownload('senarai_bahan_usang_rosak_'+today()+'.csv',h,filteredUsangRows());toast('CSV Senarai Bahan Usang / Rosak dieksport.','ok')}
+function exportPelupusanCSV(){const h=['id','no_perolehan','no_panggilan','judul','pengarang','penerbit','tahun','isbn','harga_rm','sebab','kaedah','tarikh_lupus','no_rujukan','pegawai','dilupus_oleh','catatan','bahan_usang_id','status_pelupusan'];csvDownload('rekod_pelupusan_'+today()+'.csv',h,D.pelupusan||[]);toast('CSV Rekod Pelupusan dieksport.','ok')}
+function reportTableHtml(title,headers,rows){
+  const sch=escapeHtml(AP.sekolah||'SK Pendidikan Khas Taiping');
+  return`<h2 style="margin:0 0 4px">${escapeHtml(title)}</h2><div style="font-size:11px;margin-bottom:12px">${sch}<br>Tarikh laporan: ${new Date().toLocaleDateString('ms-MY')}</div><table><thead><tr>${headers.map(h=>`<th>${escapeHtml(h.label)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${headers.map(h=>`<td>${escapeHtml(r[h.key]||'–')}</td>`).join('')}</tr>`).join('')}</tbody></table><div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:35px"><div>Disediakan oleh:<br><br>______________________________<br>Guru Perpustakaan dan Media</div><div>Disahkan oleh:<br><br>______________________________<br>Pentadbir</div></div>`;
+}
+const LP_REPORT_CSS='body{font-family:Arial,sans-serif;color:#111;font-size:10px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #777;padding:5px;vertical-align:top}th{background:#eee;text-align:left}@page{size:A4 portrait;margin:12mm}';
+function cetakSenaraiUsang(){const h=[{key:'no_perolehan',label:'No. Perolehan'},{key:'no_panggilan',label:'No. Panggilan'},{key:'judul',label:'Judul'},{key:'keadaan_bahan',label:'Keadaan'},{key:'sebab_dicadang',label:'Sebab'},{key:'status',label:'Status'}];openPrintWindow('Senarai Bahan Usang / Rosak',reportTableHtml('Senarai Bahan Usang / Rosak',h,filteredUsangRows()),LP_REPORT_CSS)}
+function cetakRekodPelupusan(){const h=[{key:'no_perolehan',label:'No. Perolehan'},{key:'no_panggilan',label:'No. Panggilan'},{key:'judul',label:'Judul'},{key:'tarikh_lupus',label:'Tarikh Lupus'},{key:'kaedah',label:'Kaedah'},{key:'no_rujukan',label:'No. Rujukan'},{key:'pegawai',label:'Pegawai'}];openPrintWindow('Rekod Pelupusan',reportTableHtml('Rekod Pelupusan',h,D.pelupusan||[]),LP_REPORT_CSS)}
+function modalArkib9Html(){
+  return`<div class="mbg" id="m-arkib9-filter"><div class="modal" style="max-width:460px"><div class="m-hdr"><h3>Jana Borang 9 Pelupusan</h3><button class="m-x" onclick="closeM('m-arkib9-filter')">✕</button></div><div class="fg"><label>Status Bahan</label><select id="arkib9-status"><option value="Diluluskan Untuk Pelupusan">Diluluskan Untuk Pelupusan</option><option value="semua">Semua Bahan Usang / Rosak</option><option>Untuk Semakan</option><option>Disyorkan Lupus</option></select></div><div class="m-ft"><button class="btn b-gh" onclick="closeM('m-arkib9-filter')">Batal</button><button class="btn b-em" onclick="janaBorangPelupusanArkib9(document.getElementById('arkib9-status').value)">Jana Borang</button></div></div></div><div class="mbg" id="m-arkib9-preview"><div class="modal" style="width:96vw;max-width:1100px;max-height:94vh"><div class="m-hdr"><h3>Preview Borang 9 / Arkib 9/08</h3><button class="m-x" onclick="closeM('m-arkib9-preview')">✕</button></div><div id="preview-borang-arkib9" class="borang-preview-shell"></div><div class="m-ft"><button class="btn b-gh" onclick="closeM('m-arkib9-preview')">Tutup</button><button class="btn b-em" onclick="cetakBorangArkib9()">Cetak Borang</button></div></div></div>`;
+}
+function openArkib9Filter(){openM('m-arkib9-filter')}
+function janaBorangPelupusanArkib9(statusFilter){
+  const rows=(D.bahan_usang_rosak||[]).filter(r=>statusFilter==='semua'?LP_STATUS_BORANG.includes(r.status):r.status===statusFilter);
+  if(!rows.length){toast('Tiada bahan untuk dijana dalam borang.','wa');return}
+  _arkib9Html=renderBorangArkib9(rows);const out=document.getElementById('preview-borang-arkib9');if(out)out.innerHTML=_arkib9Html;closeM('m-arkib9-filter');openM('m-arkib9-preview');
+}
+function renderBorangArkib9(rows){
+  const pages=[];for(let i=0;i<rows.length;i+=10)pages.push(rows.slice(i,i+10));
+  return pages.map((pageRows,i)=>`<section class="borang-arkib-page">${renderHeaderBorangArkib9(rows.length)}${renderTableBorangArkib9(pageRows,i*10+1)}${renderFooterBorangArkib9()}</section>`).join('');
+}
+function renderHeaderBorangArkib9(jumlahRekod){
+  return`<div class="arkib-header"><div style="text-align:center;font-size:12px">[Subperaturan 7(3)]</div><div style="text-align:center;font-weight:bold">Borang 9</div><div style="text-align:center">Arkib 9/08</div><h2 style="text-align:center;margin:10px 0 4px;font-size:15px">BORANG PERMOHONAN BAGI PELUPUSAN<br>REKOD TERBITAN DAN BAHAN BERCETAK</h2><div style="text-align:center;font-size:12px;margin-bottom:12px">(YANG TIDAK DINYATAKAN DALAM JADUAL PELUPUSAN REKOD)</div><table class="borang-info-table"><tr><td colspan="2"><strong>BUTIR-BUTIR JABATAN</strong></td><td style="width:35%"><strong>Untuk Kegunaan Arkib Negara</strong><br>Tarikh Terima: ___________________<br>Jumlah Rekod: ${jumlahRekod}<br>No. Penerimaan: _________________</td></tr><tr><td style="width:35%">(1) Kementerian/Jabatan/Agensi:</td><td colspan="2"><strong>SK PENDIDIKAN KHAS TAIPING</strong></td></tr><tr><td>(2) Bahagian/Cawangan/Unit:</td><td colspan="2"><strong>PUSAT SUMBER SEKOLAH</strong></td></tr><tr><td>(3) Pewujud Rekod [Jika tidak sama dengan (1)]:</td><td colspan="2">PUSAT SUMBER SEKOLAH</td></tr><tr><td colspan="3"><strong>MAKLUMAT MENGENAI REKOD</strong></td></tr><tr><td>(4) Peringkat Keselamatan:</td><td colspan="2">TERBUKA</td></tr></table></div>`;
+}
+function renderTableBorangArkib9(rows,startNo){
+  return`<table class="borang-rekod-table"><thead><tr><th>Bil.<br>(5)</th><th>Tajuk<br>(6)</th><th>Tahun/Tarikh Diterbitkan<br>(7)</th><th>Meter Panjang / Jumlah<br>(8)</th><th>Cadangan Pelupusan<br>(9)</th><th>Catatan<br>(10)</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td style="text-align:center">${startNo+i}.</td><td>${escapeHtml(r.judul||'–')}</td><td style="text-align:center">${escapeHtml(r.tahun||'–')}</td><td style="text-align:center">1</td><td>${escapeHtml(r.sebab_dicadang||r.keadaan_bahan||'Rosak / Usang')}</td><td>No. Perolehan: ${escapeHtml(r.no_perolehan||'–')}<br>No. Panggilan: ${escapeHtml(r.no_panggilan||'–')}${r.isbn?'<br>ISBN: '+escapeHtml(r.isbn):''}</td></tr>`).join('')}</tbody></table>`;
+}
+function renderFooterBorangArkib9(){
+  return`<div class="borang-footer"><p>(11) Mengikut Seksyen 25 dan 26, Akta Arkib Negara 2003 [Akta 629], saya mengemukakan permohonan ini bagi pelupusan rekod di atas:</p><div class="sign-row"><div>Nama Pegawai: _______________________________<br><br>Jawatan: ___________________________________<br><br>Tarikh: _____________________________________</div><div>Tandatangan dan Meterai/Cap Jabatan:<br><br><br>_____________________________________________</div></div></div>`;
+}
+const ARKIB9_PRINT_CSS='body{background:#fff!important;color:#000;font-family:"Times New Roman",serif}.pc{padding:0!important}.borang-arkib-page{width:210mm;min-height:297mm;padding:15mm;margin:0;box-shadow:none;page-break-after:always;box-sizing:border-box;font-size:12px}.borang-arkib-page:last-child{page-break-after:auto}.borang-info-table,.borang-rekod-table{width:100%;border-collapse:collapse;margin-top:8px}.borang-info-table td,.borang-rekod-table th,.borang-rekod-table td{border:1px solid #000;padding:5px;vertical-align:top;color:#000}.borang-rekod-table th{text-align:center}.borang-footer{margin-top:18px}.sign-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}@page{size:A4 portrait;margin:0}@media print{.borang-arkib-page{margin:0;box-shadow:none}}';
+function cetakBorangArkib9(){if(!_arkib9Html){toast('Tiada borang untuk dicetak.','wa');return}openPrintWindow('Borang 9 Pelupusan Rekod Terbitan dan Bahan Bercetak',_arkib9Html,ARKIB9_PRINT_CSS)}
 
 function pgNilam(){document.getElementById('content').innerHTML=`<div class="al a-in">📝 NILAM — Nilaian Amalan Membaca. Modul ini akan dibangunkan sepenuhnya.</div><div class="card"><div class="ct">📝 Program NILAM — Rekod Membaca Murid</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px">${['Jumlah Rekod','Murid Aktif','Buku Bulan Ini','Sasaran'].map((l,i)=>`<div class="stat s-pu" style="border-radius:var(--rs)"><div class="s-lb">${l}</div><div class="s-vl">${['0','0','0','–'][i]}</div></div>`).join('')}</div><div class="al a-wa">⚠️ Modul NILAM sedang dalam pembangunan. Akan tersedia dalam versi akan datang.</div><button class="btn b-em" onclick="nav('pinjam')">← Kembali ke Pinjaman</button></div>`}
 
@@ -2443,6 +2673,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
   window.limitAhliSirkulasi = function(){
     if(window._mR !== 'ahli') return;
     const allowed = ['pinjam','pulang','tempahan'];
+    if(String(window._me?.jenis_pengguna||'').toLowerCase()==='guru')allowed.push('lupus');
     document.querySelectorAll('.sbi[onclick^="nav("]').forEach(el=>{
       const m=(el.getAttribute('onclick')||'').match(/nav\('([^']+)'\)/);
       if(m) el.style.display=allowed.includes(m[1])?'':'none';
@@ -2455,7 +2686,9 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
 
   const oldNav = window.nav;
   window.nav = function(p){
-    if(window._mR==='ahli' && !['pinjam','pulang','tempahan'].includes(p)){
+    const ahliAllowed=['pinjam','pulang','tempahan'];
+    if(String(window._me?.jenis_pengguna||'').toLowerCase()==='guru')ahliAllowed.push('lupus');
+    if(window._mR==='ahli' && !ahliAllowed.includes(p)){
       toast('Akses ahli terhad kepada Pinjaman, Pemulangan dan Tempahan PSS sahaja.','wa');
       p='pinjam';
     }
@@ -2490,6 +2723,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
     const isOpac=window._mR==='opac';
     const isAhli=window._mR==='ahli';
     const ahliAllowed=['pinjam','pulang','tempahan'];
+    if(String(window._me?.jenis_pengguna||'').toLowerCase()==='guru')ahliAllowed.push('lupus');
     document.querySelectorAll('.sbi').forEach(item=>{
       const oc=item.getAttribute('onclick')||'';
       const m=oc.match(/nav\('([^']+)'\)/);
@@ -2922,8 +3156,10 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
     const clean=cleanBarcode(value);
     const raw=String(value||'').trim().toLowerCase();
     return (D.buku||[]).find(b=>
-      bookMatchesBarcode(b,value)||
-      String(b.judul||'').toLowerCase().includes(raw)
+      !isBukuDilupuskan(b)&&(
+        bookMatchesBarcode(b,value)||
+        String(b.judul||'').toLowerCase().includes(raw)
+      )
     );
   }
 
@@ -3112,7 +3348,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
       }catch(e){div.innerHTML=`<div class="al a-er">Carian OPAC gagal: ${e.message}</div>`}
       return;
     }
-    const f=(D.buku||[]).filter(b=>{const text=(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')+(b.no_perolehan||'')).toLowerCase();const qm=!q||text.includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(window._opacCF==='F')km=isFik(np);else if(window._opacCF==='B')km=!isFik(np);else if(window._opacCF)km=np.charAt(0)===window._opacCF;return qm&&km});
+    const f=(D.buku||[]).filter(b=>{if(isBukuDilupuskan(b))return false;const text=(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')+(b.no_perolehan||'')).toLowerCase();const qm=!q||text.includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(window._opacCF==='F')km=isFik(np);else if(window._opacCF==='B')km=!isFik(np);else if(window._opacCF)km=np.charAt(0)===window._opacCF;return qm&&km});
     renderOpacResults(f.map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return{no_perolehan:b.no_perolehan,no_panggilan:b.no_panggilan,judul:b.judul,pengarang:b.pengarang,penerbit:b.penerbit,tahun:b.tahun,isbn:b.isbn,cover_url:b.cover_url,cover_file_id:b.cover_file_id,thumbnail:b.thumbnail,status:sp?'dipinjam':(b.status||'')}}));
   };
 })();
