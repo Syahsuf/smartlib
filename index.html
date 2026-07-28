@@ -1998,10 +1998,23 @@ const LP_STATUS_AKTIF=['Untuk Semakan','Disyorkan Lupus','Diluluskan Untuk Pelup
 const LP_STATUS_BORANG=['Untuk Semakan','Disyorkan Lupus','Diluluskan Untuk Pelupusan'];
 
 function aksesPelupusan(){
-  const u=_me||{};
-  const teks=[_mR,u.peranan,u.jawatan].map(v=>String(v||'').toLowerCase()).join(' ');
+  const u=window._me||_me||{};
+  const teks=[
+    window._mR,
+    _mR,
+    u.peranan,
+    u.role,
+    u.jawatan,
+    u.username
+  ].map(v=>String(v||'').toLowerCase()).join(' ');
   const jenis=String(u.jenis_pengguna||'').toLowerCase();
-  const penuh=teks.includes('admin')||teks.includes('gpm')||teks.includes('perpustakaan')||teks.includes('media');
+  const penuh=
+    teks.includes('admin')||
+    teks.includes('pentadbir')||
+    teks.includes('administrator')||
+    teks.includes('gpm')||
+    teks.includes('perpustakaan')||
+    teks.includes('media');
   const bolehCadang=penuh||jenis==='guru'||teks.includes('guru')||teks.includes('staf')||teks.includes('staff');
   return{penuh,bolehCadang};
 }
