@@ -533,15 +533,67 @@ let pendingLogoUpload=null;
 const S={denda:.20,maks_hari:14,maks_pinjam:3};
 let _ann=[{id:1,ttl:'Selamat datang ke SMARTLIB',sub:'Sistem dimuatkan berjaya.',t:'Hari ini',w:'em'},{id:2,ttl:'Program Membaca 10 Minit',sub:'Setiap hari 8:00–8:10 pagi.',t:'20 Mei 2026',w:'cy'},{id:3,ttl:'Pulangkan Buku Lewat',sub:'Elak denda — pulangkan sebelum tarikh akhir.',t:'18 Mei 2026',w:'am'}];
 const DDC={'0':'Komputer','1':'Falsafah','2':'Agama','3':'Sosial','4':'Bahasa','5':'Sains','6':'Teknologi','7':'Seni','8':'Sastera','9':'Sejarah'};
-const FIK={MS:'FM',EN:'FI',ZH:'FC',TA:'FT'};
+const DDC_MAIN={
+  '0':'Computer science, information, and general works',
+  '1':'Philosophy and psychology',
+  '2':'Religion',
+  '3':'Social sciences',
+  '4':'Language',
+  '5':'Science',
+  '6':'Technology',
+  '7':'Arts and recreation',
+  '8':'Literature',
+  '9':'History and geography'
+};
+const DDC_RULES=[
+  {ddc:'005.1',label:'Computer programming',keywords:['programming','coding','software development','computer program','javascript','python','scratch','atur cara','pengaturcaraan','kod komputer']},
+  {ddc:'004',label:'Computer science',keywords:['computer science','computers','information technology','ict','komputer','teknologi maklumat','digital literacy']},
+  {ddc:'020',label:'Library and information sciences',keywords:['library','information science','libraries','perpustakaan','pusat sumber','information literacy']},
+  {ddc:'150',label:'Psychology',keywords:['psychology','emotions','feelings','mind','behavior','behaviour','psikologi','emosi','tingkah laku']},
+  {ddc:'170',label:'Ethics',keywords:['ethics','moral','values','character','akhlak','nilai murni','sahsiah']},
+  {ddc:'200',label:'Religion',keywords:['religion','faith','prayer','bible','buddhism','hinduism','agama','kepercayaan']},
+  {ddc:'297',label:'Islam',keywords:['islam','quran','hadith','solat','puasa','zakat','akidah','sirah','rasulullah']},
+  {ddc:'300',label:'Social sciences',keywords:['society','community','culture','social science','masyarakat','komuniti','budaya']},
+  {ddc:'330',label:'Economics',keywords:['economics','money','business','trade','finance','ekonomi','wang','perniagaan','kewangan']},
+  {ddc:'340',label:'Law',keywords:['law','rights','constitution','rules','undang-undang','hak','perlembagaan']},
+  {ddc:'370',label:'Education',keywords:['education','school','teaching','learning','pendidikan','sekolah','pengajaran','pembelajaran']},
+  {ddc:'372',label:'Elementary education',keywords:['elementary education','primary school','preschool','kindergarten','pendidikan rendah','prasekolah','tadika']},
+  {ddc:'372.4',label:'Reading',keywords:['reading','learn to read','early reading','literacy','phonics','reader','bacaan','membaca','kemahiran membaca','literasi','bacalah']},
+  {ddc:'372.7',label:'Mathematics education',keywords:['mathematics education','maths for children','math workbook','matematik','nombor','mengira','operasi asas']},
+  {ddc:'398.2',label:'Folk literature',keywords:['folklore','fairy tale','legend','myth','fable','cerita rakyat','dongeng','lagenda','mitos','cerita teladan']},
+  {ddc:'420',label:'English language',keywords:['english language','english grammar','english vocabulary','learn english','bahasa inggeris','tatabahasa inggeris']},
+  {ddc:'499.23',label:'Malay language',keywords:['malay language','bahasa melayu','tatabahasa melayu','kamus melayu','peribahasa']},
+  {ddc:'510',label:'Mathematics',keywords:['mathematics','math','arithmetic','algebra','geometry','matematik','aritmetik','algebra','geometri']},
+  {ddc:'520',label:'Astronomy',keywords:['astronomy','space','planet','star','solar system','angkasa','planet','bintang','sistem suria']},
+  {ddc:'530',label:'Physics',keywords:['physics','force','energy','motion','electricity','fizik','tenaga','gerakan','elektrik']},
+  {ddc:'540',label:'Chemistry',keywords:['chemistry','chemical','matter','periodic table','kimia','bahan kimia','jadual berkala']},
+  {ddc:'550',label:'Earth sciences',keywords:['earth science','weather','climate','geology','rocks','bumi','cuaca','iklim','geologi','batuan']},
+  {ddc:'570',label:'Life sciences',keywords:['biology','life science','living things','human body','biologi','hidupan','badan manusia']},
+  {ddc:'580',label:'Plants',keywords:['plants','plant','botany','flowers','trees','tumbuhan','pokok','bunga','botani']},
+  {ddc:'590',label:'Animals',keywords:['animals','animal','zoology','wildlife','mammals','birds','reptiles','haiwan','binatang','mamalia','burung','reptilia','dunia haiwan']},
+  {ddc:'610',label:'Medicine and health',keywords:['medicine','health','disease','nutrition','body health','kesihatan','perubatan','penyakit','pemakanan']},
+  {ddc:'620',label:'Engineering',keywords:['engineering','machines','robotics','building','jurutera','kejuruteraan','mesin','robotik']},
+  {ddc:'630',label:'Agriculture',keywords:['agriculture','farming','farm','livestock','pertanian','ladang','ternakan']},
+  {ddc:'641.5',label:'Cooking',keywords:['cooking','recipes','food','cookbook','masakan','resipi','makanan']},
+  {ddc:'700',label:'Arts and recreation',keywords:['art','arts','craft','recreation','seni','kraf','rekreasi']},
+  {ddc:'741.5',label:'Comics and graphic novels',keywords:['comic','comics','graphic novel','manga','cartoon','komik','kartun','novel grafik']},
+  {ddc:'780',label:'Music',keywords:['music','songs','singing','musical instruments','muzik','lagu','nyanyian','alat muzik']},
+  {ddc:'796',label:'Sports and games',keywords:['sports','football','badminton','games','athletics','sukan','bola sepak','badminton','permainan']},
+  {ddc:'800',label:'Literature',keywords:['literature','fiction','story','stories','novel','poetry','drama','sastera','cerita','puisi','sajak']},
+  {ddc:'820',label:'English literature',keywords:['english fiction','english novel','english stories','english poetry','english literature']},
+  {ddc:'823',label:'English fiction',keywords:['english fiction','english novel','british fiction','children fiction','cerita inggeris','novel inggeris']},
+  {ddc:'899.23',label:'Malay literature',keywords:['malay literature','malay fiction','malay novel','cerita melayu','novel melayu','sastera melayu']},
+  {ddc:'900',label:'History and geography',keywords:['history','geography','civilization','travel','sejarah','geografi','tamadun','pelancongan']},
+  {ddc:'915.95',label:'Malaysia geography',keywords:['malaysia geography','geography of malaysia','map of malaysia','geografi malaysia','peta malaysia']},
+  {ddc:'959.5',label:'Malaysia history',keywords:['malaysia history','history of malaysia','malayan history','sejarah malaysia','sejarah tanah melayu','merdeka malaysia']}
+];
 
 // ═══════════════════════════════════════════════
 // HELPERS
 // ═══════════════════════════════════════════════
-const isFik=np=>/^(FM|FI|FC|FT|F[\/\s])/.test(String(np||'').trim().toUpperCase())||['FM','FI','FC','FT'].includes(String(np||'').trim().toUpperCase());
 const isBukuDilupuskan=b=>String(b&&b.status||'').trim().toLowerCase()==='dilupuskan';
-const ddcKat=np=>isFik(np)?'Fiksyen':(DDC[String(np||'').charAt(0)]||'Lain-lain');
-const wNP=np=>{const s=String(np||'').toUpperCase();if(isFik(s))return'#10b981';const m={'0':'#3b82f6','1':'#8b5cf6','2':'#10b981','3':'#f59e0b','4':'#06b6d4','5':'#ec4899','6':'#ef4444','7':'#f97316','8':'#6366f1','9':'#14b8a6'};return m[s.charAt(0)]||'#64748b'};
+const ddcKat=np=>DDC_MAIN[String(np||'').trim().charAt(0)]||DDC[String(np||'').trim().charAt(0)]||'Lain-lain';
+const wNP=np=>{const s=String(np||'').toUpperCase();const m={'0':'#3b82f6','1':'#8b5cf6','2':'#10b981','3':'#f59e0b','4':'#06b6d4','5':'#ec4899','6':'#ef4444','7':'#f97316','8':'#6366f1','9':'#14b8a6'};return m[s.charAt(0)]||'#64748b'};
 const today=()=>new Date().toISOString().split('T')[0];
 const addDays=(d,n)=>{const dt=new Date(d+'T00:00:00');dt.setDate(dt.getDate()+n);return dt.toISOString().split('T')[0]};
 const diffDays=(a,b)=>Math.floor((new Date(b)-new Date(a))/86400000);
@@ -553,12 +605,88 @@ const ini=nm=>(nm||'?').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperC
 const avC=['#10b981','#06b6d4','#f59e0b','#ef4444','#8b5cf6','#ec4899','#3b82f6','#f97316'];
 const avCol=nm=>avC[(nm||'A').charCodeAt(0)%avC.length];
 const killCh=()=>{Object.values(_ch).forEach(c=>{try{c.destroy()}catch{}});_ch={}};
-function kodPenulisAkhir(penulis){
-  const nama=String(penulis||'').trim().replace(/\s+/g,' ');
-  if(!nama)return'XXX';
-  const parts=nama.split(' ');
-  const last=parts[parts.length-1].replace(/[^A-Za-z]/g,'');
-  return(last||'XXX').substring(0,3).toUpperCase();
+function cleanCodeText(text){return String(text||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9\s'.-]/g,' ').replace(/\s+/g,' ').trim()}
+function threeLetters(text){const s=cleanCodeText(text).replace(/[^A-Za-z]/g,'').toUpperCase();return(s+'XXX').substring(0,3)}
+function generateAuthorCode(author){
+  let nama=cleanCodeText(author).replace(/\b(a\/l|a\/p|bin|binti)\b.*$/i,function(m){return m.split(/\s+/)[0].match(/bin|binti/i)?'':m}).trim();
+  if(!nama)return'';
+  const honorifics=/^(dr|prof|professor|dato|datin|datuk|haji|hajah|encik|puan|pn|cik|cikgu|mr|mrs|ms|sir|madam)\.?$/i;
+  let parts=nama.split(/\s+/).filter(p=>p&&!honorifics.test(p));
+  const binIdx=parts.findIndex(p=>/^(bin|binti)$/i.test(p));
+  if(binIdx>0)parts=parts.slice(0,binIdx);
+  parts=parts.map(p=>p.replace(/[^A-Za-z]/g,'')).filter(Boolean);
+  if(!parts.length)return'';
+  while(parts[0]&&parts[0].length===1&&parts.length>1)parts.shift();
+  const malayFirst=/^(ahmad|mohd|muhammad|muhamad|mohamad|siti|nur|nor|nora|aisyah|fatimah|aminah|ali|abu|abdul|abdullah|usman|othman|samad|aziz|zainab|hasan|hassan|ibrahim|ismail|omar|awang)$/i;
+  const chosen=malayFirst.test(parts[0])?parts[0]:parts[parts.length-1];
+  return threeLetters(chosen);
+}
+function kodPenulisAkhir(penulis){return generateAuthorCode(penulis)||'XXX'}
+function generateTitleCode(title){
+  const stop=/^(the|a|an|dan|yang|di|ke|of|for|to)$/i;
+  const words=cleanCodeText(title).split(/\s+/).filter(w=>w&&!stop.test(w));
+  return threeLetters(words[0]||title||'');
+}
+function generateCallNumber(ddc,author,title){
+  ddc=String(ddc||'').trim();
+  if(!ddc)return'';
+  const code=(author?generateAuthorCode(author):'')||generateTitleCode(title)||'XXX';
+  return `${ddc} ${code}`;
+}
+function normalizeDDCText(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/<[^>]*>/g,' ').replace(/[^a-z0-9.]+/g,' ').replace(/\s+/g,' ').trim()}
+function metadataTextParts(metadata){
+  metadata=metadata||{};
+  const arr=v=>Array.isArray(v)?v.join(' '):String(v||'');
+  return {
+    subjects:arr(metadata.subjects||metadata.subject||metadata.subjek),
+    categories:arr(metadata.categories||metadata.kategori||metadata.category),
+    title:[metadata.title,metadata.judul].filter(Boolean).join(' '),
+    subtitle:String(metadata.subtitle||''),
+    description:[metadata.description,metadata.sinopsis,metadata.catatan].filter(Boolean).join(' '),
+    language:String(metadata.language||metadata.lang||''),
+    publisher:String(metadata.publisher||metadata.penerbit||''),
+    isbn:String(metadata.isbn||''),
+    authors:arr(metadata.authors||metadata.author||metadata.pengarang)
+  };
+}
+function scoreDDCRule(metadata,rule){
+  const fields=metadataTextParts(metadata);
+  const weights={subjects:5,categories:4,title:3,subtitle:3,description:2,language:1,publisher:1,isbn:1,authors:1};
+  let score=0,matches=[];
+  const keywords=(rule.keywords||[]).map(normalizeDDCText).filter(Boolean);
+  Object.entries(fields).forEach(([field,value])=>{
+    const text=normalizeDDCText(value);
+    if(!text)return;
+    keywords.forEach(kw=>{
+      if(!kw)return;
+      const hit=text.includes(kw);
+      if(hit){score+=weights[field]||1;matches.push(kw)}
+    });
+  });
+  if(matches.length>1)score+=Math.min(4,matches.length-1);
+  return {score,matches:[...new Set(matches)]};
+}
+function detectDDC(metadata){
+  metadata=metadata||{};
+  let best=null;
+  DDC_RULES.forEach(rule=>{
+    const scored=scoreDDCRule(metadata,rule);
+    if(!best||scored.score>best.score)best={...rule,score:scored.score,matches:scored.matches};
+  });
+  if(!best||best.score<=0){
+    const title=normalizeDDCText(metadata.title||metadata.judul||'');
+    if(title)return {ddc:'000',label:'General works',mainClass:'000',confidence:'low',score:0,reason:'Metadata terlalu umum; sila semak DDC secara manual'};
+    return {ddc:'',label:'Tidak dikenal pasti',mainClass:'',confidence:'low',score:0,reason:'Metadata tidak mencukupi'};
+  }
+  const confidence=best.score>=14?'high':best.score>=7?'medium':'low';
+  return {
+    ddc:best.ddc,
+    label:best.label,
+    mainClass:(best.ddc.charAt(0)||'')+'00',
+    confidence,
+    score:best.score,
+    reason:best.matches.length?'Matched '+best.matches.slice(0,6).join(', ')+' metadata':'Matched weighted metadata'
+  };
 }
 function janaNoPanggilanAuto(kategori,penulis,tahun,jilid){
   const kat=String(kategori||'').trim().toUpperCase();
@@ -570,7 +698,7 @@ function janaNoPanggilanAuto(kategori,penulis,tahun,jilid){
   if(jil)np+=' v.'+jil;
   return np;
 }
-const genNP=(kat,ddc,bhs,pgr,jdl)=>janaNoPanggilanAuto(kat==='fiksyen'?(FIK[bhs]||'FM'):(ddc||'000'),pgr||jdl,'','');
+const genNP=(ddc,pgr,jdl)=>generateCallNumber(ddc,pgr,jdl);
 function perluTahunNoPanggilan(judul,tahun,jilid,idAbaikan){
   const j=String(judul||'').trim().toLowerCase().replace(/\s+/g,' ');
   const thn=String(tahun||'').trim();
@@ -865,7 +993,7 @@ function pgDash(){
   const noP=B.map(b=>parseInt(b.no_perolehan)||0).filter(n=>n>0);
   const tmpA=_tmp.filter(t=>t.status==='aktif');
   const pSt={};B.forEach(b=>{const p=b.punca||'Tiada';pSt[p]=(pSt[p]||0)+1});
-  const dSt={};B.forEach(b=>{const k=isFik(b.no_panggilan)?'Fiksyen':(DDC[String(b.no_panggilan||'').charAt(0)]||'Lain-lain');dSt[k]=(dSt[k]||0)+1});
+  const dSt={};B.forEach(b=>{const k=ddcKat(b.no_panggilan);dSt[k]=(dSt[k]||0)+1});
   const akt=[...aktif].sort((a,b)=>new Date(b.tarikh_pinjam)-new Date(a.tarikh_pinjam)).slice(0,5).map(p=>{const bk=B.find(x=>String(x.id)===String(p.buku_id))||{judul:'?'};const pg=p.jenis_pengguna==='murid'?(M.find(x=>String(x.id)===String(p.pengguna_id))||{nama:'?'}):(G.find(x=>String(x.id)===String(p.pengguna_id))||{nama:'?'});return{nm:pg.nama,bk:bk.judul,t:p.tarikh_pinjam}});
   const bBaharu=B.filter(b=>!isBukuDilupuskan(b)).sort((a,b)=>(parseInt(b.no_perolehan)||0)-(parseInt(a.no_perolehan)||0)).slice(0,12);
   const now=new Date(),bln=now.toLocaleDateString('ms-MY',{month:'long',year:'numeric'});
@@ -920,7 +1048,7 @@ function pgDash(){
         <div style="font-size:12px;font-weight:700;margin-bottom:8px;color:var(--emd)">🔍 OPAC Carian Buku</div>
         <div style="display:flex;gap:7px"><input class="opac-in" id="opac-d-q" type="search" placeholder="Tajuk, pengarang, ISBN..." oninput="cariOD()"><button class="btn b-em b-sm" onclick="nav('opac')">Cari</button></div>
         <div class="ocats">
-          <span class="ocat on" onclick="togOC(this,'')">Semua</span><span class="ocat" onclick="togOC(this,'F')">Fiksyen</span><span class="ocat" onclick="togOC(this,'B')">Bukan Fiksyen</span>
+          <span class="ocat on" onclick="togOC(this,'')">Semua</span>
           ${Object.entries(DDC).slice(0,4).map(([k,v])=>`<span class="ocat" onclick="togOC(this,'${k}')">${v}</span>`).join('')}
         </div>
       </div>
@@ -954,19 +1082,19 @@ body.innerHTML=items.length?items.map(a=>`<div class="akt-it"><div class="akt-av
 }
 let _ocat='';
 function togOC(el,k){document.querySelectorAll('.ocat').forEach(c=>c.classList.remove('on'));el.classList.add('on');_ocat=k;cariOD()}
-function cariOD(){const q=(document.getElementById('opac-d-q')?.value||'').toLowerCase().trim(),div=document.getElementById('opac-d-r');if(!div)return;if(!q&&!_ocat){div.textContent='Taip untuk mencari...';return}const f=(D.buku||[]).filter(b=>{if(isBukuDilupuskan(b))return false;const qm=!q||(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(_ocat==='F')km=isFik(np);else if(_ocat==='B')km=!isFik(np);else if(_ocat)km=np.charAt(0)===_ocat;return qm&&km}).slice(0,4);if(!f.length){div.innerHTML='<div style="color:var(--mu)">Tiada bahan dijumpai</div>';return}div.innerHTML=`<div style="font-size:9.5px;color:var(--mu);margin-bottom:5px">${f.length} dijumpai</div>`+f.map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return`<div style="display:flex;gap:7px;align-items:center;padding:5px 0;border-bottom:.5px solid var(--bd)">${coverHtml(b,'cover-search')}<div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</div><div style="font-size:9.5px;color:var(--mu)">${b.pengarang||'–'}</div></div><span class="bdg ${sp?'bg-am':'bg-em'}" style="font-size:9px">${sp?'Dipinjam':'Di Rak'}</span></div>`}).join('')}
+function cariOD(){const q=(document.getElementById('opac-d-q')?.value||'').toLowerCase().trim(),div=document.getElementById('opac-d-r');if(!div)return;if(!q&&!_ocat){div.textContent='Taip untuk mencari...';return}const f=(D.buku||[]).filter(b=>{if(isBukuDilupuskan(b))return false;const qm=!q||(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(_ocat)km=np.charAt(0)===_ocat;return qm&&km}).slice(0,4);if(!f.length){div.innerHTML='<div style="color:var(--mu)">Tiada bahan dijumpai</div>';return}div.innerHTML=`<div style="font-size:9.5px;color:var(--mu);margin-bottom:5px">${f.length} dijumpai</div>`+f.map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return`<div style="display:flex;gap:7px;align-items:center;padding:5px 0;border-bottom:.5px solid var(--bd)">${coverHtml(b,'cover-search')}<div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</div><div style="font-size:9.5px;color:var(--mu)">${b.pengarang||'–'}</div></div><span class="bdg ${sp?'bg-am':'bg-em'}" style="font-size:9px">${sp?'Dipinjam':'Di Rak'}</span></div>`}).join('')}
 </script>
 
 <script>
 // ═══════════════════════════════════════════════
-// PEROLEHAN + DAFTAR (dengan Fiksyen/Bukan Fiksyen)
+// PEROLEHAN + DAFTAR (DDC)
 // ═══════════════════════════════════════════════
 let _bPg=1,_bPPg=30,_bSort='no_perolehan',_bAsc=true,_bFilt=[];
 function pgPerolehan(){_bFilt=[...D.buku];_bPg=1;sortB();document.getElementById('content').innerHTML=`
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:12px">
   <div style="display:flex;gap:7px;flex-wrap:wrap">
     <input type="search" id="src-b" placeholder="🔍 Cari judul, no. panggilan..." style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;width:220px;background:var(--inp);color:var(--tx)" oninput="filtB()">
-    <select id="flt-k" onchange="filtB()" style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;background:var(--inp);color:var(--tx)"><option value="">Semua</option><option value="F">📘 Fiksyen</option>${Object.entries(DDC).map(([k,v])=>`<option value="${k}">${k}xx ${v}</option>`).join('')}</select>
+    <select id="flt-k" onchange="filtB()" style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;background:var(--inp);color:var(--tx)"><option value="">Semua</option>${Object.entries(DDC).map(([k,v])=>`<option value="${k}">${k}xx ${v}</option>`).join('')}</select>
     <select id="flt-p" onchange="filtB()" style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;background:var(--inp);color:var(--tx)"><option value="">Semua Punca</option>${[...new Set((D.buku||[]).map(b=>b.punca).filter(p=>p))].map(p=>`<option>${p}</option>`).join('')}</select>
   </div>
   <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -988,7 +1116,7 @@ function pgPerolehan(){_bFilt=[...D.buku];_bPg=1;sortB();document.getElementById
 <div class="mbg" id="m-imp"><div class="modal"><div class="m-hdr"><h3>⬆️ Import Pukal</h3><button class="m-x" onclick="closeM('m-imp')">✕</button></div><div class="al a-in" style="font-size:11px">Header: <code>no_perolehan, no_panggilan, pengarang, judul, penerbit, tahun, jilid, tarikh_perolehan, no_invois, punca, isbn, harga_rm</code></div><div class="fg"><label>Tampal dari Excel (Tab-separated)</label><textarea id="paste-b" rows="5" style="font-family:var(--mono);font-size:11px;resize:vertical"></textarea></div><button class="btn b-gh b-sm" onclick="prevPaste()">👁️ Preview</button><div id="imp-pv" style="margin-top:9px"></div><div class="m-ft"><button class="btn b-gh" onclick="closeM('m-imp')">Batal</button><button class="btn b-em" id="btn-imp" onclick="saveImp()" style="display:none">✅ Import ke Sheets</button></div></div></div>`;renderB();injectEditCoverUI();muatBukuFast(false)}
 
 function sortB(c){if(c){if(_bSort===c)_bAsc=!_bAsc;else{_bSort=c;_bAsc=true}}_bFilt.sort((a,b)=>{const va=String(a[_bSort]||'').toLowerCase(),vb=String(b[_bSort]||'').toLowerCase();if(!isNaN(parseFloat(va))&&!isNaN(parseFloat(vb)))return _bAsc?parseFloat(va)-parseFloat(vb):parseFloat(vb)-parseFloat(va);return _bAsc?va.localeCompare(vb):vb.localeCompare(va)});renderB()}
-function filtB(){const q=(document.getElementById('src-b')?.value||'').toLowerCase(),k=document.getElementById('flt-k')?.value||'',p=document.getElementById('flt-p')?.value||'';_bFilt=(D.buku||[]).filter(b=>{const qm=!q||(b.judul+b.no_panggilan+(b.isbn||'')+(b.no_perolehan||'')+(b.pengarang||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(k==='F')km=isFik(np);else if(k)km=np.charAt(0)===k;return qm&&km&&(!p||b.punca===p)});_bPg=1;sortB()}
+function filtB(){const q=(document.getElementById('src-b')?.value||'').toLowerCase(),k=document.getElementById('flt-k')?.value||'',p=document.getElementById('flt-p')?.value||'';_bFilt=(D.buku||[]).filter(b=>{const qm=!q||(b.judul+b.no_panggilan+(b.isbn||'')+(b.no_perolehan||'')+(b.pengarang||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(k)km=np.charAt(0)===k;return qm&&km&&(!p||b.punca===p)});_bPg=1;sortB()}
 function renderB(){const st=(_bPg-1)*_bPPg,en=Math.min(st+_bPPg,_bFilt.length),pg=_bFilt.slice(st,en);const tb=document.getElementById('tbody-b'),info=document.getElementById('b-info'),bar=document.getElementById('b-pgb');if(tb)tb.innerHTML=rowsB(pg);if(info)info.textContent=`${st+1}–${en} daripada ${_bFilt.length} (${D.buku.length} jumlah)`;if(bar){const tot=Math.ceil(_bFilt.length/_bPPg);let btn='';for(let i=1;i<=tot;i++){if(i<=2||i>tot-1||Math.abs(i-_bPg)<=1)btn+=`<button class="pgbn${_bPg===i?' on':''}" onclick="_bPg=${i};renderB()">${i}</button>`;else if(!btn.endsWith('...'))btn+=`<span style="color:var(--mu);padding:2px 4px">...</span>`}bar.innerHTML=btn}}
 function rowsB(buku){if(!buku.length)return`<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--mu)">Tiada rekod.</td></tr>`;return buku.map(b=>`<tr><td style="width:48px">${coverHtml(b,'cover-small')}</td><td><span class="bdg bg-cy">${b.no_perolehan||'–'}</span></td><td><span class="no-panggilan" style="font-size:10.5px;font-weight:700;color:${wNP(b.no_panggilan)};background:${wNP(b.no_panggilan)}18;padding:2px 5px;border-radius:4px">${b.no_panggilan||'–'}</span></td><td style="max-width:170px"><div style="font-size:11.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</div><div style="font-size:9.5px;color:var(--mu)">${ddcKat(b.no_panggilan)}${isBukuDilupuskan(b)?' <span class="bdg bg-re" style="margin-left:4px">Dilupuskan</span>':''}</div></td><td style="font-size:10.5px;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.pengarang||'–'}</td><td>${b.tahun||'–'}</td><td><span class="bdg bg-am">${b.punca||'–'}</span></td><td style="font-size:10.5px">${fmtRM(b.harga_rm,b.harga_sen)}</td><td><div style="display:flex;gap:3px"><button class="btn b-gh b-xs" onclick="editB(${b.id})">✏️</button><button class="btn b-gh b-xs" onclick="padamB(${b.id})" style="color:var(--red)">🗑️</button></div></td></tr>`).join('')}
 function eksCSV(){const h=['id','no_perolehan','no_panggilan','pengarang','judul','penerbit','tahun','jilid','tarikh_perolehan','no_invois','punca','isbn','harga_rm','harga_sen','muka_surat','catatan','cover_url','cover_file_id'];const rows=[h.join(','),...D.buku.map(b=>h.map(k=>`"${(b[k]||'').toString().replace(/"/g,'""')}"`).join(','))];const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));a.download='buku_'+today()+'.csv';a.click();toast('CSV dieksport!','ok')}
@@ -1061,7 +1189,7 @@ function prevPaste(){const lines=document.getElementById('paste-b').value.trim()
 async function saveImp(){if(!_impR.length){toast('Tiada data','er');return}const btn=document.getElementById('btn-imp');btn.textContent='⏳ Mengimport...';try{let id=nxId(D.buku);const rows=_impR.map(r=>({...r,id:id++}));const res=await api({action:'import',sheet:'buku',rows});if(!res?.ok)throw new Error(res?.error);toast('✅ '+rows.length+' bahan diimport!','ok');closeM('m-imp');_impR=[];await muatSemua(true);pgPerolehan()}catch(e){toast('Gagal: '+e.message,'er')}finally{btn.textContent='✅ Import ke Sheets'}}
 
 // ═══════════════════════════════════════════════
-// DAFTAR BUKU BARU — Fiksyen/Bukan Fiksyen + Auto NP + Label Preview
+// DAFTAR BUKU BARU — DDC + Auto NP + Label Preview
 // ═══════════════════════════════════════════════
 function pgDaftar(){
   const nxNop=D.buku.length?Math.max(...D.buku.map(b=>parseInt(b.no_perolehan)||0))+1:1;
@@ -1070,44 +1198,18 @@ function pgDaftar(){
     <div class="card">
       <div class="ct">➕ Daftar Bahan Baru</div>
 
-      <!-- ① KATEGORI RADIO -->
-      <div class="fg"><label>Kategori Bahan *</label>
-        <div style="display:flex;gap:14px;margin-top:3px">
-          <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;font-weight:600;color:var(--tx)">
-            <input type="radio" name="db-kat" value="bukan" checked onchange="togKat('bukan')" style="accent-color:var(--em);width:15px;height:15px">
-            📗 Bukan Fiksyen (DDC)
-          </label>
-          <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;font-weight:600;color:var(--tx)">
-            <input type="radio" name="db-kat" value="fiksyen" onchange="togKat('fiksyen')" style="accent-color:var(--em);width:15px;height:15px">
-            📘 Fiksyen
-          </label>
+      <div class="fg"><label>Nombor Dewey (DDC) *</label>
+        <div style="display:flex;gap:5px">
+          <input id="db-ddc" type="text" placeholder="cth: 372.4, 590, 005.1" oninput="window._smartlibDdcTouched=true;autoNP()" style="flex:1">
+          <button type="button" class="btn b-gh b-sm" onclick="runAutoDDC(true)">✨ Auto DDC</button>
         </div>
+        <small>Klik pantas: ${Object.entries(DDC).map(([k,v])=>`<span onclick="document.getElementById('db-ddc').value='${k}';window._smartlibDdcTouched=true;autoNP();updateDDCSuggestion({ddc:'${k}',label:'${v}',confidence:'low',score:0,reason:'Pilihan pantas manual'})" style="background:var(--bg2);border:1px solid var(--bd);border-radius:4px;padding:1px 5px;font-size:9.5px;cursor:pointer;font-weight:600;margin:1px;display:inline-block">${k}xx ${v.substring(0,3)}</span>`).join('')}</small>
+        <div id="ddc-suggest" style="font-size:11px;color:var(--mu);margin-top:5px"></div>
       </div>
 
-      <!-- ② PANEL BUKAN FIKSYEN — DDC -->
-      <div id="pan-bukan">
-        <div class="fg"><label>Nombor Dewey (DDC) *</label>
-          <input id="db-ddc" type="text" placeholder="cth: 590, 005.1, 398.2" oninput="autoNP()">
-          <small>Klik pantas: ${Object.entries(DDC).map(([k,v])=>`<span onclick="document.getElementById('db-ddc').value='${k}';autoNP()" style="background:var(--bg2);border:1px solid var(--bd);border-radius:4px;padding:1px 5px;font-size:9.5px;cursor:pointer;font-weight:600;margin:1px;display:inline-block">${k}xx ${v.substring(0,3)}</span>`).join('')}</small>
-        </div>
-      </div>
-
-      <!-- ③ PANEL FIKSYEN — BAHASA -->
-      <div id="pan-fiksyen" style="display:none">
-        <div class="fg"><label>Bahasa Buku *</label>
-          <select id="db-bhs" onchange="autoNP()">
-            <option value="MS">🇲🇾 Melayu → FM</option>
-            <option value="EN">🇬🇧 Inggeris → FI</option>
-            <option value="ZH">🇨🇳 Cina → FC</option>
-            <option value="TA">🇮🇳 Tamil → FT</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- ④ NO PANGGILAN AUTO -->
       <div class="fg"><label>No. Panggilan (Auto-generate) *</label>
         <div style="display:flex;gap:5px">
-          <input id="db-npn" type="text" placeholder="Auto-generate berdasarkan kategori" oninput="updLbPv()" style="flex:1">
+          <input id="db-npn" type="text" placeholder="Auto-generate berdasarkan DDC" oninput="updLbPv()" style="flex:1">
           <button class="btn b-gh b-sm" onclick="autoNP()">🔄</button>
         </div>
         <small id="db-np-h" style="color:var(--em);font-weight:600"></small>
@@ -1115,7 +1217,7 @@ function pgDaftar(){
 
       <div class="fr c2">
         <div class="fg"><label>No. Perolehan *</label><input id="db-nop" type="text" value="${nxNop}"></div>
-        <div class="fg"><label>ISBN</label><input id="db-isbn" type="text" placeholder="978-xxx" oninput="debGB()"><small id="gb-st" style="color:var(--cy)"></small></div>
+        <div class="fg"><label>ISBN</label><input id="db-isbn" type="text" placeholder="Scan / taip ISBN" oninput="debGB()"><small id="gb-st" style="color:var(--cy)"></small></div>
       </div>
       <div class="fg"><label>Judul / Tajuk *</label><input id="db-jdl" type="text"></div>
       <div class="fr c2"><div class="fg"><label>Pengarang</label><input id="db-pgr" type="text" oninput="autoNP()"></div><div class="fg"><label>Penerbit</label><input id="db-pnb" type="text"></div></div>
@@ -1151,34 +1253,70 @@ function pgDaftar(){
       <div class="card">
         <div class="ct">📌 Panduan No. Panggilan</div>
         <div style="background:var(--bg2);border-radius:8px;padding:10px;font-size:11px;line-height:1.9">
-          <strong>📗 Bukan Fiksyen (DDC):</strong><br>
-          Format: <code style="background:var(--eml);padding:1px 5px;border-radius:3px">590 HAS</code><br>
-          Dewey + 3 huruf pertama pengarang<br><br>
-          <strong>📘 Fiksyen:</strong><br>
-          <code style="background:var(--eml);padding:1px 5px;border-radius:3px">FM/RAM</code> (Melayu)<br>
-          FM=Melayu · FI=Inggeris · FC=Cina · FT=Tamil<br>
-          + 3 huruf pertama pengarang
+          <strong>Format SMARTLIB DDC:</strong><br>
+          <code style="background:var(--eml);padding:1px 5px;border-radius:3px">372.4 JON</code><br>
+          Nombor Dewey + kod pengarang 3 huruf<br><br>
+          <strong>Contoh:</strong><br>
+          <code style="background:var(--eml);padding:1px 5px;border-radius:3px">590 BUR</code> Haiwan<br>
+          <code style="background:var(--eml);padding:1px 5px;border-radius:3px">005.1 TAN</code> Programming<br>
+          <code style="background:var(--eml);padding:1px 5px;border-radius:3px">899.23 SAM</code> Sastera Melayu
         </div>
       </div>
     </div>
   </div>`;
 }
 
-function togKat(v){
-  document.getElementById('pan-bukan').style.display=v==='fiksyen'?'none':'';
-  document.getElementById('pan-fiksyen').style.display=v==='fiksyen'?'':'none';
+function togKat(v){autoNP()}
+function collectRegisterMetadata(extra){
+  extra=extra||{};
+  return {
+    title:extra.title||extra.judul||document.getElementById('db-jdl')?.value||'',
+    subtitle:extra.subtitle||'',
+    authors:extra.authors||extra.pengarang||document.getElementById('db-pgr')?.value||'',
+    publisher:extra.publisher||extra.penerbit||document.getElementById('db-pnb')?.value||'',
+    categories:extra.categories||extra.kategori||'',
+    subjects:extra.subjects||extra.subjek||'',
+    description:extra.description||extra.sinopsis||document.getElementById('db-cat')?.value||'',
+    language:extra.language||'',
+    isbn:extra.isbn||document.getElementById('db-isbn')?.value||''
+  };
+}
+function updateDDCSuggestion(cls){
+  const box=document.getElementById('ddc-suggest');
+  if(!box)return;
+  if(!cls||!cls.ddc){box.innerHTML='<span style="color:var(--am)">DDC tidak dapat dikenal pasti dengan yakin. Sila masukkan secara manual.</span>';return}
+  const conf=String(cls.confidence||'low').toLowerCase();
+  const label=conf==='high'?'Tinggi':conf==='medium'?'Sederhana':'Rendah';
+  const clsName=conf==='high'?'a-ok':conf==='medium'?'a-wa':'a-in';
+  box.innerHTML=`<div class="al ${clsName}" style="margin:0;padding:7px 9px">✨ Cadangan DDC: <strong>${cls.ddc}</strong><br>${cls.label||DDC_MAIN[String(cls.ddc).charAt(0)]||''}<br>Keyakinan: ${label}${conf!=='high'?' — sila semak.':''}<br><small>${cls.reason||''}</small> ${cls.ddc?`<button type="button" class="btn b-gh b-xs" style="margin-left:5px" onclick="gunaCadanganDDC('${cls.ddc}')">Guna Cadangan</button>`:''}</div>`;
+}
+function gunaCadanganDDC(ddc){
+  const el=document.getElementById('db-ddc');
+  if(el){el.value=ddc;window._smartlibDdcTouched=true;autoNP()}
+}
+function runAutoDDC(force){
+  const cls=detectDDC(collectRegisterMetadata(window._lastIsbnMetadata||{}));
+  updateDDCSuggestion(cls);
+  const el=document.getElementById('db-ddc');
+  const bolehIsi=el&&cls.ddc&&(force||cls.confidence!=='low')&&(force||!window._smartlibDdcTouched||!el.value.trim());
+  if(bolehIsi){
+    el.value=cls.ddc;
+    if(force)window._smartlibDdcTouched=true;
+  }
   autoNP();
+  if(!cls.ddc||cls.confidence==='low')toast('DDC tidak dapat dikenal pasti dengan yakin. Sila semak manual.','wa');
+  return cls;
 }
 function autoNP(){
-  const kat=document.querySelector('input[name="db-kat"]:checked')?.value||'bukan';
   const ddc=(document.getElementById('db-ddc')?.value||'').trim();
-  const bhs=document.getElementById('db-bhs')?.value||'MS';
   const pgr=(document.getElementById('db-pgr')?.value||'').trim();
   const jdl=(document.getElementById('db-jdl')?.value||'').trim();
   const tahun=(document.getElementById('db-thn')?.value||'').trim();
   const jilid=(document.getElementById('db-jilid')?.value||'').trim();
-  const kategori=kat==='fiksyen'?(FIK[bhs]||'FM'):(ddc||'000');
-  const np=janaNoPanggilanAuto(kategori,pgr||jdl,perluTahunNoPanggilan(jdl,tahun,jilid)?tahun:'',jilid);
+  let np=generateCallNumber(ddc,pgr,jdl);
+  if(np&&(perluTahunNoPanggilan(jdl,tahun,jilid)||jilid)){
+    np=typeof applyJilidToNoPanggilan==='function'?applyJilidToNoPanggilan(np,tahun,jilid):janaNoPanggilanAuto(ddc,pgr||jdl,perluTahunNoPanggilan(jdl,tahun,jilid)?tahun:'',jilid);
+  }
   const el=document.getElementById('db-npn');if(el)el.value=np;
   const h=document.getElementById('db-np-h');if(h)h.textContent=np?np:'';
   updLbPv();
@@ -1189,6 +1327,7 @@ function updLbPv(){
   const l1=document.getElementById('lpv-l1'),l2=document.getElementById('lpv-l2');
   if(l1)l1.textContent=p[0]||'000';if(l2)l2.textContent=p.slice(1).join(' ')||'XXX';
 }
+function updateCallNumberPreview(){updLbPv()}
 let _gbT=null;
 function debGB(){clearTimeout(_gbT);_gbT=setTimeout(cariGB,900)}
 async function cariGB(){
@@ -1199,6 +1338,7 @@ async function cariGB(){
     const res=await api({action:'isbn_lookup',isbn});
     if(!res?.ok||!res.data?.jumpa){if(st)st.textContent='❌ Tiada maklumat.';return}
     const b=res.data;
+    window._lastIsbnMetadata=b;
     if(b.judul&&!document.getElementById('db-jdl').value)document.getElementById('db-jdl').value=b.judul;
     if(b.pengarang&&!document.getElementById('db-pgr').value)document.getElementById('db-pgr').value=b.pengarang;
     if(b.penerbit&&!document.getElementById('db-pnb').value)document.getElementById('db-pnb').value=b.penerbit;
@@ -1207,7 +1347,7 @@ async function cariGB(){
     if(st)st.textContent='✅ Maklumat diisi dari Google Books!';
     const hasil=document.getElementById('isbn-hasil');
     if(hasil&&b.judul)hasil.innerHTML=`<div style="background:var(--bg2);border-radius:7px;padding:9px;font-size:11px;line-height:1.7"><strong>📚 ${b.judul}</strong><br><span style="color:var(--mu)">${b.pengarang||'–'} · ${b.penerbit||'–'} · ${b.tahun||'–'}</span>${b.sinopsis?`<br><span style="color:var(--mu)">${b.sinopsis.substring(0,180)}...</span>`:''}</div>`;
-    autoNP();toast('✅ Maklumat buku diisi!','ok');
+    runAutoDDC(false);toast('✅ Maklumat buku diisi!','ok');
   }catch(e){if(st)st.textContent='⚠️ Gagal. Isi manual.'}
 }
 async function simpanBB(){
@@ -1218,7 +1358,7 @@ async function simpanBB(){
   try{const res=await api({action:'tambah',sheet:'buku',data});if(!res?.ok)throw new Error(res?.error);D.buku.push(data);toast('✅ Bahan berjaya disimpan!','ok');document.getElementById('db-msg').innerHTML=`<div class="al a-ok">✅ <strong>${jdl}</strong> (No.${nop}) disimpan.</div>`;resetDB()}
   catch(e){toast('Gagal: '+e.message,'er')}finally{btn.textContent='💾 Simpan ke Sheets';btn.disabled=false}
 }
-function resetDB(){['db-nop','db-isbn','db-jdl','db-pgr','db-pnb','db-thn','db-inv','db-muka','db-cat'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});const h=document.getElementById('db-hrm');if(h)h.value=0;const t=document.getElementById('db-tper');if(t)t.value=today();const d=document.getElementById('db-ddc');if(d)d.value='';const n=document.getElementById('db-npn');if(n)n.value='';updLbPv()}
+function resetDB(){['db-nop','db-isbn','db-jdl','db-pgr','db-pnb','db-thn','db-inv','db-muka','db-cat'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});const h=document.getElementById('db-hrm');if(h)h.value=0;const t=document.getElementById('db-tper');if(t)t.value=today();const d=document.getElementById('db-ddc');if(d)d.value='';const n=document.getElementById('db-npn');if(n)n.value='';const s=document.getElementById('ddc-suggest');if(s)s.innerHTML='';window._smartlibDdcTouched=false;window._lastIsbnMetadata=null;updLbPv()}
 </script>
 
 <script>
@@ -1240,7 +1380,7 @@ function pgLabel(){
       <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center">
         <input type="search" id="lbl-src" placeholder="🔍 Cari bahan..." style="flex:1;min-width:160px;padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;background:var(--inp);color:var(--tx)" oninput="filtLbl()">
         <select id="lbl-kat" onchange="filtLbl()" style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;background:var(--inp);color:var(--tx)">
-          <option value="">Semua</option><option value="F">📘 Fiksyen</option>
+          <option value="">Semua</option>
           ${Object.entries(DDC).map(([k,v])=>`<option value="${k}">${k}xx ${v}</option>`).join('')}
         </select>
         <button class="btn b-gh b-sm" onclick="document.querySelectorAll('.lbl-chk').forEach(c=>c.checked=true)">☑️ Semua</button>
@@ -1358,7 +1498,7 @@ function pgLabel(){
         <div>
           <div style="font-size:11.5px;font-weight:700;margin-bottom:7px">Contoh Label:</div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
-            ${[['Bukan Fiksyen','590','HAS'],['Fiksyen Melayu','FM','RAM'],['Fiksyen Inggeris','FI','ROW']].map(([l,l1,l2])=>`<div style="text-align:center"><div style="font-size:9.5px;color:var(--mu);margin-bottom:4px">${l}</div><div class="label-tulang" style="width:2.5cm;min-height:3.8cm;border:2px solid #333;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2mm;background:#fff;margin:0 auto"><div style="font-size:5pt;color:#000;font-weight:700;text-align:center">PSS SK TAIPING</div><div style="font-size:15pt;font-weight:900;color:#000;text-align:center;line-height:1">${l1}</div><div style="font-size:12pt;font-weight:700;color:#000;text-align:center;line-height:1">${l2}</div></div></div>`).join('')}
+            ${[['Reading','372.4','JON'],['Animals','590','BUR'],['Malay Literature','899.23','SAM']].map(([l,l1,l2])=>`<div style="text-align:center"><div style="font-size:9.5px;color:var(--mu);margin-bottom:4px">${l}</div><div class="label-tulang" style="width:2.5cm;min-height:3.8cm;border:2px solid #333;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2mm;background:#fff;margin:0 auto"><div style="font-size:5pt;color:#000;font-weight:700;text-align:center">PSS SK TAIPING</div><div style="font-size:15pt;font-weight:900;color:#000;text-align:center;line-height:1">${l1}</div><div style="font-size:12pt;font-weight:700;color:#000;text-align:center;line-height:1">${l2}</div></div></div>`).join('')}
           </div>
         </div>
       </div>
@@ -1377,13 +1517,13 @@ function lblTab(t,btn){
 
 function rowsLbl(buku){
   if(!buku.length)return`<tr><td colspan="5" style="text-align:center;padding:22px;color:var(--mu)">Tiada bahan</td></tr>`;
-  return buku.map(b=>{const np=String(b.no_panggilan||'').trim().toUpperCase();const kat=isFik(np)?`<span class="bdg bg-em">📘 Fiksyen</span>`:`<span class="bdg bg-cy">${DDC[np.charAt(0)]||'Lain-lain'}</span>`;return`<tr><td><input type="checkbox" class="lbl-chk" value="${b.id}"></td><td><span class="bdg bg-cy">${b.no_perolehan||'–'}</span></td><td><span class="no-panggilan" style="font-size:10.5px;font-weight:700;color:${wNP(b.no_panggilan)}">${b.no_panggilan||'–'}</span></td><td style="max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11.5px">${b.judul||'–'}</td><td>${kat}</td></tr>`}).join('');
+  return buku.map(b=>{const np=String(b.no_panggilan||'').trim().toUpperCase();const kat=`<span class="bdg bg-cy">${ddcKat(np)}</span>`;return`<tr><td><input type="checkbox" class="lbl-chk" value="${b.id}"></td><td><span class="bdg bg-cy">${b.no_perolehan||'–'}</span></td><td><span class="no-panggilan" style="font-size:10.5px;font-weight:700;color:${wNP(b.no_panggilan)}">${b.no_panggilan||'–'}</span></td><td style="max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11.5px">${b.judul||'–'}</td><td>${kat}</td></tr>`}).join('');
 }
 
 function filtLbl(){
   const q=(document.getElementById('lbl-src')?.value||'').toLowerCase();
   const k=document.getElementById('lbl-kat')?.value||'';
-  const f=(D.buku||[]).filter(b=>{const qm=!q||(b.judul+b.no_panggilan+(b.no_perolehan||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(k==='F')km=isFik(np);else if(k)km=np.charAt(0)===k;return qm&&km});
+  const f=(D.buku||[]).filter(b=>{const qm=!q||(b.judul+b.no_panggilan+(b.no_perolehan||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(k)km=np.charAt(0)===k;return qm&&km});
   const t=document.getElementById('tbody-lbl');if(t)t.innerHTML=rowsLbl(f);
 }
 
@@ -1981,12 +2121,12 @@ function cariScanWith(q){
   toast(lupus?'Bahan telah dilupuskan.':'Bahan dijumpai!',lupus?'wa':'ok');
 }
 
-function pgOpac(){document.getElementById('content').innerHTML=`<div class="card" style="background:linear-gradient(135deg,var(--eml),var(--cyl));border:1.5px solid rgba(16,185,129,.3);margin-bottom:12px"><div style="text-align:center;padding:8px 0"><div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px">🔍 OPAC — Katalog Bahan Awam</div><div style="font-size:11px;color:var(--mu);margin-bottom:13px">Cari dalam ${(D.buku||[]).length} bahan</div><div style="display:flex;gap:7px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center"><input class="opac-in" id="opac-q" type="search" placeholder="Judul, pengarang, ISBN, kata kunci..." style="flex:1;min-width:200px" oninput="runOpac()"><button class="btn b-em" onclick="runOpac()">Cari</button></div><div class="opac-cats" style="justify-content:center;margin-top:8px"><span class="ocat on" onclick="togOCat(this,'')">Semua</span><span class="ocat" onclick="togOCat(this,'F')">Fiksyen</span><span class="ocat" onclick="togOCat(this,'B')">Bukan Fiksyen</span>${Object.entries(DDC).map(([k,v])=>`<span class="ocat" onclick="togOCat(this,'${k}')">${v}</span>`).join('')}</div></div></div><div id="opac-result" style="color:var(--mu);text-align:center;padding:24px">Taip untuk mencari...</div>`}
+function pgOpac(){document.getElementById('content').innerHTML=`<div class="card" style="background:linear-gradient(135deg,var(--eml),var(--cyl));border:1.5px solid rgba(16,185,129,.3);margin-bottom:12px"><div style="text-align:center;padding:8px 0"><div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px">🔍 OPAC — Katalog Bahan Awam</div><div style="font-size:11px;color:var(--mu);margin-bottom:13px">Cari dalam ${(D.buku||[]).length} bahan</div><div style="display:flex;gap:7px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center"><input class="opac-in" id="opac-q" type="search" placeholder="Judul, pengarang, ISBN, kata kunci..." style="flex:1;min-width:200px" oninput="runOpac()"><button class="btn b-em" onclick="runOpac()">Cari</button></div><div class="opac-cats" style="justify-content:center;margin-top:8px"><span class="ocat on" onclick="togOCat(this,'')">Semua</span>${Object.entries(DDC).map(([k,v])=>`<span class="ocat" onclick="togOCat(this,'${k}')">${v}</span>`).join('')}</div></div></div><div id="opac-result" style="color:var(--mu);text-align:center;padding:24px">Taip untuk mencari...</div>`}
 let _opacCF='';
 function togOCat(el,k){document.querySelectorAll('.ocat').forEach(c=>c.classList.remove('on'));el.classList.add('on');_opacCF=k;runOpac()}
-function runOpac(){const q=(document.getElementById('opac-q')?.value||'').toLowerCase(),div=document.getElementById('opac-result');if(!div)return;if(!q&&!_opacCF){div.textContent='Taip untuk mencari...';return}const f=(D.buku||[]).filter(b=>{const qm=!q||(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(_opacCF==='F')km=isFik(np);else if(_opacCF==='B')km=!isFik(np);else if(_opacCF)km=np.charAt(0)===_opacCF;return qm&&km});if(!f.length){div.innerHTML='<div class="al a-wa">❌ Tiada bahan dijumpai.</div>';return}div.innerHTML=`<div style="margin-bottom:9px;font-size:12px;color:var(--mu)">${f.length} bahan dijumpai</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px">${f.map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return`<div class="card" style="padding:12px"><div style="font-weight:700;font-size:12px;margin-bottom:3px;line-height:1.3">${b.judul||'–'}</div><div style="font-size:11px;color:var(--mu);margin-bottom:2px">${b.pengarang||'–'}</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px"><code style="font-size:10px">${b.no_panggilan||'–'}</code><span class="bdg ${sp?'bg-am':'bg-em'}">${sp?'Dipinjam':'Di Rak'}</span></div></div>`}).join('')}</div>`}
+function runOpac(){const q=(document.getElementById('opac-q')?.value||'').toLowerCase(),div=document.getElementById('opac-result');if(!div)return;if(!q&&!_opacCF){div.textContent='Taip untuk mencari...';return}const f=(D.buku||[]).filter(b=>{const qm=!q||(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(_opacCF)km=np.charAt(0)===_opacCF;return qm&&km});if(!f.length){div.innerHTML='<div class="al a-wa">❌ Tiada bahan dijumpai.</div>';return}div.innerHTML=`<div style="margin-bottom:9px;font-size:12px;color:var(--mu)">${f.length} bahan dijumpai</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px">${f.map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return`<div class="card" style="padding:12px"><div style="font-weight:700;font-size:12px;margin-bottom:3px;line-height:1.3">${b.judul||'–'}</div><div style="font-size:11px;color:var(--mu);margin-bottom:2px">${b.pengarang||'–'}</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px"><code style="font-size:10px">${b.no_panggilan||'–'}</code><span class="bdg ${sp?'bg-am':'bg-em'}">${sp?'Dipinjam':'Di Rak'}</span></div></div>`}).join('')}</div>`}
 
-function pgLaporan(){const buku=D.buku||[],murid=D.murid||[],guru=D.guru||[],pin=D.pinjaman||[];const aktif=pin.filter(p=>p.status==='pinjam');const denda=pin.reduce((a,p)=>a+(parseFloat(p.denda)||0),0);const noP=buku.map(b=>parseInt(b.no_perolehan)||0).filter(n=>n>0);const pSt={};buku.forEach(b=>{const p=b.punca||'Tiada';pSt[p]=(pSt[p]||0)+1});const dSt={};buku.forEach(b=>{const k=isFik(b.no_panggilan)?'Fiksyen':(DDC[String(b.no_panggilan||'').charAt(0)]||'Lain-lain');dSt[k]=(dSt[k]||0)+1});document.getElementById('content').innerHTML=`<div class="sg"><div class="stat s-em"><div class="s-ic">📖</div><div class="s-lb">Jumlah Bahan</div><div class="s-vl">${buku.length}</div><div class="s-sb">No.${noP.length?Math.min(...noP):'-'}–${noP.length?Math.max(...noP):'-'}</div></div><div class="stat s-cy"><div class="s-ic">👥</div><div class="s-lb">Pengguna</div><div class="s-vl">${murid.length+guru.length}</div><div class="s-sb">${murid.length} murid · ${guru.length} guru</div></div><div class="stat s-am"><div class="s-ic">🔄</div><div class="s-lb">Transaksi</div><div class="s-vl">${pin.length}</div><div class="s-sb">${aktif.length} aktif</div></div><div class="stat s-re"><div class="s-ic">💰</div><div class="s-lb">Denda Dikutip</div><div class="s-vl" style="font-size:18px">RM ${denda.toFixed(2)}</div></div><div class="stat s-pu"><div class="s-ic">📘</div><div class="s-lb">Fiksyen</div><div class="s-vl">${buku.filter(b=>isFik(b.no_panggilan)).length}</div><div class="s-sb">daripada ${buku.length}</div></div></div><div class="g2" style="margin-bottom:12px"><div class="card"><div class="ct">📊 Koleksi Mengikut Kategori</div><canvas id="ch-l1" height="190"></canvas></div><div class="card"><div class="ct">🏆 10 Bahan Terpopular</div><div class="tw"><table><thead><tr><th>Judul</th><th>No. Panggilan</th><th>Kali</th></tr></thead><tbody>${buku.map(b=>({...b,jml:pin.filter(p=>String(p.buku_id)===String(b.id)).length})).sort((a,b)=>b.jml-a.jml).slice(0,10).map(b=>`<tr><td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</td><td class="mono">${b.no_panggilan||'–'}</td><td><strong>${b.jml}</strong></td></tr>`).join('')}</tbody></table></div></div></div>`;setTimeout(()=>{const dk=Object.keys(dSt).sort();const c=document.getElementById('ch-l1');if(c)_charts.l1=new Chart(c,{type:'bar',data:{labels:dk,datasets:[{data:dk.map(k=>dSt[k]),backgroundColor:['#10b981','#06b6d4','#f59e0b','#ef4444','#8b5cf6','#ec4899','#3b82f6','#f97316','#14b8a6','#6366f1','#a855f7'],borderRadius:5,borderSkipped:false}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true},x:{ticks:{font:{size:9},maxRotation:35}}}}})},80)}
+function pgLaporan(){const buku=D.buku||[],murid=D.murid||[],guru=D.guru||[],pin=D.pinjaman||[];const aktif=pin.filter(p=>p.status==='pinjam');const denda=pin.reduce((a,p)=>a+(parseFloat(p.denda)||0),0);const noP=buku.map(b=>parseInt(b.no_perolehan)||0).filter(n=>n>0);const pSt={};buku.forEach(b=>{const p=b.punca||'Tiada';pSt[p]=(pSt[p]||0)+1});const dSt={};buku.forEach(b=>{const k=ddcKat(b.no_panggilan);dSt[k]=(dSt[k]||0)+1});const sas=buku.filter(b=>String(b.no_panggilan||'').trim().charAt(0)==='8').length;document.getElementById('content').innerHTML=`<div class="sg"><div class="stat s-em"><div class="s-ic">📖</div><div class="s-lb">Jumlah Bahan</div><div class="s-vl">${buku.length}</div><div class="s-sb">No.${noP.length?Math.min(...noP):'-'}–${noP.length?Math.max(...noP):'-'}</div></div><div class="stat s-cy"><div class="s-ic">👥</div><div class="s-lb">Pengguna</div><div class="s-vl">${murid.length+guru.length}</div><div class="s-sb">${murid.length} murid · ${guru.length} guru</div></div><div class="stat s-am"><div class="s-ic">🔄</div><div class="s-lb">Transaksi</div><div class="s-vl">${pin.length}</div><div class="s-sb">${aktif.length} aktif</div></div><div class="stat s-re"><div class="s-ic">💰</div><div class="s-lb">Denda Dikutip</div><div class="s-vl" style="font-size:18px">RM ${denda.toFixed(2)}</div></div><div class="stat s-pu"><div class="s-ic">📚</div><div class="s-lb">Sastera 800</div><div class="s-vl">${sas}</div><div class="s-sb">daripada ${buku.length}</div></div></div><div class="g2" style="margin-bottom:12px"><div class="card"><div class="ct">📊 Koleksi Mengikut Kategori</div><canvas id="ch-l1" height="190"></canvas></div><div class="card"><div class="ct">🏆 10 Bahan Terpopular</div><div class="tw"><table><thead><tr><th>Judul</th><th>No. Panggilan</th><th>Kali</th></tr></thead><tbody>${buku.map(b=>({...b,jml:pin.filter(p=>String(p.buku_id)===String(b.id)).length})).sort((a,b)=>b.jml-a.jml).slice(0,10).map(b=>`<tr><td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.judul||'–'}</td><td class="mono">${b.no_panggilan||'–'}</td><td><strong>${b.jml}</strong></td></tr>`).join('')}</tbody></table></div></div></div>`;setTimeout(()=>{const dk=Object.keys(dSt).sort();const c=document.getElementById('ch-l1');if(c)_charts.l1=new Chart(c,{type:'bar',data:{labels:dk,datasets:[{data:dk.map(k=>dSt[k]),backgroundColor:['#10b981','#06b6d4','#f59e0b','#ef4444','#8b5cf6','#ec4899','#3b82f6','#f97316','#14b8a6','#6366f1','#a855f7'],borderRadius:5,borderSkipped:false}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true},x:{ticks:{font:{size:9},maxRotation:35}}}}})},80)}
 
 function pgLupusLegacy(){document.getElementById('content').innerHTML='<div class="al a-wa">Modul pelupusan lama telah digantikan.</div>'}
 function rowsLpBLegacy(){return''}
@@ -2825,7 +2965,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
 
   window.pgOpac=function(){
     const isPublic=window._mR==='opac';
-    document.getElementById('content').innerHTML=`<div class="card" style="background:linear-gradient(135deg,var(--eml),var(--cyl));border:1.5px solid rgba(16,185,129,.3);margin-bottom:12px"><div style="text-align:center;padding:8px 0"><div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px">${isPublic?'🔍 OPAC Awam SMARTLIB':'🔍 OPAC — Katalog Bahan Awam'}</div><div style="font-size:11px;color:var(--mu);margin-bottom:13px">${isPublic?'Cari bahan bacaan di Pusat Sumber Sekolah':'Cari dalam '+((D.buku||[]).length)+' bahan'}</div><div style="display:flex;gap:7px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center"><input class="opac-in" id="opac-q" type="search" placeholder="Judul, pengarang, ISBN, kata kunci..." style="flex:1;min-width:200px" oninput="runOpac()"><button class="btn b-em" onclick="runOpac()">Cari</button></div><div class="opac-cats" style="justify-content:center;margin-top:8px"><span class="ocat on" onclick="togOCat(this,'')">Semua</span><span class="ocat" onclick="togOCat(this,'F')">Fiksyen</span><span class="ocat" onclick="togOCat(this,'B')">Bukan Fiksyen</span>${Object.entries(DDC).map(([k,v])=>`<span class="ocat" onclick="togOCat(this,'${k}')">${v}</span>`).join('')}</div></div></div><div id="opac-result" style="color:var(--mu);text-align:center;padding:24px">Taip untuk mencari...</div>`;
+    document.getElementById('content').innerHTML=`<div class="card" style="background:linear-gradient(135deg,var(--eml),var(--cyl));border:1.5px solid rgba(16,185,129,.3);margin-bottom:12px"><div style="text-align:center;padding:8px 0"><div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px">${isPublic?'🔍 OPAC Awam SMARTLIB':'🔍 OPAC — Katalog Bahan Awam'}</div><div style="font-size:11px;color:var(--mu);margin-bottom:13px">${isPublic?'Cari bahan bacaan di Pusat Sumber Sekolah':'Cari dalam '+((D.buku||[]).length)+' bahan'}</div><div style="display:flex;gap:7px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center"><input class="opac-in" id="opac-q" type="search" placeholder="Judul, pengarang, ISBN, kata kunci..." style="flex:1;min-width:200px" oninput="runOpac()"><button class="btn b-em" onclick="runOpac()">Cari</button></div><div class="opac-cats" style="justify-content:center;margin-top:8px"><span class="ocat on" onclick="togOCat(this,'')">Semua</span>${Object.entries(DDC).map(([k,v])=>`<span class="ocat" onclick="togOCat(this,'${k}')">${v}</span>`).join('')}</div></div></div><div id="opac-result" style="color:var(--mu);text-align:center;padding:24px">Taip untuk mencari...</div>`;
     window.applyRoleUI();
   };
 
@@ -2846,13 +2986,13 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
         if(!res?.ok)throw new Error(res?.error||'Carian gagal');
         let rows=Array.isArray(res.data)?res.data:[];
         if(window._opacCF){
-          rows=rows.filter(b=>{const np=String(b.no_panggilan||'').trim().toUpperCase();if(window._opacCF==='F')return isFik(np);if(window._opacCF==='B')return !isFik(np);return np.charAt(0)===window._opacCF});
+          rows=rows.filter(b=>{const np=String(b.no_panggilan||'').trim().toUpperCase();return np.charAt(0)===window._opacCF});
         }
         renderOpacResults(rows);
       }catch(e){div.innerHTML=`<div class="al a-er">Carian OPAC gagal: ${e.message}</div>`}
       return;
     }
-    const f=(D.buku||[]).filter(b=>{const qm=!q||(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(window._opacCF==='F')km=isFik(np);else if(window._opacCF==='B')km=!isFik(np);else if(window._opacCF)km=np.charAt(0)===window._opacCF;return qm&&km});
+    const f=(D.buku||[]).filter(b=>{const qm=!q||(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')).toLowerCase().includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(window._opacCF)km=np.charAt(0)===window._opacCF;return qm&&km});
     renderOpacResults(f.map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return{no_panggilan:b.no_panggilan,judul:b.judul,pengarang:b.pengarang,penerbit:b.penerbit,tahun:b.tahun,isbn:b.isbn,cover_url:b.cover_url,cover_file_id:b.cover_file_id,thumbnail:b.thumbnail,status:sp?'dipinjam':(b.status||'')}}));
   };
 
@@ -3355,12 +3495,12 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
         const res=await apiGet({action:'opac_search',q:q});
         if(!res?.ok)throw new Error(res?.error||'Carian gagal');
         let rows=Array.isArray(res.data)?res.data:[];
-        if(window._opacCF){rows=rows.filter(b=>{const np=String(b.no_panggilan||'').trim().toUpperCase();if(window._opacCF==='F')return isFik(np);if(window._opacCF==='B')return !isFik(np);return np.charAt(0)===window._opacCF})}
+        if(window._opacCF){rows=rows.filter(b=>{const np=String(b.no_panggilan||'').trim().toUpperCase();return np.charAt(0)===window._opacCF})}
         renderOpacResults(rows);
       }catch(e){div.innerHTML=`<div class="al a-er">Carian OPAC gagal: ${e.message}</div>`}
       return;
     }
-    const f=(D.buku||[]).filter(b=>{if(isBukuDilupuskan(b))return false;const text=(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')+(b.no_perolehan||'')).toLowerCase();const qm=!q||text.includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(window._opacCF==='F')km=isFik(np);else if(window._opacCF==='B')km=!isFik(np);else if(window._opacCF)km=np.charAt(0)===window._opacCF;return qm&&km});
+    const f=(D.buku||[]).filter(b=>{if(isBukuDilupuskan(b))return false;const text=(b.judul+b.pengarang+(b.isbn||'')+(b.no_panggilan||'')+(b.no_perolehan||'')).toLowerCase();const qm=!q||text.includes(q);const np=String(b.no_panggilan||'').trim().toUpperCase();let km=true;if(window._opacCF)km=np.charAt(0)===window._opacCF;return qm&&km});
     renderOpacResults(f.map(b=>{const sp=(D.pinjaman||[]).some(p=>String(p.buku_id)===String(b.id)&&p.status==='pinjam');return{no_perolehan:b.no_perolehan,no_panggilan:b.no_panggilan,judul:b.judul,pengarang:b.pengarang,penerbit:b.penerbit,tahun:b.tahun,isbn:b.isbn,cover_url:b.cover_url,cover_file_id:b.cover_file_id,thumbnail:b.thumbnail,status:sp?'dipinjam':(b.status||'')}}));
   };
 })();
@@ -3805,7 +3945,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
     }catch(e){if(st)st.innerHTML=`<div class="al a-wa">No. Perolehan belum dapat dimuat. Cuba semula.</div>`}
   }
   const oldPgDaftar=window.pgDaftar;
-  window.pgDaftar=function(){oldPgDaftar.apply(this,arguments);const nop=$('db-nop');if(nop)nop.value='';setNextAccession();setTimeout(()=>$('db-isbn')?.focus(),80)};
+  window.pgDaftar=function(){window._smartlibDdcTouched=false;window._lastIsbnMetadata=null;oldPgDaftar.apply(this,arguments);const nop=$('db-nop');if(nop)nop.value='';const sug=$('ddc-suggest');if(sug)sug.innerHTML='';setNextAccession();setTimeout(()=>$('db-isbn')?.focus(),80)};
   window.debGB=debounce(function(){cariGB()},450);
   window.cariGB=async function(){
     const isbn=($('db-isbn')?.value||'').replace(/[-\s]/g,'').trim();
@@ -3816,6 +3956,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
       const res=await api({action:'isbn_lookup',isbn},1);
       if(!res?.ok||!res.data?.jumpa){if(st)st.textContent='Maklumat ISBN tidak ditemui. Isi manual.';toast('Maklumat ISBN tidak ditemui. Sila isi secara manual.','wa');return}
       const b=res.data;
+      window._lastIsbnMetadata=b;
       if(chk?.ok&&chk.data.exists){
         const hasil=$('isbn-hasil');
         if(hasil)hasil.innerHTML=`<div class="al a-in">ISBN ini sudah ada: <strong>${esc(chk.data.first?.judul||b.judul||'-')}</strong><br>${chk.data.count} salinan direkodkan. Metadata sedia ada digunakan untuk salinan baru.</div>`;
@@ -3823,7 +3964,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
       [['db-jdl','judul'],['db-pgr','pengarang'],['db-pnb','penerbit'],['db-thn','tahun'],['db-muka','muka_surat']].forEach(([id,k])=>{const e=$(id);if(e&&b[k]&&!e.value)e.value=b[k]});
       if(b.cover_url||b.thumbnail){currentBookCoverUrl=normalizeDriveImageUrl(b.cover_url||b.thumbnail);currentBookCoverBase64='';currentBookCoverFileId='';if(typeof previewBookCover==='function')previewBookCover(currentBookCoverUrl)}
       if(st)st.textContent='Maklumat ISBN dijumpai.';
-      autoNP();
+      if(typeof runAutoDDC==='function')runAutoDDC(false);else autoNP();
     }catch(e){if(st)st.textContent='Gagal cari ISBN. Isi manual.';toast('Gagal cari ISBN. Pendaftaran masih boleh diteruskan.','wa')}
   };
   window.simpanBB=async function(){
@@ -3865,7 +4006,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
     }catch(e){if(e.name!=='AbortError')toast('Gagal carian buku: '+e.message,'er');return null}
   }
   window.pgPerolehan=function(){
-    $('content').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:12px"><div style="display:flex;gap:7px;flex-wrap:wrap"><input type="search" id="src-b" placeholder="Cari judul, no. panggilan, ISBN..." style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;width:220px;background:var(--inp);color:var(--tx)" oninput="filtB()"><select id="flt-k" onchange="filtB()" style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;background:var(--inp);color:var(--tx)"><option value="">Semua</option><option value="F">Fiksyen</option><option value="B">Bukan Fiksyen</option>${Object.entries(DDC).map(([k,v])=>`<option value="${k}">${k}xx ${v}</option>`).join('')}</select></div><button class="btn b-em b-sm" onclick="nav('daftar')">+ Daftar Bahan</button></div><div class="card"><div class="tw"><table><thead><tr><th>Cover</th><th>No. Perol.</th><th>No. Panggilan</th><th>Judul</th><th>Pengarang</th><th>Tahun</th><th>Status</th><th>Harga</th><th>Tindakan</th></tr></thead><tbody id="tbody-b">${smallLoader('Memuat rekod buku...')}</tbody></table></div><div id="b-info" style="margin-top:7px;font-size:10px;color:var(--mu)"></div><div class="pgb" id="b-pgb"></div></div>`;
+    $('content').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:12px"><div style="display:flex;gap:7px;flex-wrap:wrap"><input type="search" id="src-b" placeholder="Cari judul, no. panggilan, ISBN..." style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;width:220px;background:var(--inp);color:var(--tx)" oninput="filtB()"><select id="flt-k" onchange="filtB()" style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;background:var(--inp);color:var(--tx)"><option value="">Semua</option>${Object.entries(DDC).map(([k,v])=>`<option value="${k}">${k}xx ${v}</option>`).join('')}</select></div><button class="btn b-em b-sm" onclick="nav('daftar')">+ Daftar Bahan</button></div><div class="card"><div class="tw"><table><thead><tr><th>Cover</th><th>No. Perol.</th><th>No. Panggilan</th><th>Judul</th><th>Pengarang</th><th>Tahun</th><th>Status</th><th>Harga</th><th>Tindakan</th></tr></thead><tbody id="tbody-b">${smallLoader('Memuat rekod buku...')}</tbody></table></div><div id="b-info" style="margin-top:7px;font-size:10px;color:var(--mu)"></div><div class="pgb" id="b-pgb"></div></div>`;
     loadBooks({page:1,q:'',category:''});
   };
   window.filtB=debounce(()=>loadBooks({page:1,q:($('src-b')?.value||'').trim(),category:$('flt-k')?.value||''}),350);
@@ -3923,7 +4064,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
 
   window.pgOpac=function(){
     const isPublic=window._mR==='opac';
-    $('content').innerHTML=`<div class="card" style="background:linear-gradient(135deg,var(--eml),var(--cyl));border:1.5px solid rgba(16,185,129,.3);margin-bottom:12px"><div style="text-align:center;padding:8px 0"><div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px">${isPublic?'🔍 OPAC Awam SMARTLIB':'🔍 OPAC — Katalog Bahan Awam'}</div><div style="font-size:11px;color:var(--mu);margin-bottom:13px">Server-side search + pagination</div><div style="display:flex;gap:7px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center"><input class="opac-in" id="opac-q" type="search" placeholder="Judul, pengarang, ISBN, kata kunci..." style="flex:1;min-width:200px" oninput="runOpac()"><button class="btn b-em" onclick="runOpac()">Cari</button></div><div class="opac-cats" style="justify-content:center;margin-top:8px"><span class="ocat on" onclick="togOCat(this,'')">Semua</span><span class="ocat" onclick="togOCat(this,'F')">Fiksyen</span><span class="ocat" onclick="togOCat(this,'B')">Bukan Fiksyen</span>${Object.entries(DDC).map(([k,v])=>`<span class="ocat" onclick="togOCat(this,'${k}')">${v}</span>`).join('')}</div></div></div><div id="opac-result" style="color:var(--mu);text-align:center;padding:24px">Taip untuk mencari...</div>`;
+    $('content').innerHTML=`<div class="card" style="background:linear-gradient(135deg,var(--eml),var(--cyl));border:1.5px solid rgba(16,185,129,.3);margin-bottom:12px"><div style="text-align:center;padding:8px 0"><div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px">${isPublic?'🔍 OPAC Awam SMARTLIB':'🔍 OPAC — Katalog Bahan Awam'}</div><div style="font-size:11px;color:var(--mu);margin-bottom:13px">Server-side search + pagination</div><div style="display:flex;gap:7px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center"><input class="opac-in" id="opac-q" type="search" placeholder="Judul, pengarang, ISBN, kata kunci..." style="flex:1;min-width:200px" oninput="runOpac()"><button class="btn b-em" onclick="runOpac()">Cari</button></div><div class="opac-cats" style="justify-content:center;margin-top:8px"><span class="ocat on" onclick="togOCat(this,'')">Semua</span>${Object.entries(DDC).map(([k,v])=>`<span class="ocat" onclick="togOCat(this,'${k}')">${v}</span>`).join('')}</div></div></div><div id="opac-result" style="color:var(--mu);text-align:center;padding:24px">Taip untuk mencari...</div>`;
   };
   window.runOpac=debounce(()=>loadOpac({page:1,q:($('opac-q')?.value||'').trim(),category:window._opacCF||''}),350);
   window.togOCat=function(el,k){document.querySelectorAll('.ocat').forEach(c=>c.classList.remove('on'));el.classList.add('on');window._opacCF=k;loadOpac({page:1,q:($('opac-q')?.value||'').trim(),category:k})};
