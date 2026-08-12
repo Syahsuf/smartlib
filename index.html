@@ -3683,7 +3683,23 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
     }
   };
   const oldNav=window.nav;
+  function bukaLaluanTempahanAwam(){
+    window._pg='tempahan';
+    try{killCh()}catch(e){}
+    if(window._sq){try{window._sq.stop().catch(()=>{})}catch(e){}}
+    window._sq=null;
+    if(typeof stopBarcodeScanner==='function'&&typeof smartlibScannerRunning!=='undefined'&&smartlibScannerRunning)stopBarcodeScanner();
+    document.querySelectorAll('.sbi').forEach(el=>el.classList.toggle('on',el.getAttribute('onclick')==="nav('tempahan')"));
+    const ttl=$('tb-ttl');if(ttl)ttl.textContent='Tempahan';
+    const ic=$('tb-ic');if(ic)ic.textContent='🔖';
+    const sub=$('tb-sub');if(sub)sub.textContent=new Date().toLocaleDateString('ms-MY',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    const c=$('content');if(c)c.innerHTML='';
+    if(window.innerWidth<=640&&typeof closeSidebar==='function')closeSidebar();
+    if(typeof window.applyRoleUI==='function')window.applyRoleUI();
+    return pgTempahanAwam();
+  }
   window.nav=function(p){
+    if(window._mR==='opac' && p==='tempahan')return bukaLaluanTempahanAwam();
     if(window._mR==='opac' && !['opac','tempahan'].includes(p)){
       toast('OPAC Awam hanya untuk OPAC dan Tempahan PSS.','wa');p='opac';
     }
@@ -3697,7 +3713,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
     const tabs=document.querySelector('.l-tabs');
     if(tabs)tabs.insertAdjacentHTML('beforeend',`<button class="ltab" id="login-tempahan-btn" onclick="bukaTempahanAwam()">🔖 Tempahan PSS</button>`);
   }
-  window.bukaTempahanAwam=function(){window._tok=null;window._me={id:'public-reservation',nama:'Awam',peranan:'opac'};window._mR='opac';const lw=$('lw');if(lw)lw.style.display='none';window.nav('tempahan')};
+  window.bukaTempahanAwam=function(){window._tok=null;window._me={id:'public-reservation',nama:'Awam',peranan:'opac'};window._mR='opac';const lw=$('lw');if(lw)lw.style.display='none';return bukaLaluanTempahanAwam()};
   document.addEventListener('DOMContentLoaded',()=>setTimeout(patchLoginTempahan,0),{once:true});
   const oldShowLogin=window.showLogin;
   window.showLogin=function(){if(typeof oldShowLogin==='function')oldShowLogin();setTimeout(patchLoginTempahan,0)};
