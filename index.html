@@ -2133,7 +2133,7 @@ function rowsLpBLegacy(){return''}
 function filtLpBLegacy(){}
 async function prosesLupusLegacy(){return false}
 
-let _lpTab='cadang',_lpPicked=null,_lpStatusFilter='semua',_arkib9Html='';
+let _lpTab='cadang',_lpPicked=null,_lpStatusFilter='semua',_arkib9Html='',_lpSearchTimer=null,_lpSearchSeq=0,_lpSearchResults=[];
 const LP_STATUS_AKTIF=['Untuk Semakan','Disyorkan Lupus','Diluluskan Untuk Pelupusan'];
 const LP_STATUS_BORANG=['Untuk Semakan','Disyorkan Lupus','Diluluskan Untuk Pelupusan'];
 
@@ -2181,6 +2181,7 @@ function pgLupus(){
     ${modalSahkanLupusHtml()}
     ${modalArkib9Html()}`;
   renderLpPanel();
+  loadDisposalData(false).then(()=>{if(_pg==='lupus'&&_lpTab!=='cadang')renderLpPanel()}).catch(()=>{});
 }
 function lpTab(tab,btn){
   const acc=aksesPelupusan();
@@ -2189,6 +2190,18 @@ function lpTab(tab,btn){
   document.querySelectorAll('#lp-tabs .tab').forEach(x=>x.classList.toggle('on',x===btn));
   renderLpPanel();
 }
+async function loadDisposalData(showError=true){
+  try{
+    const res=await api({action:'get_disposal_data'},0);
+    if(!res?.ok)throw new Error(res?.error||'Gagal memuat data pelupusan.');
+    D.bahan_usang_rosak=res.data.bahan_usang_rosak||[];
+    D.pelupusan=res.data.pelupusan||[];
+    return true;
+  }catch(e){
+    if(showError)toast(e.message||'Gagal memuat data pelupusan.','er');
+    return false;
+  }
+}
 function renderLpPanel(){
   const p=document.getElementById('lp-panel');if(!p)return;
   if(_lpTab==='senarai')p.innerHTML=panelSenaraiUsang();
@@ -2196,14 +2209,15 @@ function renderLpPanel(){
   else p.innerHTML=panelCadangUsang();
 }
 function bukuAktifPelupusan(){
-  return(D.buku||[]).filter(b=>String(b.status||'').trim().toLowerCase()!=='dilupuskan');
+  return [];
 }
 function panelCadangUsang(){
   return`<div class="g2">
     <div class="card">
       <div class="ct">Cari Bahan daripada Rekod Perolehan</div>
       <input type="search" id="lp-book-q" placeholder="No. perolehan, no. panggilan, judul, pengarang atau ISBN" oninput="filtCadangUsang()" style="width:100%;padding:8px 10px;border:1.5px solid var(--bd);border-radius:var(--rs);background:var(--inp);color:var(--tx);font-family:var(--fn)">
-      <div class="tw" style="max-height:330px;overflow:auto;margin-top:9px"><table><thead><tr><th>No.</th><th>No. Panggilan</th><th>Judul</th><th>Status</th><th></th></tr></thead><tbody id="lp-book-list">${rowsCadangUsang(bukuAktifPelupusan().slice(0,80))}</tbody></table></div>
+      <div id="lp-book-info" style="font-size:10.5px;color:var(--mu);margin-top:7px">Taip sekurang-kurangnya 2 aksara untuk mencari.</div>
+      <div class="tw" style="max-height:330px;overflow:auto;margin-top:9px"><table><thead><tr><th>No.</th><th>No. Panggilan</th><th>Judul</th><th>Status</th><th></th></tr></thead><tbody id="lp-book-list"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--mu)">Taip sekurang-kurangnya 2 aksara untuk mencari.</td></tr></tbody></table></div>
     </div>
     <div class="card">
       <div class="ct">Maklumat Cadangan</div>
@@ -2220,19 +2234,64 @@ function rowsCadangUsang(rows){
   const usang=D.bahan_usang_rosak||[];
   return rows.map(b=>{
     const aktif=usang.find(r=>String(r.buku_id)===String(b.id)&&LP_STATUS_AKTIF.includes(r.status));
-    return`<tr><td><span class="bdg bg-cy">${escapeHtml(b.no_perolehan||'–')}</span></td><td class="no-panggilan">${escapeHtml(b.no_panggilan||'–')}</td><td style="max-width:190px"><strong>${escapeHtml(b.judul||'–')}</strong><div style="font-size:9.5px;color:var(--mu)">${escapeHtml(b.pengarang||'–')}</div></td><td>${aktif?lpBadge(aktif.status):'<span class="bdg bg-sl">Aktif</span>'}</td><td><button class="btn b-gh b-xs" ${aktif?'disabled':''} onclick="pilihBukuUsang('${String(b.id).replace(/'/g,"\\'")}')">Pilih</button></td></tr>`;
+    const statusCadangan=b.disposal_status||(aktif&&aktif.status)||'';
+    const locked=!!statusCadangan||b.disposal_locked;
+    const dipinjam=['pinjam','dipinjam'].includes(String(b.status||'').toLowerCase());
+    const statusHtml=locked?lpBadge(statusCadangan):(dipinjam?'<span class="bdg bg-am">Sedang Dipinjam</span>':'<span class="bdg bg-sl">Aktif</span>');
+    const safeId=String(b.id||'').replace(/'/g,"\\'");
+    return`<tr ${locked?'':`onclick="pilihBukuUsang('${safeId}')" style="cursor:pointer"`}><td><span class="bdg bg-cy">${escapeHtml(b.no_perolehan||'–')}</span></td><td class="no-panggilan">${escapeHtml(b.no_panggilan||'–')}</td><td style="max-width:190px"><strong>${escapeHtml(b.judul||'–')}</strong><div style="font-size:9.5px;color:var(--mu)">${escapeHtml(b.pengarang||'–')}</div></td><td>${statusHtml}</td><td><button class="btn b-gh b-xs" ${locked?'disabled':''} onclick="event.stopPropagation();pilihBukuUsang('${safeId}')">Pilih</button></td></tr>`;
   }).join('');
 }
 function filtCadangUsang(){
-  const q=String(document.getElementById('lp-book-q')?.value||'').toLowerCase().trim();
-  const rows=bukuAktifPelupusan().filter(b=>String([b.no_perolehan,b.no_panggilan,b.judul,b.pengarang,b.isbn].join(' ')).toLowerCase().includes(q)).slice(0,100);
-  const body=document.getElementById('lp-book-list');if(body)body.innerHTML=rowsCadangUsang(rows);
+  const q=String(document.getElementById('lp-book-q')?.value||'').trim().toLowerCase();
+  clearTimeout(_lpSearchTimer);
+  const body=document.getElementById('lp-book-list'),info=document.getElementById('lp-book-info');
+  if(q.length<2){
+    _lpSearchSeq++;
+    _lpSearchResults=[];
+    if(info)info.textContent='Taip sekurang-kurangnya 2 aksara untuk mencari.';
+    if(body)body.innerHTML='<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--mu)">Taip sekurang-kurangnya 2 aksara untuk mencari.</td></tr>';
+    return;
+  }
+  _lpSearchTimer=setTimeout(()=>searchDisposalBooks(q),350);
 }
-function pilihBukuUsang(id){
-  _lpPicked=(D.buku||[]).find(b=>String(b.id)===String(id))||null;
-  const box=document.getElementById('lp-picked');if(!box||!_lpPicked)return;
+async function searchDisposalBooks(q){
+  const seq=++_lpSearchSeq;
+  const body=document.getElementById('lp-book-list'),info=document.getElementById('lp-book-info');
+  if(info)info.textContent='Mencari bahan...';
+  if(body)body.innerHTML='<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--mu)">Mencari bahan...</td></tr>';
+  try{
+    const res=await apiGet({action:'search_books',query:q,page:1,limit:20,context:'disposal',loan_status:1},0,'disposal-books');
+    if(seq!==_lpSearchSeq)return;
+    if(!res?.ok)throw new Error(res?.error||'Carian bahan gagal.');
+    const rows=res.data.items||[];
+    _lpSearchResults=rows;
+    if(info)info.textContent=rows.length?`${rows.length} bahan dijumpai`:'Tiada bahan dijumpai.';
+    if(body)body.innerHTML=rowsCadangUsang(rows);
+  }catch(e){
+    if(e.name==='AbortError')return;
+    if(seq!==_lpSearchSeq)return;
+    if(info)info.textContent='Carian gagal. Cuba semula.';
+    if(body)body.innerHTML=`<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--red)">${escapeHtml(e.message||'Carian gagal.')}</td></tr>`;
+  }
+}
+async function pilihBukuUsang(id){
+  let picked=_lpSearchResults.find(b=>String(b.id)===String(id))||null;
+  if(!picked){
+    try{
+      const res=await api({action:'get_book',id},0);
+      if(res?.ok)picked=res.data;
+    }catch(e){}
+  }
+  if(!picked){toast('Rekod buku tidak dijumpai.','er');return}
+  const statusCadangan=picked.disposal_status||(D.bahan_usang_rosak||[]).find(r=>String(r.buku_id)===String(picked.id)&&LP_STATUS_AKTIF.includes(r.status))?.status||'';
+  if(statusCadangan){toast('Bahan ini telah berada dalam Senarai Bahan Usang / Rosak.','wa');return}
+  if(['dilupuskan','pelupusan','deleted'].includes(String(picked.status||'').toLowerCase())){toast('Bahan ini telah dilupuskan.','er');return}
+  _lpPicked=picked;
+  const box=document.getElementById('lp-picked');if(!box)return;
+  const dipinjam=['pinjam','dipinjam'].includes(String(_lpPicked.status||'').toLowerCase());
   box.style.display='block';
-  box.innerHTML=`<strong>${escapeHtml(_lpPicked.judul||'–')}</strong><div style="font-size:10.5px;color:var(--mu);margin-top:3px">No. Perolehan: ${escapeHtml(_lpPicked.no_perolehan||'–')} · No. Panggilan: ${escapeHtml(_lpPicked.no_panggilan||'–')}</div>`;
+  box.innerHTML=`<strong>${escapeHtml(_lpPicked.judul||'–')}</strong><div style="font-size:10.5px;color:var(--mu);margin-top:3px">No. Perolehan: ${escapeHtml(_lpPicked.no_perolehan||'–')} · No. Panggilan: ${escapeHtml(_lpPicked.no_panggilan||'–')}${dipinjam?' · Sedang Dipinjam':''}</div>`;
 }
 async function simpanCadanganUsang(){
   if(!_lpPicked){toast('Sila pilih bahan daripada Rekod Perolehan.','er');return}
@@ -2244,7 +2303,7 @@ async function simpanCadanganUsang(){
   try{
     const r=await api({action:'cadang_bahan_usang',data});
     if(!r?.ok)throw new Error(r?.error||'Gagal menyimpan cadangan.');
-    await muatSemua(true);_lpPicked=null;pgLupus();
+    await loadDisposalData();_lpPicked=null;renderLpPanel();
     toast('Bahan dimasukkan ke Senarai Usang / Rosak untuk semakan.','ok');
   }catch(e){toast(e.message||'Gagal menyimpan cadangan.','er')}
 }
@@ -2281,17 +2340,17 @@ function openEditUsang(id){
 async function simpanEditUsang(){
   const id=document.getElementById('le-id').value,r=(D.bahan_usang_rosak||[]).find(x=>String(x.id)===String(id));if(!r)return;
   const data={keadaan_bahan:document.getElementById('le-keadaan').value,sebab_dicadang:document.getElementById('le-sebab').value.trim(),catatan_semakan:document.getElementById('le-catatan').value.trim(),disemak_oleh:_me?.nama||'Pentadbir'};
-  const res=await api({action:'status_bahan_usang',id,status:r.status,data});if(!res?.ok){toast(res?.error||'Gagal kemas kini.','er');return}closeM('m-edit-usang');await muatSemua(true);renderLpPanel();toast('Semakan dikemas kini.','ok');
+  const res=await api({action:'status_bahan_usang',id,status:r.status,data});if(!res?.ok){toast(res?.error||'Gagal kemas kini.','er');return}closeM('m-edit-usang');await loadDisposalData();renderLpPanel();toast('Semakan dikemas kini.','ok');
 }
 async function ubahStatusUsang(id,status){
   const mesej=status==='Diluluskan Untuk Pelupusan'?'Luluskan bahan ini untuk proses pelupusan?':`Tukar status kepada ${status}?`;
   if(!confirm(mesej))return;
   const r=await api({action:'status_bahan_usang',id,status,data:{tarikh_semak:today(),disemak_oleh:_me?.nama||'Pentadbir'}});
-  if(!r?.ok){toast(r?.error||'Gagal mengemas kini status.','er');return}await muatSemua(true);renderLpPanel();toast(status==='Diluluskan Untuk Pelupusan'?'Bahan diluluskan untuk proses pelupusan.':'Status dikemas kini.','ok');
+  if(!r?.ok){toast(r?.error||'Gagal mengemas kini status.','er');return}await loadDisposalData();renderLpPanel();toast(status==='Diluluskan Untuk Pelupusan'?'Bahan diluluskan untuk proses pelupusan.':'Status dikemas kini.','ok');
 }
 async function padamCadanganUsang(id){
   if(!confirm('Padam cadangan ini? Rekod buku asal tidak akan dipadam.'))return;
-  const r=await api({action:'padam',sheet:'bahan_usang_rosak',id});if(!r?.ok){toast(r?.error||'Gagal padam cadangan.','er');return}await muatSemua(true);renderLpPanel();toast('Cadangan dipadam.','ok');
+  const r=await api({action:'padam',sheet:'bahan_usang_rosak',id});if(!r?.ok){toast(r?.error||'Gagal padam cadangan.','er');return}await loadDisposalData();renderLpPanel();toast('Cadangan dipadam.','ok');
 }
 function modalSahkanLupusHtml(){
   return`<div class="mbg" id="m-sah-lupus"><div class="modal"><div class="m-hdr"><h3>Sahkan Dilupuskan</h3><button class="m-x" onclick="closeM('m-sah-lupus')">✕</button></div><input type="hidden" id="ls-id"><div class="al a-wa">Pengesahan ini akan mencipta Rekod Pelupusan dan menukar status buku asal kepada Dilupuskan. Buku asal tidak dipadam.</div><div class="fr c2"><div class="fg"><label>Tarikh Lupus *</label><input type="date" id="ls-tarikh" value="${today()}"></div><div class="fg"><label>Kaedah Pelupusan *</label><select id="ls-kaedah"><option>Musnah</option><option>Jualan Sisa</option><option>Derma</option><option>Pindahan</option><option>Lain-lain</option></select></div></div><div class="fg"><label>No. Rujukan / Surat Kelulusan</label><input id="ls-rujukan"></div><div class="fg"><label>Pegawai Bertanggungjawab *</label><input id="ls-pegawai"></div><div class="fg"><label>Catatan Akhir</label><textarea id="ls-catatan" rows="3"></textarea></div><div class="m-ft"><button class="btn b-gh" onclick="closeM('m-sah-lupus')">Batal</button><button class="btn b-re" onclick="sahkanPelupusanAkhir()">Sahkan Dilupuskan</button></div></div></div>`;
@@ -2301,7 +2360,7 @@ async function sahkanPelupusanAkhir(){
   const id=document.getElementById('ls-id').value,pegawai=document.getElementById('ls-pegawai').value.trim();if(!pegawai){toast('Sila isi pegawai bertanggungjawab.','er');return}
   if(!confirm('Sahkan bahan ini telah dilupuskan?'))return;
   const data={tarikh_lupus:document.getElementById('ls-tarikh').value||today(),kaedah:document.getElementById('ls-kaedah').value,no_rujukan:document.getElementById('ls-rujukan').value.trim(),pegawai,catatan:document.getElementById('ls-catatan').value.trim(),dilupus_oleh:_me?.nama||'Pentadbir'};
-  const r=await api({action:'sahkan_pelupusan',id,data});if(!r?.ok){toast(r?.error||'Gagal mengesahkan pelupusan.','er');return}closeM('m-sah-lupus');await muatSemua(true);renderLpPanel();toast('Bahan telah disahkan dilupuskan dan direkodkan.','ok');
+  const r=await api({action:'sahkan_pelupusan',id,data});if(!r?.ok){toast(r?.error||'Gagal mengesahkan pelupusan.','er');return}closeM('m-sah-lupus');await loadDisposalData();renderLpPanel();toast('Bahan telah disahkan dilupuskan dan direkodkan.','ok');
 }
 function csvDownload(name,headers,rows){
   const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
@@ -4162,7 +4221,7 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
     const old=window[name];if(typeof old!=='function')return;
     window[name]=function(){const args=arguments;$('content').innerHTML=`<div class="card">${smallLoader('Memuat data '+label+'...')}</div>`;ensureFullData().then(()=>old.apply(this,args)).catch(e=>{$('content').innerHTML=`<div class="al a-er">${esc(e.message)}</div>`})};
   }
-  ['pgKad','pgLabel','pgLaporan','pgLupus'].forEach(n=>wrapFullDataPage(n,n.replace('pg','')));
+  ['pgKad','pgLabel','pgLaporan'].forEach(n=>wrapFullDataPage(n,n.replace('pg','')));
   const oldBukaTV=window.bukaTVMode;if(typeof oldBukaTV==='function')window.bukaTVMode=function(){ensureFullData().then(()=>oldBukaTV()).catch(e=>toast(e.message,'er'))};
   const oldScanProcess=window.prosesISBNAtauBarcode;
   window.prosesISBNAtauBarcode=async function(code){
