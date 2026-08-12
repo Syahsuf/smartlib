@@ -3995,9 +3995,10 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
 
   async function loadBooks(opts={}){
     const page=opts.page||1,q=opts.q??state.books.q,category=opts.category??state.books.category,limit=opts.limit||state.books.limit;
-    const box=$('tbody-b');if(box)box.innerHTML=`<tr><td colspan="9">${smallLoader('Memuat rekod buku...')}</td></tr>`;
+    const box=$('tbody-b'),adaCache=state.books.items?.length&&page===state.books.page&&q===state.books.q&&category===state.books.category;
+    if(box&&!adaCache)box.innerHTML=`<tr><td colspan="9">${smallLoader('Memuat rekod buku...')}</td></tr>`;
     try{
-      const res=await apiGet({action:'search_books',page,limit,q,category,include_disposed:1},1,'books');
+      const res=await apiGet({action:'search_books',page,limit,q,category,include_disposed:1,loan_status:0},1,'books');
       if(!res?.ok)throw new Error(res?.error||'Gagal memuat buku');
       Object.assign(state.books,{items:res.data.items||[],page:res.data.page,limit:res.data.limit,total:res.data.total,totalPages:res.data.totalPages,q,category});
       D.buku=state.books.items;
@@ -4006,7 +4007,8 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
     }catch(e){if(e.name!=='AbortError')toast('Gagal carian buku: '+e.message,'er');return null}
   }
   window.pgPerolehan=function(){
-    $('content').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:12px"><div style="display:flex;gap:7px;flex-wrap:wrap"><input type="search" id="src-b" placeholder="Cari judul, no. panggilan, ISBN..." style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;width:220px;background:var(--inp);color:var(--tx)" oninput="filtB()"><select id="flt-k" onchange="filtB()" style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;background:var(--inp);color:var(--tx)"><option value="">Semua</option>${Object.entries(DDC).map(([k,v])=>`<option value="${k}">${k}xx ${v}</option>`).join('')}</select></div><button class="btn b-em b-sm" onclick="nav('daftar')">+ Daftar Bahan</button></div><div class="card"><div class="tw"><table><thead><tr><th>Cover</th><th>No. Perol.</th><th>No. Panggilan</th><th>Judul</th><th>Pengarang</th><th>Tahun</th><th>Status</th><th>Harga</th><th>Tindakan</th></tr></thead><tbody id="tbody-b">${smallLoader('Memuat rekod buku...')}</tbody></table></div><div id="b-info" style="margin-top:7px;font-size:10px;color:var(--mu)"></div><div class="pgb" id="b-pgb"></div></div>`;
+    $('content').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:12px"><div style="display:flex;gap:7px;flex-wrap:wrap"><input type="search" id="src-b" placeholder="Cari judul, no. panggilan, ISBN..." style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;width:220px;background:var(--inp);color:var(--tx)" oninput="filtB()"><select id="flt-k" onchange="filtB()" style="padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:11.5px;background:var(--inp);color:var(--tx)"><option value="">Semua</option>${Object.entries(DDC).map(([k,v])=>`<option value="${k}">${k}xx ${v}</option>`).join('')}</select></div><button class="btn b-em b-sm" onclick="nav('daftar')">+ Daftar Bahan</button></div><div class="card"><div class="tw"><table><thead><tr><th>Cover</th><th>No. Perol.</th><th>No. Panggilan</th><th>Judul</th><th>Pengarang</th><th>Tahun</th><th>Status</th><th>Harga</th><th>Tindakan</th></tr></thead><tbody id="tbody-b"><tr><td colspan="9">${smallLoader('Memuat rekod buku...')}</td></tr></tbody></table></div><div id="b-info" style="margin-top:7px;font-size:10px;color:var(--mu)"></div><div class="pgb" id="b-pgb"></div></div>`;
+    if(state.books.items?.length&&state.books.q===''&&state.books.category==='')renderBookPage();
     loadBooks({page:1,q:'',category:''});
   };
   window.filtB=debounce(()=>loadBooks({page:1,q:($('src-b')?.value||'').trim(),category:$('flt-k')?.value||''}),350);
