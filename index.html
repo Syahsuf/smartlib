@@ -296,8 +296,8 @@ body.dk .bg-re{background:#3b0a0a;color:#fca5a5}body.dk .bg-am{background:#3d1a0
 .member-card-name,.kad-nama{background:#fff;color:#111827;font-size:8.5pt;font-weight:800;border-radius:8px;padding:5px 7px;line-height:1.15;margin-bottom:5px;min-height:27px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
 .member-card-meta,.kad-info{font-size:5.8pt;line-height:1.25;color:#0f172a;font-weight:700}
 .kad-email{font-size:5.2pt;font-weight:600;line-height:1.15;word-break:break-all;max-width:100%;opacity:.95;text-align:center}
-.member-card-footer{background:#fff;padding:5px 7px 7px;text-align:center}
-.member-card-barcode{width:100%;height:30px;display:block}
+.member-card-footer{background:#fff;padding:4px 7px 6px;text-align:center}
+.member-card-barcode{width:100%;height:38px;display:block;background:#fff}
 .member-card-code{margin-top:2px;font-size:6pt;font-weight:700;color:#111;font-family:var(--mono)}
 .member-card-copy{margin-top:3px;font-size:5.5px;color:#64748b}
 #scan-reader,#register-isbn-reader,#pinjam-scan-reader{width:100%;min-height:320px;background:#000;border-radius:16px;overflow:hidden;position:relative}
@@ -960,7 +960,7 @@ function printUsingIframe(title,bodyHtml,extraCss=''){
   doc.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${title}</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js"><\/script>
 <style>*{box-sizing:border-box}body{margin:0;background:#fff;font-family:Arial,sans-serif}@page{size:A4;margin:${cfg.pad}}${cfg.css||''}</style></head><body>${bodyHtml}
-<script>window.addEventListener('load',function(){setTimeout(function(){document.querySelectorAll('[data-bc],[data-barcode]').forEach(function(el){try{var code=el.getAttribute('data-barcode')||el.getAttribute('data-bc');JsBarcode(el,code,{format:'CODE128',width:1.4,height:34,displayValue:false,margin:0})}catch(e){console.error(e)}});setTimeout(function(){window.focus();window.print()},700)},500)});<\/script>
+<script>window.addEventListener('load',function(){setTimeout(function(){document.querySelectorAll('[data-bc],[data-barcode]').forEach(function(el){try{var code=el.getAttribute('data-barcode')||el.getAttribute('data-bc');var member=el.classList.contains('member-card-barcode');JsBarcode(el,code,member?{format:'CODE128',width:1.5,height:38,displayValue:false,margin:8,background:'#ffffff',lineColor:'#000000'}:{format:'CODE128',width:1.4,height:34,displayValue:false,margin:0})}catch(e){console.error(e)}});setTimeout(function(){window.focus();window.print()},700)},500)});<\/script>
 </body></html>`);
   doc.close();
 }
@@ -974,7 +974,7 @@ function openPrintWindow(title,bodyHtml,extraCss=''){
 <style>*{box-sizing:border-box}body{margin:0;background:#fff;font-family:Arial,sans-serif}.ptb{position:fixed;top:0;left:0;right:0;background:#064e3b;color:#fff;padding:8px 14px;z-index:9999;font-size:12px}.pbtn{margin-left:8px;padding:5px 12px;border:0;border-radius:6px;color:#fff;font-weight:bold;cursor:pointer}.p-g{background:#10b981}.p-gr{background:#334155}.pc{padding:${cfg.pad};padding-top:42px}@page{size:A4;margin:${cfg.pad}}@media print{.ptb{display:none!important}.pc{padding:${cfg.pad};padding-top:0}body{background:#fff}}${cfg.css||''}</style></head><body>
 <div class="ptb"><span>SMARTLIB Print Preview</span><button class="pbtn p-g" onclick="window.print()">Print</button><button class="pbtn p-gr" onclick="window.close()">Tutup</button></div>
 <main class="pc">${bodyHtml}</main>
-<script>window.addEventListener('load',function(){setTimeout(function(){document.querySelectorAll('[data-bc],[data-barcode]').forEach(function(el){try{var code=el.getAttribute('data-barcode')||el.getAttribute('data-bc');JsBarcode(el,code,{format:'CODE128',width:1.4,height:34,displayValue:false,margin:0})}catch(e){console.error(e)}});setTimeout(function(){window.focus();window.print()},700)},500)});<\/script>
+<script>window.addEventListener('load',function(){setTimeout(function(){document.querySelectorAll('[data-bc],[data-barcode]').forEach(function(el){try{var code=el.getAttribute('data-barcode')||el.getAttribute('data-bc');var member=el.classList.contains('member-card-barcode');JsBarcode(el,code,member?{format:'CODE128',width:1.5,height:38,displayValue:false,margin:8,background:'#ffffff',lineColor:'#000000'}:{format:'CODE128',width:1.4,height:34,displayValue:false,margin:0})}catch(e){console.error(e)}});setTimeout(function(){window.focus();window.print()},700)},500)});<\/script>
 </body></html>`);
   printWindow.document.close();
   return printWindow;
@@ -1934,19 +1934,27 @@ function cariAhliLoginKad(noAhli,passIC){
 function genKadHTML(a,jenis,sch,sah){
   return genKadPrintHTML(a,jenis,sch,sah,true);
 }
+function getBarcodeAhliValue(ahli){
+  return String(
+    ahli?.no_ahli ||
+    ahli?.nokad ||
+    ahli?.id ||
+    ''
+  ).trim();
+}
 function memberCardPrintCss(){return `
 :root{--kad-w:5.5cm;--kad-h:8.5cm}
 @page{size:A4 portrait;margin:.6cm}
 .member-card-print,.member-card-print *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
 .member-card-print-grid{display:grid;grid-template-columns:repeat(3,5.5cm);gap:.35cm;padding:.6cm;justify-content:center;align-content:start;align-items:start}
 .member-card-print{width:5.5cm;height:8.5cm;border-radius:12px;overflow:hidden;background-color:#7be0c9!important;background-image:linear-gradient(180deg,#dff8f3 0%,#7be0c9 45%,#11b98e 100%)!important;border:1.5px solid rgba(0,0,0,.08);box-shadow:0 4px 12px rgba(0,0,0,.12);display:flex;flex-direction:column;justify-content:space-between;color:#123;font-family:'Plus Jakarta Sans',Arial,sans-serif;break-inside:avoid;page-break-inside:avoid;position:relative;box-sizing:border-box}
- .member-card-header{text-align:center;padding:8px 7px 5px}.member-card-logo{width:40px;height:40px;object-fit:contain;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,.74);color:#0b7f65;font-size:21px;font-weight:900}.member-card-logo img{width:100%;height:100%;object-fit:contain;display:block}.member-card-system{font-size:8.8pt;font-weight:800;color:#0b7f65;letter-spacing:.2px}.member-card-school{font-size:5.8pt;line-height:1.22;font-weight:700;color:#234;margin-top:2px}.member-card-body{padding:6px 8px 5px;text-align:center}.member-card-type{font-size:8.5pt;font-weight:800;text-transform:uppercase;color:#fff;margin-bottom:5px;letter-spacing:.35px;text-shadow:0 1px 2px rgba(0,0,0,.18)}.member-card-name,.kad-nama{background:#fff;color:#111827;font-size:8.5pt;font-weight:800;border-radius:8px;padding:5px 7px;line-height:1.15;margin-bottom:5px;min-height:27px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}.member-card-meta,.kad-info{font-size:5.8pt;line-height:1.25;color:#0f172a;font-weight:700}.kad-email{font-size:5.2pt;font-weight:600;line-height:1.15;word-break:break-all;max-width:100%;opacity:.95;text-align:center}.member-card-footer{background:#fff;padding:5px 7px 7px;text-align:center}.member-card-barcode{width:100%;height:30px;display:block}.member-card-code{margin-top:2px;font-size:6pt;font-weight:700;color:#111;font-family:Arial,monospace}.member-card-copy{margin-top:3px;font-size:5.5px;color:#64748b}
+ .member-card-header{text-align:center;padding:8px 7px 5px}.member-card-logo{width:40px;height:40px;object-fit:contain;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,.74);color:#0b7f65;font-size:21px;font-weight:900}.member-card-logo img{width:100%;height:100%;object-fit:contain;display:block}.member-card-system{font-size:8.8pt;font-weight:800;color:#0b7f65;letter-spacing:.2px}.member-card-school{font-size:5.8pt;line-height:1.22;font-weight:700;color:#234;margin-top:2px}.member-card-body{padding:6px 8px 5px;text-align:center}.member-card-type{font-size:8.5pt;font-weight:800;text-transform:uppercase;color:#fff;margin-bottom:5px;letter-spacing:.35px;text-shadow:0 1px 2px rgba(0,0,0,.18)}.member-card-name,.kad-nama{background:#fff;color:#111827;font-size:8.5pt;font-weight:800;border-radius:8px;padding:5px 7px;line-height:1.15;margin-bottom:5px;min-height:27px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}.member-card-meta,.kad-info{font-size:5.8pt;line-height:1.25;color:#0f172a;font-weight:700}.kad-email{font-size:5.2pt;font-weight:600;line-height:1.15;word-break:break-all;max-width:100%;opacity:.95;text-align:center}.member-card-footer{background:#fff;padding:4px 7px 6px;text-align:center}.member-card-barcode{width:100%;height:38px;display:block;background:#fff}.member-card-code{margin-top:1px;font-size:6pt;font-weight:700;color:#111;font-family:Arial,monospace}.member-card-copy{margin-top:2px;font-size:5.5px;color:#64748b}
 @media print{html,body,.pc,.member-card-print-grid,.member-card-print,.member-card-print *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}body{background:#fff}.member-card-print-grid{display:grid;grid-template-columns:repeat(3,5.5cm);gap:.35cm;justify-content:center;padding:0}.member-card-print{width:5.5cm!important;height:8.5cm!important;background-color:#7be0c9!important;background-image:linear-gradient(180deg,#dff8f3 0%,#7be0c9 45%,#11b98e 100%)!important;box-shadow:none;break-inside:avoid;page-break-inside:avoid}.member-card-logo{background-color:rgba(255,255,255,.74)!important}.member-card-name,.member-card-footer{background-color:#fff!important}}`}
 function genKadPrintHTML(a,jenis,sch,sah,isPreview=false){
   jenis=jenis||a.jenis_pengguna||a.jenis||'murid';
   const no=formatIdKadAhli(jenis,a);
   const kelas=jenis==='murid'?(a.tingkatan||'–'):(a.jawatan||'–');
-  const code=no;
+  const code=getBarcodeAhliValue(a)||no;
   const jenisLabel=jenis==='murid'?'PELAJAR':(String(kelas).toLowerCase().includes('staf')?'STAF':'GURU / STAF');
   const emailAhli=String(a.email||'').trim();
   const paparEmail=emailAhli&&bolehPaparEmailKad({...a,jenis_pengguna:jenis});
@@ -1955,7 +1963,7 @@ function genKadPrintHTML(a,jenis,sch,sah,isPreview=false){
   return `<div class="member-card-print${isPreview?' member-card-preview':''}"><div class="member-card-header"><div class="member-card-logo">${logo}</div><div class="member-card-system">${AP.nama||'SMARTLIB'}</div><div class="member-card-school">${sch||'Sekolah Kebangsaan Pendidikan Khas Taiping'}</div></div><div class="member-card-body"><div class="member-card-type">${jenisLabel}</div><div class="member-card-name">${a.nama||'Nama Ahli'}</div><div class="member-card-meta"><div>ID: ${no}</div><div>No. Kad/Ahli: ${a.nokad||a.no_ahli||'–'}</div><div>${jenis==='murid'?'Kelas':'Jawatan'}: ${kelas||'–'}</div>${emailHtml}<div>Sah Hingga: ${sah||'–'}</div></div></div><div class="member-card-footer"><svg class="member-card-barcode" data-bc="${code}"></svg><div class="member-card-code">${code}</div><div class="member-card-copy">© 2026 SMARTLIB |Syahida Suffian</div></div></div>`;
 }
 function renderKadBarcodes(scope=document){
-  setTimeout(()=>{scope.querySelectorAll('.member-card-barcode[data-bc]').forEach(svg=>{try{JsBarcode(svg,svg.getAttribute('data-bc'),{format:'CODE128',width:1,height:28,displayValue:false,margin:0})}catch(e){console.warn(e)}})},60);
+  setTimeout(()=>{scope.querySelectorAll('.member-card-barcode[data-bc]').forEach(svg=>{try{JsBarcode(svg,svg.getAttribute('data-bc'),{format:'CODE128',width:1.5,height:38,displayValue:false,margin:8,background:'#ffffff',lineColor:'#000000'})}catch(e){console.warn(e)}})},60);
 }
 async function hdlKadLogo(e){
   const f=e.target.files[0];if(!f)return;
@@ -4676,9 +4684,95 @@ document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});
   }
   function renderLocalLoans(){const s=localState.loans,tb=document.getElementById('tbody-loans')||document.getElementById('tbody-pl'),info=document.getElementById('loan-info'),bar=document.getElementById('loan-pgb');if(tb)tb.innerHTML=loanRowsLocal(s.items);if(info){const start=s.total?(s.page-1)*s.limit+1:0,end=Math.min(s.page*s.limit,s.total);info.textContent=`${start}-${end} daripada ${s.total}`}if(bar)bar.innerHTML=pagingHtml(s.page,s.totalPages,'loadActiveLoansPage')}
   window.loadActiveLoansPage=page=>{localLoanPage({page});renderLocalLoans()};
+
+  function normalizeAhliBarcode(value){
+    return String(value||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+  }
+  function loanMemberCandidates(member,type){
+    const formatted=typeof formatIdKadAhli==='function'?formatIdKadAhli(type,member):'';
+    return [
+      typeof getBarcodeAhliValue==='function'?getBarcodeAhliValue(member):'',
+      member.no_ahli,member.nokad,member.barcode,member.no_kad,member.kad_ahli,
+      formatted,member.id
+    ].map(normalizeAhliBarcode).filter(Boolean);
+  }
+  function allLoanMembers(){
+    const rows=[
+      ...(D.murid||[]).map(member=>({member,type:'murid'})),
+      ...(D.guru||[]).map(member=>({member,type:'guru'})),
+      ...(D.staf||[]).map(member=>({member,type:'guru'}))
+    ];
+    const seen=new Set();
+    return rows.filter(row=>{
+      const key=row.type+'|'+String(row.member.id||row.member.no_ahli||row.member.nokad||'');
+      if(seen.has(key))return false;
+      seen.add(key);return true;
+    });
+  }
+  function selectLoanMemberFromBarcode(member,type){
+    localState.loans.user={...member,jenis_pengguna:type};
+    const typeSelect=document.getElementById('p-j');if(typeSelect)typeSelect.value=type;
+    const name=document.getElementById('pg-sel-nm');if(name)name.textContent=member.nama||'-';
+    const info=document.getElementById('pg-sel-i');if(info)info.textContent=`${type==='murid'?(member.tingkatan||'-'):(member.jawatan||'-')} | ${getBarcodeAhliValue(member)||member.id||'-'}`;
+    const selected=document.getElementById('pg-sel');if(selected)selected.style.display='block';
+    const dropdown=document.getElementById('pg-dd');if(dropdown)dropdown.style.display='none';
+    const input=document.getElementById('p-pg');if(input)input.value=member.nama||getBarcodeAhliValue(member);
+    const camera=document.getElementById('pinjam-camera-scan-wrap');if(camera)camera.style.display='none';
+  }
+  window.prosesBarcodeAhliPinjaman=function(code){
+    const raw=String(code||'').trim(),clean=normalizeAhliBarcode(raw);
+    if(!clean){toast('Barcode ahli tidak sah.','er');return false}
+    const input=document.getElementById('p-pg');if(input)input.value=raw;
+    const rows=allLoanMembers();
+    if(!rows.length){toast('Data ahli sedang dimuatkan. Sila cuba sebentar lagi.','wa');return false}
+    const found=rows.find(row=>loanMemberCandidates(row.member,row.type).includes(clean));
+    if(!found){toast('Ahli tidak dijumpai untuk barcode: '+raw,'er');return false}
+    selectLoanMemberFromBarcode(found.member,found.type);
+    toast('Ahli berjaya dipilih: '+(found.member.nama||raw),'ok');
+    return true;
+  };
+  window.cariAhliPinjamScan=window.prosesBarcodeAhliPinjaman;
+  window.focusPinjamAhliScannerFizikal=async function(){
+    await stopBarcodeScanner();
+    const camera=document.getElementById('pinjam-camera-scan-wrap');if(camera)camera.style.display='none';
+    const input=document.getElementById('p-pg');if(input){input.focus();input.select()}
+    toast('Sila scan barcode kad ahli menggunakan scanner fizikal.','wa');
+  };
+  window.fokusScanAhliPinjam=window.focusPinjamAhliScannerFizikal;
+  window.handlePinjamAhliEnter=function(event){
+    if(event.key!=='Enter')return;
+    event.preventDefault();
+    window.prosesBarcodeAhliPinjaman(event.target.value);
+  };
+  window.scanPinjamAhliFromImage=async function(file){
+    if(!file)return;
+    if(!isScannerReady()){toast('Scanner gambar belum dimuatkan. Sila refresh halaman.','er');return}
+    let imageScanner=null;
+    try{
+      await stopBarcodeScanner();
+      toast('Membaca barcode ahli daripada gambar...','wa');
+      const tempId='pinjam-ahli-image-reader';
+      let temp=document.getElementById(tempId);
+      if(!temp){temp=document.createElement('div');temp.id=tempId;temp.style.cssText='position:fixed;left:-9999px;top:-9999px;width:1px;height:1px';document.body.appendChild(temp)}
+      imageScanner=new Html5Qrcode(tempId);
+      const decoded=String(await imageScanner.scanFile(file,true)||'').trim();
+      if(!decoded)throw new Error('Barcode kosong');
+      window.prosesBarcodeAhliPinjaman(decoded);
+    }catch(error){
+      console.error('Member image scan error:',error);
+      toast('Gagal baca barcode ahli. Ambil gambar lebih dekat, jelas dan cukup cahaya.','er');
+    }finally{
+      if(imageScanner){try{await imageScanner.clear()}catch(e){}}
+      document.querySelectorAll('#pinjam-ahli-capture,#pinjam-ahli-upload').forEach(el=>{el.value=''})
+    }
+  };
+  window.openPinjamUserCameraScanner=async function(){
+    const wrap=document.getElementById('pinjam-camera-scan-wrap');if(wrap)wrap.style.display='block';
+    await startBarcodeScanner('pinjam-scan-reader',function(code){window.prosesBarcodeAhliPinjaman(String(code||'').trim())});
+  };
   window.pgPinjam=function(){
     localState.loans.user=null;localState.loans.book=null;
-    document.getElementById('content').innerHTML=`<div class="g2" style="margin-bottom:12px"><div class="card"><div class="ct">📤 Rekod Pinjaman Baru</div><div class="fg"><label>Jenis Peminjam</label><select id="p-j"><option value="murid">Murid</option><option value="guru">Guru</option></select></div><div class="fg" style="position:relative"><label>Cari Pengguna *</label><input type="search" id="p-pg" placeholder="Nama / No. Ahli / email..." oninput="cariPg()"><div id="pg-dd" style="background:var(--card);border:1.5px solid var(--bd);border-radius:8px;position:absolute;z-index:50;width:100%;display:none;max-height:180px;overflow-y:auto;box-shadow:0 6px 18px rgba(0,0,0,.1)"></div></div><div id="pg-sel" style="display:none;background:var(--eml);border:1.5px solid rgba(16,185,129,.25);border-radius:8px;padding:9px;margin-bottom:9px"><strong id="pg-sel-nm"></strong><br><small id="pg-sel-i" style="color:var(--mu)"></small></div><div class="fg" style="position:relative"><label>Cari Bahan *</label><input type="search" id="p-bk" placeholder="Judul / ISBN / No. Perolehan..." oninput="cariBk()"><div id="bk-dd" style="background:var(--card);border:1.5px solid var(--bd);border-radius:8px;position:absolute;z-index:50;width:100%;display:none;max-height:180px;overflow-y:auto;box-shadow:0 6px 18px rgba(0,0,0,.1)"></div></div><div id="bk-sel" style="display:none;background:var(--cyl);border:1.5px solid rgba(6,182,212,.25);border-radius:8px;padding:9px;margin-bottom:9px"><strong id="bk-sel-ttl"></strong><br><small id="bk-sel-i" style="color:var(--mu)"></small></div><div class="fr c2"><div class="fg"><label>Tarikh Pinjam</label><input type="date" id="p-tpr" value="${today()}"></div><div class="fg"><label>Tempoh (hari)</label><input type="number" id="p-tmp" value="${S.maks_hari||14}" min="1" max="90"></div></div><button class="btn b-em" style="width:100%;justify-content:center" onclick="simpanPinj()" id="btn-pj">Rekod Pinjaman</button></div><div class="card"><div class="ct">📋 Pinjaman Aktif</div><div class="tw" style="max-height:360px;overflow-y:auto"><table><thead><tr><th>Pengguna</th><th>Bahan</th><th>Patut Pulang</th><th>Status</th><th>Tindakan</th></tr></thead><tbody id="tbody-loans"></tbody></table></div><div id="loan-info" style="margin-top:7px;font-size:10px;color:var(--mu)"></div><div class="pgb" id="loan-pgb"></div></div></div>`;
+    document.getElementById('content').innerHTML=`<div class="g2" style="margin-bottom:12px"><div class="card"><div class="ct">📤 Rekod Pinjaman Baru</div><div class="fg"><label>Jenis Peminjam</label><select id="p-j"><option value="murid">Murid</option><option value="guru">Guru</option></select></div><div class="fg" style="position:relative"><label>Cari Pengguna *</label><input type="search" id="p-pg" placeholder="Nama / No. Ahli / email..." oninput="cariPg()" onkeydown="handlePinjamAhliEnter(event)"><div id="pinjam-scan-ahli" class="scan-action-row"><button type="button" class="icon-btn icon-scanner" onclick="focusPinjamAhliScannerFizikal()" title="Guna scanner fizikal ahli">🔫</button><button type="button" class="icon-btn icon-camera" onclick="openPinjamUserCameraScanner()" title="Scan ahli guna kamera">📷</button><small style="color:var(--mu);font-size:10px;align-self:center">Scan No. Ahli atau taip nama.</small></div><div id="pg-dd" style="background:var(--card);border:1.5px solid var(--bd);border-radius:8px;position:absolute;z-index:50;width:100%;display:none;max-height:180px;overflow-y:auto;box-shadow:0 6px 18px rgba(0,0,0,.1)"></div></div><div id="pg-sel" style="display:none;background:var(--eml);border:1.5px solid rgba(16,185,129,.25);border-radius:8px;padding:9px;margin-bottom:9px"><strong id="pg-sel-nm"></strong><br><small id="pg-sel-i" style="color:var(--mu)"></small></div><div class="fg" style="position:relative"><label>Cari Bahan *</label><input type="search" id="p-bk" placeholder="Judul / ISBN / No. Perolehan..." oninput="cariBk()"><div id="bk-dd" style="background:var(--card);border:1.5px solid var(--bd);border-radius:8px;position:absolute;z-index:50;width:100%;display:none;max-height:180px;overflow-y:auto;box-shadow:0 6px 18px rgba(0,0,0,.1)"></div></div><div id="bk-sel" style="display:none;background:var(--cyl);border:1.5px solid rgba(6,182,212,.25);border-radius:8px;padding:9px;margin-bottom:9px"><strong id="bk-sel-ttl"></strong><br><small id="bk-sel-i" style="color:var(--mu)"></small></div><div class="fr c2"><div class="fg"><label>Tarikh Pinjam</label><input type="date" id="p-tpr" value="${today()}"></div><div class="fg"><label>Tempoh (hari)</label><input type="number" id="p-tmp" value="${S.maks_hari||14}" min="1" max="90"></div></div><button class="btn b-em" style="width:100%;justify-content:center" onclick="simpanPinj()" id="btn-pj">Rekod Pinjaman</button><div id="pinjam-camera-scan-wrap" style="display:none;margin-top:10px"><div id="pinjam-scan-reader" style="border-radius:var(--r);overflow:hidden;min-height:320px;background:#000;margin-bottom:8px"></div><div class="scan-fallback-actions"><input type="file" id="pinjam-ahli-capture" accept="image/*" capture="environment" style="display:none" onchange="scanPinjamAhliFromImage(this.files[0])"><input type="file" id="pinjam-ahli-upload" accept="image/*" style="display:none" onchange="scanPinjamAhliFromImage(this.files[0])"><button type="button" class="btn b-cy b-sm" onclick="document.getElementById('pinjam-ahli-capture').click()">📸 Ambil Gambar Barcode Ahli</button><button type="button" class="btn b-gh b-sm" onclick="document.getElementById('pinjam-ahli-upload').click()">🖼️ Upload Gambar Barcode Ahli</button><button type="button" class="btn b-gh b-sm" onclick="stopBarcodeScanner();document.getElementById('pinjam-camera-scan-wrap').style.display='none'">Henti Kamera</button></div></div></div><div class="card"><div class="ct">📋 Pinjaman Aktif</div><div class="tw" style="max-height:360px;overflow-y:auto"><table><thead><tr><th>Pengguna</th><th>Bahan</th><th>Patut Pulang</th><th>Status</th><th>Tindakan</th></tr></thead><tbody id="tbody-loans"></tbody></table></div><div id="loan-info" style="margin-top:7px;font-size:10px;color:var(--mu)"></div><div class="pgb" id="loan-pgb"></div></div></div>`;
     localLoanPage({page:1,q:''});renderLocalLoans();if(typeof enhancePinjamScan==='function')enhancePinjamScan();
   };
   window.cariPg=function(){const type=document.getElementById('p-j')?.value||'murid',q=(document.getElementById('p-pg')?.value||'').trim(),dd=document.getElementById('pg-dd');if(!q){if(dd)dd.style.display='none';return}localState.loans.userResults=window.searchMembersLocal(q,type).slice(0,8);if(!localState.loans.userResults.length){dd.style.display='none';return}dd.innerHTML=localState.loans.userResults.map((p,i)=>`<div style="padding:7px 11px;cursor:pointer;border-bottom:1px solid var(--bd);font-size:11.5px" onmousedown="pilihPg(${i},'${type}')"><strong>${esc(p.nama)}</strong><br><small style="color:var(--mu)">${esc(p.nokad||'')} · ${esc(type==='murid'?p.tingkatan||'':p.jawatan||'')}</small></div>`).join('');dd.style.display='block'};
